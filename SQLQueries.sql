@@ -76,3 +76,4 @@ where dbo.ConfigurationItem.name='productivetrue.local'
 and dbo.Performance_Rule.rule_name like '[%] Processor usage'
 and date between '2020-05-23 16:00' and '2020-05-23 17:00'
 and att_name like 'device_type'
+order by date
