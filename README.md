@@ -86,8 +86,6 @@ Esquema de relacional:
 
 ## MongoDB
 
-
-
 ### Infraestructura del cluster mongo
 
 Comenzamos describiendo la arquitectura del cluster de mongo implementada.
@@ -234,18 +232,57 @@ f6f2c8c7351a    mongo       "docker-entrypoint.s…"   37 minutes ago  Up 15 min
 
 
 
+**Arranque y parada del servicio:**
+
 Start mongo cluster:
 
-docker start docker ps  -a  | grep mongo | cut -f1 -d " "
+``docker start mongos2 mongos1 mongors1n1 mongocfg2 mongors1n3 mongocfg1 mongocfg3 mongors1n2``
 
 Stop mongo cluster:
 
-docker stop ``docker ps  -a  | grep mongo | cut -f1 -d " "
+``docker stop docker start mongos2 mongos1 mongors1n1 mongocfg2 mongors1n3 mongocfg1 mongocfg3 mongors1n2``
 
 
 
+#### Agregación e importación de datos
+
+Con el fin de importar los datos en mongo, se comienza exportando cada una de las tablas de la base de datos relacional en formato json. Puesto que las relaciones definidas en la base de datos relaciona son todas uno a muchos, existe una tabla por cada una de las entidades definidas en el esquema.
 
 
-#### Importación de datos
 
-Actualmente tenemos los datos en una base de datos relacional, siguiendo el esquema 
+Comenzaremos agregando la tabla **Configuration_Item**, y la tabla **Attributes**:
+
+```bash
+❯ head Configuration_Item.json  
+[
+  {
+    "ci_id": 1,
+    "name": "impossiblejamb.local"
+  },
+  {
+    "ci_id": 2,
+    "name": "rubberyclock.local"
+  },
+  {
+
+❯ head Attributes.json 
+[
+  {
+    "att_name": "ip_address",
+    "att_value": "97.206.53.89",
+    "ci_id": 1
+  },
+  {
+    "att_name": "ip_address",
+    "att_value": "244.218.216.63",
+    "ci_id": 2
+```
+
+Con el siguiente script en Python, se cargan ambos ficheros json y se genera un csv con los datos agregados:
+
+```python
+import pandas as pd
+ci_df = pd.read_json("Configuration_Item.json")
+attributes_df = pd.read_json("Attribute.json")
+```
+
