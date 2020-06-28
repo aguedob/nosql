@@ -113,7 +113,65 @@ Obtener datos de regla de rendimiento para un servidor:
 
 ## Cassandra
 
+### Infraestructura del cluster cassandra
 
+La arquitectura utilizada para la implementacion de la practica es la misma que se utilizo durante las clases en el entorno del DSIC con las 6 maquinas virtuales proporcionadas.
+
+- Topologia: Un único datacenter
+
+- Cluster de 6 nodos
+  - NOSQL-025-1 , NOSQL-025-2, NOSQL-025-3, NOSQL-025-4, NOSQL-025-5 y NOSQL-025-6
+- Nodos Seed
+  - NOSQL-025-1
+
+En esta arquitectura se ha dejado solamente un nodo seed. Los nodos seed tienen un rol especial dentro del cluster, y es que se encargan de la sincronizacion de los nuevos nodos que entran a formar parte del cluster o incluso de nodos que ya formaban parte pero se han apartado bien por mantenimiento o bien por errores y desincronizacion. Idealmente deberia haber mas de uno, pero para el caso practico que nos atañe con uno será suficiente.
+
+IMAGEN Arquitectura
+
+#### Instalacion y configuracion del cluster
+
+Tal y como se ha comentado anteriormente, para la implementacion del modelo en casandra se ha utilizado el cluster que se instalo y configuro en clase. A continuacion se detallan los pasos seguidos:
+
+1. Instalacion de cassandra
+2. Conffiguracion cassanda (cassandar.yml) cluster 1 nodo
+3.  Despliegue del cluster en el resto de nodos
+
+
+
+### Modelo de base de datos
+
+A partir del modelo entidad-relacion del sistema elegido, se ha credo un keyspace en el cluster de cassandra y se ha modelado una solucion para el mismo.
+
+#### Keyspace
+
+sjslkss
+
+#### Modelo
+
+ss
+
+
+
+### Carga de datos
+
+En esta fase se ha estudiado los diferentes metodos de carga de datos:
+
+- Generacion de scripts CQL a partir del sistema relacional
+- ETL mediante el uso de Python
+
+### Consultas
+
+Una vez se han cargado los datos en el modelo de casandra, pasamos a ver como realizar las [consultas](#Consultas) claves del sistema implementado. 
+
+**NOTA**: En el caso de cassandra, el lenguaje de consultas CQL es limitado y solo permite realizar consultas basicas con filtros sencillos. Cualquier tipo de agregacion o acceso a tipos de datos complejos o custom, debe ser realizado a nivel de aplicativo.
+
+- Consulta 1
+
+- Consulta 2
+
+- Consulta 3
+
+  
 
 ## MongoDB Hola caracola
 
