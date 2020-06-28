@@ -13,6 +13,7 @@ services:
         volumes:
         - ~/nosql/mongo_cluster/localtime:/etc/localtime:ro
         - ~/nosql/mongo_cluster/data1:/data/db
+        - ~/nosql/source:/source
     mongors1n2:
         container_name: mongors1n2
         image: mongo
