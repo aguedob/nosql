@@ -23,12 +23,6 @@ Autores:
 
 # Introducción
 
-
-
-- 
-
-  
-
 ## Objetivos
 
 El objetivo de estre trabajo es ilustrar las ventajas e inconvenientes de los sistemas de bases de datos relacionales frente a sistemas NoSQL o libres de esquema.
@@ -94,35 +88,26 @@ Esquema de relacional:
 
 
 
+### Infraestructura del cluster mongo
+
+Comenzamos describiendo la arquitectura del cluster de mongo implementada.
+
+- 3 nodos de réplica:
+  - **mongos1n1**, **mongos1n2** y **mongos1n3**
+- 3 config servers: 
+  - **mongocfg1, mongocfg2 y mongocfg3**
+- 2 servidores mongos para rutar las peticiones de clientes:
+  - **mongos1 y mongos2**
+
+
+
+![Image title](https://image.ibb.co/ke9P2F/Screen_Shot_2017_08_02_at_13_45_21.png)
 
 
 
 
 
-
-Stop three nodes:
-
-docker stop mongo-node1 mongo-node2 mongo-node3
-
-Delete three containers:
-
-docker rm mongo-node1 mongo-node2 mongo-node3
-
-
-
-Open mongo CLI:
-
-
-
-docker exec -it mongo-node1 mongo
-
-
-
-Start mongo cluster:
-
-docker start ``docker ps  -a  | grep mongo | cut -f1 -d " "``
-
-# Infraestructura del cluster mongo
+## 
 
 Aunque en un sistema de producción nunca se deberían instalar todos los servicios en el mismo nodo, con el fin de simplificar la instalación para el propósito de la práctica, se han utilizado contenedores Docker siguiendo la guía referenciada en este sitio web: https://dzone.com/articles/composing-a-sharded-mongodb-on-docker. 
 
@@ -247,33 +232,17 @@ f6f2c8c7351a    mongo       "docker-entrypoint.s…"   37 minutes ago  Up 15 min
 68bd894e1157    mongo       "docker-entrypoint.s…"   37 minutes ago  Up 15 minutes   0.0.0.0:27027->27017/tcp   mongors1n2
 ```
 
-Comenzamos describiendo la arquitectura del cluster de mongo implementada.
-
-- 3 nodos de réplica:
-  - **mongos1n1**, **mongos1n2** y **mongos1n3**
-- 3 config servers: 
-  - **mongocfg1, mongocfg2 y mongocfg3**
-- 2 servidores mongos para rutar las peticiones de clientes:
-  - **mongos1 y mongos2**
 
 
+Start mongo cluster:
 
-![Image title](https://image.ibb.co/ke9P2F/Screen_Shot_2017_08_02_at_13_45_21.png)
+docker start docker ps  -a  | grep mongo | cut -f1 -d " "
 
-Aunque en un sistema de producción nunca se debería instalar todos los servicios en el mismo nodo, se ha utilizado Docker y una sóla máquina para implementar el clúster siguiendo la guía referenciada en este sitio web: https://dzone.com/articles/composing-a-sharded-mongodb-on-docker.
+Stop mongo cluster:
 
-```bash
-docker ps -a
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                      NAMES
-082dd7e0e899        mongo               "docker-entrypoint.s…"   5 minutes ago       Up 5 minutes        0.0.0.0:27020->27017/tcp   mongos2
-6ce9bec6177d        mongo               "docker-entrypoint.s…"   5 minutes ago       Up 5 minutes        0.0.0.0:27019->27017/tcp   mongos1
-1a00b0558347        mongo               "docker-entrypoint.s…"   5 minutes ago       Up 5 minutes        0.0.0.0:27017->27017/tcp   mongors1n1
-86b1e7786e9a        mongo               "docker-entrypoint.s…"   5 minutes ago       Up 5 minutes        27017/tcp                  mongocfg2
-3d9c7b2ced01        mongo               "docker-entrypoint.s…"   5 minutes ago       Up 5 minutes        0.0.0.0:27037->27017/tcp   mongors1n3
-840d45fb27eb        mongo               "docker-entrypoint.s…"   5 minutes ago       Up 5 minutes        27017/tcp                  mongocfg1
-f6f2c8c7351a        mongo               "docker-entrypoint.s…"   5 minutes ago       Up 5 minutes        27017/tcp                  mongocfg3
-68bd894e1157        mongo               "docker-entrypoint.s…"   5 minutes ago       Up 5 minutes        0.0.0.0:27027->27017/tcp   mongors1n2
-```
+docker stop ``docker ps  -a  | grep mongo | cut -f1 -d " "
+
+
 
 
 
