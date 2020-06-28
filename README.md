@@ -78,6 +78,37 @@ Esquema de relacional:
 
 
 
+# Consultas
+
+
+
+Listado de alertas en estado New:
+
+ - Nombre de alerta
+ - Severidad
+ - CI
+ - Fecha
+   
+
+Cambios de estado para un monitor en un servidor:
+
+- CI
+- Nombre de monitor
+- Estado
+- Fecha
+  
+
+Obtener datos de regla de rendimiento para un servidor:
+
+- CI name
+- Regla
+- Fecha
+- Valor
+
+
+
+
+
 # Implementaciones
 
 ## Cassandra
@@ -100,8 +131,6 @@ Comenzamos describiendo la arquitectura del cluster de mongo implementada.
 
 
 ![Image title](https://image.ibb.co/ke9P2F/Screen_Shot_2017_08_02_at_13_45_21.png)
-
-
 
 
 
@@ -246,7 +275,7 @@ Stop mongo cluster:
 
 #### Agregación e importación de datos
 
-Con el fin de importar los datos en mongo, se comienza exportando cada una de las tablas de la base de datos relacional en formato json. Puesto que las relaciones definidas en la base de datos relaciona son todas uno a muchos, existe una tabla por cada una de las entidades definidas en el esquema.
+Con el fin de importar los datos en mongo, se comienza exportando cada una de las tablas de la base de datos relacional en formato json. Puesto que las relaciones definidas en la base de datos relacional son todas uno a muchos, existe una tabla por cada una de las entidades definidas en el esquema.
 
 
 
@@ -308,3 +337,12 @@ ci_id,name,device_type,env,ip_address
 67,brilliantshoes.local,switch,stg,17.84.7.54
 ```
 
+
+
+
+
+
+
+
+
+# 
