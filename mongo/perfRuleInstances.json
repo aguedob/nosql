@@ -1,0 +1,347 @@
+[
+  {
+    "instance_id": 2,
+    "ci_id": 40,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 3,
+    "ci_id": 35,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 4,
+    "ci_id": 17,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 5,
+    "ci_id": 90,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 6,
+    "ci_id": 91,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 7,
+    "ci_id": 8,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 8,
+    "ci_id": 58,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 9,
+    "ci_id": 49,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 10,
+    "ci_id": 86,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 11,
+    "ci_id": 9,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 12,
+    "ci_id": 87,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 13,
+    "ci_id": 65,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 14,
+    "ci_id": 84,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 15,
+    "ci_id": 14,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 16,
+    "ci_id": 60,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 17,
+    "ci_id": 72,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 18,
+    "ci_id": 37,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 19,
+    "ci_id": 53,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 20,
+    "ci_id": 19,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 21,
+    "ci_id": 39,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 22,
+    "ci_id": 64,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 23,
+    "ci_id": 7,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 24,
+    "ci_id": 100,
+    "per_ruleId": 23
+  },
+  {
+    "instance_id": 25,
+    "ci_id": 86,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 26,
+    "ci_id": 86,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 27,
+    "ci_id": 60,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 28,
+    "ci_id": 60,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 29,
+    "ci_id": 7,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 30,
+    "ci_id": 7,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 31,
+    "ci_id": 40,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 32,
+    "ci_id": 40,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 33,
+    "ci_id": 65,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 34,
+    "ci_id": 65,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 35,
+    "ci_id": 35,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 36,
+    "ci_id": 35,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 37,
+    "ci_id": 39,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 38,
+    "ci_id": 39,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 39,
+    "ci_id": 8,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 40,
+    "ci_id": 8,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 41,
+    "ci_id": 90,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 42,
+    "ci_id": 90,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 43,
+    "ci_id": 72,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 44,
+    "ci_id": 72,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 45,
+    "ci_id": 58,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 46,
+    "ci_id": 58,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 47,
+    "ci_id": 49,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 48,
+    "ci_id": 49,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 49,
+    "ci_id": 91,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 50,
+    "ci_id": 91,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 51,
+    "ci_id": 100,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 52,
+    "ci_id": 100,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 53,
+    "ci_id": 17,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 54,
+    "ci_id": 17,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 55,
+    "ci_id": 19,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 56,
+    "ci_id": 19,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 57,
+    "ci_id": 84,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 58,
+    "ci_id": 84,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 59,
+    "ci_id": 9,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 60,
+    "ci_id": 9,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 61,
+    "ci_id": 53,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 62,
+    "ci_id": 53,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 63,
+    "ci_id": 64,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 64,
+    "ci_id": 64,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 65,
+    "ci_id": 87,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 66,
+    "ci_id": 87,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 67,
+    "ci_id": 14,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 68,
+    "ci_id": 14,
+    "per_ruleId": 20
+  },
+  {
+    "instance_id": 69,
+    "ci_id": 37,
+    "per_ruleId": 21
+  },
+  {
+    "instance_id": 70,
+    "ci_id": 37,
+    "per_ruleId": 20
+  }
+]

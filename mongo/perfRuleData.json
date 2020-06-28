@@ -1,0 +1,5402 @@
+[
+  {
+    "rule_data_id": 1,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T00:00:00"
+  },
+  {
+    "rule_data_id": 2,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T00:05:00"
+  },
+  {
+    "rule_data_id": 3,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T00:10:00"
+  },
+  {
+    "rule_data_id": 4,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T00:15:00"
+  },
+  {
+    "rule_data_id": 5,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T00:20:00"
+  },
+  {
+    "rule_data_id": 6,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T00:25:00"
+  },
+  {
+    "rule_data_id": 7,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T00:30:00"
+  },
+  {
+    "rule_data_id": 8,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T00:35:00"
+  },
+  {
+    "rule_data_id": 9,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T00:40:00"
+  },
+  {
+    "rule_data_id": 10,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T00:45:00"
+  },
+  {
+    "rule_data_id": 11,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T00:50:00"
+  },
+  {
+    "rule_data_id": 12,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T00:55:00"
+  },
+  {
+    "rule_data_id": 13,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T01:00:00"
+  },
+  {
+    "rule_data_id": 14,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T01:05:00"
+  },
+  {
+    "rule_data_id": 15,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T01:10:00"
+  },
+  {
+    "rule_data_id": 16,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T01:15:00"
+  },
+  {
+    "rule_data_id": 17,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T01:20:00"
+  },
+  {
+    "rule_data_id": 18,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T01:25:00"
+  },
+  {
+    "rule_data_id": 19,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T01:30:00"
+  },
+  {
+    "rule_data_id": 20,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T01:35:00"
+  },
+  {
+    "rule_data_id": 21,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T01:40:00"
+  },
+  {
+    "rule_data_id": 22,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T01:45:00"
+  },
+  {
+    "rule_data_id": 23,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T01:50:00"
+  },
+  {
+    "rule_data_id": 24,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T01:55:00"
+  },
+  {
+    "rule_data_id": 25,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T02:00:00"
+  },
+  {
+    "rule_data_id": 26,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T02:05:00"
+  },
+  {
+    "rule_data_id": 27,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T02:10:00"
+  },
+  {
+    "rule_data_id": 28,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T02:15:00"
+  },
+  {
+    "rule_data_id": 29,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T02:20:00"
+  },
+  {
+    "rule_data_id": 30,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T02:25:00"
+  },
+  {
+    "rule_data_id": 31,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T02:30:00"
+  },
+  {
+    "rule_data_id": 32,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T02:35:00"
+  },
+  {
+    "rule_data_id": 33,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T02:40:00"
+  },
+  {
+    "rule_data_id": 34,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T02:45:00"
+  },
+  {
+    "rule_data_id": 35,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T02:50:00"
+  },
+  {
+    "rule_data_id": 36,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T02:55:00"
+  },
+  {
+    "rule_data_id": 37,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T03:00:00"
+  },
+  {
+    "rule_data_id": 38,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T03:05:00"
+  },
+  {
+    "rule_data_id": 39,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T03:10:00"
+  },
+  {
+    "rule_data_id": 40,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T03:15:00"
+  },
+  {
+    "rule_data_id": 41,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T03:20:00"
+  },
+  {
+    "rule_data_id": 42,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T03:25:00"
+  },
+  {
+    "rule_data_id": 43,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T03:30:00"
+  },
+  {
+    "rule_data_id": 44,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T03:35:00"
+  },
+  {
+    "rule_data_id": 45,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T03:40:00"
+  },
+  {
+    "rule_data_id": 46,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T03:45:00"
+  },
+  {
+    "rule_data_id": 47,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T03:50:00"
+  },
+  {
+    "rule_data_id": 48,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T03:55:00"
+  },
+  {
+    "rule_data_id": 49,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T04:00:00"
+  },
+  {
+    "rule_data_id": 50,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T04:05:00"
+  },
+  {
+    "rule_data_id": 51,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T04:10:00"
+  },
+  {
+    "rule_data_id": 52,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T04:15:00"
+  },
+  {
+    "rule_data_id": 53,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T04:20:00"
+  },
+  {
+    "rule_data_id": 54,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T04:25:00"
+  },
+  {
+    "rule_data_id": 55,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T04:30:00"
+  },
+  {
+    "rule_data_id": 56,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T04:35:00"
+  },
+  {
+    "rule_data_id": 57,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T04:40:00"
+  },
+  {
+    "rule_data_id": 58,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T04:45:00"
+  },
+  {
+    "rule_data_id": 59,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T04:50:00"
+  },
+  {
+    "rule_data_id": 60,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T04:55:00"
+  },
+  {
+    "rule_data_id": 61,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T05:00:00"
+  },
+  {
+    "rule_data_id": 62,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T05:05:00"
+  },
+  {
+    "rule_data_id": 63,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T05:10:00"
+  },
+  {
+    "rule_data_id": 64,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T05:15:00"
+  },
+  {
+    "rule_data_id": 65,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T05:20:00"
+  },
+  {
+    "rule_data_id": 66,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T05:25:00"
+  },
+  {
+    "rule_data_id": 67,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T05:30:00"
+  },
+  {
+    "rule_data_id": 68,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T05:35:00"
+  },
+  {
+    "rule_data_id": 69,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T05:40:00"
+  },
+  {
+    "rule_data_id": 70,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T05:45:00"
+  },
+  {
+    "rule_data_id": 71,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T05:50:00"
+  },
+  {
+    "rule_data_id": 72,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T05:55:00"
+  },
+  {
+    "rule_data_id": 73,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T06:00:00"
+  },
+  {
+    "rule_data_id": 74,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T06:05:00"
+  },
+  {
+    "rule_data_id": 75,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T06:10:00"
+  },
+  {
+    "rule_data_id": 76,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T06:15:00"
+  },
+  {
+    "rule_data_id": 77,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T06:20:00"
+  },
+  {
+    "rule_data_id": 78,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T06:25:00"
+  },
+  {
+    "rule_data_id": 79,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T06:30:00"
+  },
+  {
+    "rule_data_id": 80,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T06:35:00"
+  },
+  {
+    "rule_data_id": 81,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T06:40:00"
+  },
+  {
+    "rule_data_id": 82,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T06:45:00"
+  },
+  {
+    "rule_data_id": 83,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T06:50:00"
+  },
+  {
+    "rule_data_id": 84,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T06:55:00"
+  },
+  {
+    "rule_data_id": 85,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T07:00:00"
+  },
+  {
+    "rule_data_id": 86,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T07:05:00"
+  },
+  {
+    "rule_data_id": 87,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T07:10:00"
+  },
+  {
+    "rule_data_id": 88,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T07:15:00"
+  },
+  {
+    "rule_data_id": 89,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T07:20:00"
+  },
+  {
+    "rule_data_id": 90,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T07:25:00"
+  },
+  {
+    "rule_data_id": 91,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T07:30:00"
+  },
+  {
+    "rule_data_id": 92,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T07:35:00"
+  },
+  {
+    "rule_data_id": 93,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T07:40:00"
+  },
+  {
+    "rule_data_id": 94,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T07:45:00"
+  },
+  {
+    "rule_data_id": 95,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T07:50:00"
+  },
+  {
+    "rule_data_id": 96,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T07:55:00"
+  },
+  {
+    "rule_data_id": 97,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T08:00:00"
+  },
+  {
+    "rule_data_id": 98,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T08:05:00"
+  },
+  {
+    "rule_data_id": 99,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T08:10:00"
+  },
+  {
+    "rule_data_id": 100,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T08:15:00"
+  },
+  {
+    "rule_data_id": 101,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T08:20:00"
+  },
+  {
+    "rule_data_id": 102,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T08:25:00"
+  },
+  {
+    "rule_data_id": 103,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T08:30:00"
+  },
+  {
+    "rule_data_id": 104,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T08:35:00"
+  },
+  {
+    "rule_data_id": 105,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T08:40:00"
+  },
+  {
+    "rule_data_id": 106,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T08:45:00"
+  },
+  {
+    "rule_data_id": 107,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T08:50:00"
+  },
+  {
+    "rule_data_id": 108,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T08:55:00"
+  },
+  {
+    "rule_data_id": 109,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T09:00:00"
+  },
+  {
+    "rule_data_id": 110,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T09:05:00"
+  },
+  {
+    "rule_data_id": 111,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T09:10:00"
+  },
+  {
+    "rule_data_id": 112,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T09:15:00"
+  },
+  {
+    "rule_data_id": 113,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T09:20:00"
+  },
+  {
+    "rule_data_id": 114,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T09:25:00"
+  },
+  {
+    "rule_data_id": 115,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T09:30:00"
+  },
+  {
+    "rule_data_id": 116,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T09:35:00"
+  },
+  {
+    "rule_data_id": 117,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T09:40:00"
+  },
+  {
+    "rule_data_id": 118,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T09:45:00"
+  },
+  {
+    "rule_data_id": 119,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T09:50:00"
+  },
+  {
+    "rule_data_id": 120,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T09:55:00"
+  },
+  {
+    "rule_data_id": 121,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T10:00:00"
+  },
+  {
+    "rule_data_id": 122,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T10:05:00"
+  },
+  {
+    "rule_data_id": 123,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T10:10:00"
+  },
+  {
+    "rule_data_id": 124,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T10:15:00"
+  },
+  {
+    "rule_data_id": 125,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T10:20:00"
+  },
+  {
+    "rule_data_id": 126,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T10:25:00"
+  },
+  {
+    "rule_data_id": 127,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T10:30:00"
+  },
+  {
+    "rule_data_id": 128,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T10:35:00"
+  },
+  {
+    "rule_data_id": 129,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T10:40:00"
+  },
+  {
+    "rule_data_id": 130,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T10:45:00"
+  },
+  {
+    "rule_data_id": 131,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T10:50:00"
+  },
+  {
+    "rule_data_id": 132,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T10:55:00"
+  },
+  {
+    "rule_data_id": 133,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T11:00:00"
+  },
+  {
+    "rule_data_id": 134,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T11:05:00"
+  },
+  {
+    "rule_data_id": 135,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T11:10:00"
+  },
+  {
+    "rule_data_id": 136,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T11:15:00"
+  },
+  {
+    "rule_data_id": 137,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T11:20:00"
+  },
+  {
+    "rule_data_id": 138,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T11:25:00"
+  },
+  {
+    "rule_data_id": 139,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T11:30:00"
+  },
+  {
+    "rule_data_id": 140,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T11:35:00"
+  },
+  {
+    "rule_data_id": 141,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T11:40:00"
+  },
+  {
+    "rule_data_id": 142,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T11:45:00"
+  },
+  {
+    "rule_data_id": 143,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T11:50:00"
+  },
+  {
+    "rule_data_id": 144,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T11:55:00"
+  },
+  {
+    "rule_data_id": 145,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T12:00:00"
+  },
+  {
+    "rule_data_id": 146,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T12:05:00"
+  },
+  {
+    "rule_data_id": 147,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T12:10:00"
+  },
+  {
+    "rule_data_id": 148,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T12:15:00"
+  },
+  {
+    "rule_data_id": 149,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T12:20:00"
+  },
+  {
+    "rule_data_id": 150,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T12:25:00"
+  },
+  {
+    "rule_data_id": 151,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T12:30:00"
+  },
+  {
+    "rule_data_id": 152,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T12:35:00"
+  },
+  {
+    "rule_data_id": 153,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T12:40:00"
+  },
+  {
+    "rule_data_id": 154,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T12:45:00"
+  },
+  {
+    "rule_data_id": 155,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T12:50:00"
+  },
+  {
+    "rule_data_id": 156,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T12:55:00"
+  },
+  {
+    "rule_data_id": 157,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T13:00:00"
+  },
+  {
+    "rule_data_id": 158,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T13:05:00"
+  },
+  {
+    "rule_data_id": 159,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T13:10:00"
+  },
+  {
+    "rule_data_id": 160,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T13:15:00"
+  },
+  {
+    "rule_data_id": 161,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T13:20:00"
+  },
+  {
+    "rule_data_id": 162,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T13:25:00"
+  },
+  {
+    "rule_data_id": 163,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T13:30:00"
+  },
+  {
+    "rule_data_id": 164,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T13:35:00"
+  },
+  {
+    "rule_data_id": 165,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T13:40:00"
+  },
+  {
+    "rule_data_id": 166,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T13:45:00"
+  },
+  {
+    "rule_data_id": 167,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T13:50:00"
+  },
+  {
+    "rule_data_id": 168,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T13:55:00"
+  },
+  {
+    "rule_data_id": 169,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T14:00:00"
+  },
+  {
+    "rule_data_id": 170,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T14:05:00"
+  },
+  {
+    "rule_data_id": 171,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T14:10:00"
+  },
+  {
+    "rule_data_id": 172,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T14:15:00"
+  },
+  {
+    "rule_data_id": 173,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T14:20:00"
+  },
+  {
+    "rule_data_id": 174,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T14:25:00"
+  },
+  {
+    "rule_data_id": 175,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T14:30:00"
+  },
+  {
+    "rule_data_id": 176,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T14:35:00"
+  },
+  {
+    "rule_data_id": 177,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T14:40:00"
+  },
+  {
+    "rule_data_id": 178,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T14:45:00"
+  },
+  {
+    "rule_data_id": 179,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T14:50:00"
+  },
+  {
+    "rule_data_id": 180,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T14:55:00"
+  },
+  {
+    "rule_data_id": 181,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T15:00:00"
+  },
+  {
+    "rule_data_id": 182,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T15:05:00"
+  },
+  {
+    "rule_data_id": 183,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T15:10:00"
+  },
+  {
+    "rule_data_id": 184,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T15:15:00"
+  },
+  {
+    "rule_data_id": 185,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T15:20:00"
+  },
+  {
+    "rule_data_id": 186,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T15:25:00"
+  },
+  {
+    "rule_data_id": 187,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T15:30:00"
+  },
+  {
+    "rule_data_id": 188,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T15:35:00"
+  },
+  {
+    "rule_data_id": 189,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T15:40:00"
+  },
+  {
+    "rule_data_id": 190,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T15:45:00"
+  },
+  {
+    "rule_data_id": 191,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T15:50:00"
+  },
+  {
+    "rule_data_id": 192,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T15:55:00"
+  },
+  {
+    "rule_data_id": 193,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T16:00:00"
+  },
+  {
+    "rule_data_id": 194,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T16:05:00"
+  },
+  {
+    "rule_data_id": 195,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T16:10:00"
+  },
+  {
+    "rule_data_id": 196,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T16:15:00"
+  },
+  {
+    "rule_data_id": 197,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T16:20:00"
+  },
+  {
+    "rule_data_id": 198,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T16:25:00"
+  },
+  {
+    "rule_data_id": 199,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T16:30:00"
+  },
+  {
+    "rule_data_id": 200,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T16:35:00"
+  },
+  {
+    "rule_data_id": 201,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T16:40:00"
+  },
+  {
+    "rule_data_id": 202,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T16:45:00"
+  },
+  {
+    "rule_data_id": 203,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T16:50:00"
+  },
+  {
+    "rule_data_id": 204,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T16:55:00"
+  },
+  {
+    "rule_data_id": 205,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T17:00:00"
+  },
+  {
+    "rule_data_id": 206,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T17:05:00"
+  },
+  {
+    "rule_data_id": 207,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T17:10:00"
+  },
+  {
+    "rule_data_id": 208,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T17:15:00"
+  },
+  {
+    "rule_data_id": 209,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T17:20:00"
+  },
+  {
+    "rule_data_id": 210,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T17:25:00"
+  },
+  {
+    "rule_data_id": 211,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T17:30:00"
+  },
+  {
+    "rule_data_id": 212,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T17:35:00"
+  },
+  {
+    "rule_data_id": 213,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T17:40:00"
+  },
+  {
+    "rule_data_id": 214,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T17:45:00"
+  },
+  {
+    "rule_data_id": 215,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T17:50:00"
+  },
+  {
+    "rule_data_id": 216,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T17:55:00"
+  },
+  {
+    "rule_data_id": 217,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T18:00:00"
+  },
+  {
+    "rule_data_id": 218,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T18:05:00"
+  },
+  {
+    "rule_data_id": 219,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T18:10:00"
+  },
+  {
+    "rule_data_id": 220,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T18:15:00"
+  },
+  {
+    "rule_data_id": 221,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T18:20:00"
+  },
+  {
+    "rule_data_id": 222,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T18:25:00"
+  },
+  {
+    "rule_data_id": 223,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T18:30:00"
+  },
+  {
+    "rule_data_id": 224,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T18:35:00"
+  },
+  {
+    "rule_data_id": 225,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T18:40:00"
+  },
+  {
+    "rule_data_id": 226,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T18:45:00"
+  },
+  {
+    "rule_data_id": 227,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T18:50:00"
+  },
+  {
+    "rule_data_id": 228,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T18:55:00"
+  },
+  {
+    "rule_data_id": 229,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T19:00:00"
+  },
+  {
+    "rule_data_id": 230,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T19:05:00"
+  },
+  {
+    "rule_data_id": 231,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T19:10:00"
+  },
+  {
+    "rule_data_id": 232,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T19:15:00"
+  },
+  {
+    "rule_data_id": 233,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T19:20:00"
+  },
+  {
+    "rule_data_id": 234,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T19:25:00"
+  },
+  {
+    "rule_data_id": 235,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T19:30:00"
+  },
+  {
+    "rule_data_id": 236,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T19:35:00"
+  },
+  {
+    "rule_data_id": 237,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T19:40:00"
+  },
+  {
+    "rule_data_id": 238,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T19:45:00"
+  },
+  {
+    "rule_data_id": 239,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T19:50:00"
+  },
+  {
+    "rule_data_id": 240,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T19:55:00"
+  },
+  {
+    "rule_data_id": 241,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T20:00:00"
+  },
+  {
+    "rule_data_id": 242,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T20:05:00"
+  },
+  {
+    "rule_data_id": 243,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T20:10:00"
+  },
+  {
+    "rule_data_id": 244,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-23T20:15:00"
+  },
+  {
+    "rule_data_id": 245,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T20:20:00"
+  },
+  {
+    "rule_data_id": 246,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T20:25:00"
+  },
+  {
+    "rule_data_id": 247,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T20:30:00"
+  },
+  {
+    "rule_data_id": 248,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T20:35:00"
+  },
+  {
+    "rule_data_id": 249,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T20:40:00"
+  },
+  {
+    "rule_data_id": 250,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T20:45:00"
+  },
+  {
+    "rule_data_id": 251,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T20:50:00"
+  },
+  {
+    "rule_data_id": 252,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T20:55:00"
+  },
+  {
+    "rule_data_id": 253,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T21:00:00"
+  },
+  {
+    "rule_data_id": 254,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T21:05:00"
+  },
+  {
+    "rule_data_id": 255,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T21:10:00"
+  },
+  {
+    "rule_data_id": 256,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T21:15:00"
+  },
+  {
+    "rule_data_id": 257,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T21:20:00"
+  },
+  {
+    "rule_data_id": 258,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T21:25:00"
+  },
+  {
+    "rule_data_id": 259,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T21:30:00"
+  },
+  {
+    "rule_data_id": 260,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T21:35:00"
+  },
+  {
+    "rule_data_id": 261,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T21:40:00"
+  },
+  {
+    "rule_data_id": 262,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T21:45:00"
+  },
+  {
+    "rule_data_id": 263,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T21:50:00"
+  },
+  {
+    "rule_data_id": 264,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T21:55:00"
+  },
+  {
+    "rule_data_id": 265,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T22:00:00"
+  },
+  {
+    "rule_data_id": 266,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T22:05:00"
+  },
+  {
+    "rule_data_id": 267,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T22:10:00"
+  },
+  {
+    "rule_data_id": 268,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T22:15:00"
+  },
+  {
+    "rule_data_id": 269,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T22:20:00"
+  },
+  {
+    "rule_data_id": 270,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T22:25:00"
+  },
+  {
+    "rule_data_id": 271,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T22:30:00"
+  },
+  {
+    "rule_data_id": 272,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T22:35:00"
+  },
+  {
+    "rule_data_id": 273,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T22:40:00"
+  },
+  {
+    "rule_data_id": 274,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T22:45:00"
+  },
+  {
+    "rule_data_id": 275,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T22:50:00"
+  },
+  {
+    "rule_data_id": 276,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T22:55:00"
+  },
+  {
+    "rule_data_id": 277,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T23:00:00"
+  },
+  {
+    "rule_data_id": 278,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T23:05:00"
+  },
+  {
+    "rule_data_id": 279,
+    "perf_rule_instId": 23,
+    "value": 23,
+    "date": "2020-05-23T23:10:00"
+  },
+  {
+    "rule_data_id": 280,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-23T23:15:00"
+  },
+  {
+    "rule_data_id": 281,
+    "perf_rule_instId": 23,
+    "value": 28,
+    "date": "2020-05-23T23:20:00"
+  },
+  {
+    "rule_data_id": 282,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-23T23:25:00"
+  },
+  {
+    "rule_data_id": 283,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-23T23:30:00"
+  },
+  {
+    "rule_data_id": 284,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T23:35:00"
+  },
+  {
+    "rule_data_id": 285,
+    "perf_rule_instId": 23,
+    "value": 27,
+    "date": "2020-05-23T23:40:00"
+  },
+  {
+    "rule_data_id": 286,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-23T23:45:00"
+  },
+  {
+    "rule_data_id": 287,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-23T23:50:00"
+  },
+  {
+    "rule_data_id": 288,
+    "perf_rule_instId": 23,
+    "value": 20,
+    "date": "2020-05-23T23:55:00"
+  },
+  {
+    "rule_data_id": 289,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-24T00:00:00"
+  },
+  {
+    "rule_data_id": 290,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-24T00:05:00"
+  },
+  {
+    "rule_data_id": 291,
+    "perf_rule_instId": 23,
+    "value": 25,
+    "date": "2020-05-24T00:10:00"
+  },
+  {
+    "rule_data_id": 292,
+    "perf_rule_instId": 23,
+    "value": 24,
+    "date": "2020-05-24T00:15:00"
+  },
+  {
+    "rule_data_id": 293,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-24T00:20:00"
+  },
+  {
+    "rule_data_id": 294,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-24T00:25:00"
+  },
+  {
+    "rule_data_id": 295,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-24T00:30:00"
+  },
+  {
+    "rule_data_id": 296,
+    "perf_rule_instId": 23,
+    "value": 26,
+    "date": "2020-05-24T00:35:00"
+  },
+  {
+    "rule_data_id": 297,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-24T00:40:00"
+  },
+  {
+    "rule_data_id": 298,
+    "perf_rule_instId": 23,
+    "value": 22,
+    "date": "2020-05-24T00:45:00"
+  },
+  {
+    "rule_data_id": 299,
+    "perf_rule_instId": 23,
+    "value": 29,
+    "date": "2020-05-24T00:50:00"
+  },
+  {
+    "rule_data_id": 300,
+    "perf_rule_instId": 23,
+    "value": 21,
+    "date": "2020-05-24T00:55:00"
+  },
+  {
+    "rule_data_id": 301,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T00:00:00"
+  },
+  {
+    "rule_data_id": 302,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T00:05:00"
+  },
+  {
+    "rule_data_id": 303,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T00:10:00"
+  },
+  {
+    "rule_data_id": 304,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T00:15:00"
+  },
+  {
+    "rule_data_id": 305,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T00:20:00"
+  },
+  {
+    "rule_data_id": 306,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T00:25:00"
+  },
+  {
+    "rule_data_id": 307,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T00:30:00"
+  },
+  {
+    "rule_data_id": 308,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T00:35:00"
+  },
+  {
+    "rule_data_id": 309,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T00:40:00"
+  },
+  {
+    "rule_data_id": 310,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T00:45:00"
+  },
+  {
+    "rule_data_id": 311,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T00:50:00"
+  },
+  {
+    "rule_data_id": 312,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T00:55:00"
+  },
+  {
+    "rule_data_id": 313,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T01:00:00"
+  },
+  {
+    "rule_data_id": 314,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T01:05:00"
+  },
+  {
+    "rule_data_id": 315,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T01:10:00"
+  },
+  {
+    "rule_data_id": 316,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T01:15:00"
+  },
+  {
+    "rule_data_id": 317,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T01:20:00"
+  },
+  {
+    "rule_data_id": 318,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T01:25:00"
+  },
+  {
+    "rule_data_id": 319,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T01:30:00"
+  },
+  {
+    "rule_data_id": 320,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T01:35:00"
+  },
+  {
+    "rule_data_id": 321,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T01:40:00"
+  },
+  {
+    "rule_data_id": 322,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T01:45:00"
+  },
+  {
+    "rule_data_id": 323,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T01:50:00"
+  },
+  {
+    "rule_data_id": 324,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T01:55:00"
+  },
+  {
+    "rule_data_id": 325,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T02:00:00"
+  },
+  {
+    "rule_data_id": 326,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T02:05:00"
+  },
+  {
+    "rule_data_id": 327,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T02:10:00"
+  },
+  {
+    "rule_data_id": 328,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T02:15:00"
+  },
+  {
+    "rule_data_id": 329,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T02:20:00"
+  },
+  {
+    "rule_data_id": 330,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T02:25:00"
+  },
+  {
+    "rule_data_id": 331,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T02:30:00"
+  },
+  {
+    "rule_data_id": 332,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T02:35:00"
+  },
+  {
+    "rule_data_id": 333,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T02:40:00"
+  },
+  {
+    "rule_data_id": 334,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T02:45:00"
+  },
+  {
+    "rule_data_id": 335,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T02:50:00"
+  },
+  {
+    "rule_data_id": 336,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T02:55:00"
+  },
+  {
+    "rule_data_id": 337,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T03:00:00"
+  },
+  {
+    "rule_data_id": 338,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T03:05:00"
+  },
+  {
+    "rule_data_id": 339,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T03:10:00"
+  },
+  {
+    "rule_data_id": 340,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T03:15:00"
+  },
+  {
+    "rule_data_id": 341,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T03:20:00"
+  },
+  {
+    "rule_data_id": 342,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T03:25:00"
+  },
+  {
+    "rule_data_id": 343,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T03:30:00"
+  },
+  {
+    "rule_data_id": 344,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T03:35:00"
+  },
+  {
+    "rule_data_id": 345,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T03:40:00"
+  },
+  {
+    "rule_data_id": 346,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T03:45:00"
+  },
+  {
+    "rule_data_id": 347,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T03:50:00"
+  },
+  {
+    "rule_data_id": 348,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T03:55:00"
+  },
+  {
+    "rule_data_id": 349,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T04:00:00"
+  },
+  {
+    "rule_data_id": 350,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T04:05:00"
+  },
+  {
+    "rule_data_id": 351,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T04:10:00"
+  },
+  {
+    "rule_data_id": 352,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T04:15:00"
+  },
+  {
+    "rule_data_id": 353,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T04:20:00"
+  },
+  {
+    "rule_data_id": 354,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T04:25:00"
+  },
+  {
+    "rule_data_id": 355,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T04:30:00"
+  },
+  {
+    "rule_data_id": 356,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T04:35:00"
+  },
+  {
+    "rule_data_id": 357,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T04:40:00"
+  },
+  {
+    "rule_data_id": 358,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T04:45:00"
+  },
+  {
+    "rule_data_id": 359,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T04:50:00"
+  },
+  {
+    "rule_data_id": 360,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T04:55:00"
+  },
+  {
+    "rule_data_id": 361,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T05:00:00"
+  },
+  {
+    "rule_data_id": 362,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T05:05:00"
+  },
+  {
+    "rule_data_id": 363,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T05:10:00"
+  },
+  {
+    "rule_data_id": 364,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T05:15:00"
+  },
+  {
+    "rule_data_id": 365,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T05:20:00"
+  },
+  {
+    "rule_data_id": 366,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T05:25:00"
+  },
+  {
+    "rule_data_id": 367,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T05:30:00"
+  },
+  {
+    "rule_data_id": 368,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T05:35:00"
+  },
+  {
+    "rule_data_id": 369,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T05:40:00"
+  },
+  {
+    "rule_data_id": 370,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T05:45:00"
+  },
+  {
+    "rule_data_id": 371,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T05:50:00"
+  },
+  {
+    "rule_data_id": 372,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T05:55:00"
+  },
+  {
+    "rule_data_id": 373,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T06:00:00"
+  },
+  {
+    "rule_data_id": 374,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T06:05:00"
+  },
+  {
+    "rule_data_id": 375,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T06:10:00"
+  },
+  {
+    "rule_data_id": 376,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T06:15:00"
+  },
+  {
+    "rule_data_id": 377,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T06:20:00"
+  },
+  {
+    "rule_data_id": 378,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T06:25:00"
+  },
+  {
+    "rule_data_id": 379,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T06:30:00"
+  },
+  {
+    "rule_data_id": 380,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T06:35:00"
+  },
+  {
+    "rule_data_id": 381,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T06:40:00"
+  },
+  {
+    "rule_data_id": 382,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T06:45:00"
+  },
+  {
+    "rule_data_id": 383,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T06:50:00"
+  },
+  {
+    "rule_data_id": 384,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T06:55:00"
+  },
+  {
+    "rule_data_id": 385,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T07:00:00"
+  },
+  {
+    "rule_data_id": 386,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T07:05:00"
+  },
+  {
+    "rule_data_id": 387,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T07:10:00"
+  },
+  {
+    "rule_data_id": 388,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T07:15:00"
+  },
+  {
+    "rule_data_id": 389,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T07:20:00"
+  },
+  {
+    "rule_data_id": 390,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T07:25:00"
+  },
+  {
+    "rule_data_id": 391,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T07:30:00"
+  },
+  {
+    "rule_data_id": 392,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T07:35:00"
+  },
+  {
+    "rule_data_id": 393,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T07:40:00"
+  },
+  {
+    "rule_data_id": 394,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T07:45:00"
+  },
+  {
+    "rule_data_id": 395,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T07:50:00"
+  },
+  {
+    "rule_data_id": 396,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T07:55:00"
+  },
+  {
+    "rule_data_id": 397,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T08:00:00"
+  },
+  {
+    "rule_data_id": 398,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T08:05:00"
+  },
+  {
+    "rule_data_id": 399,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T08:10:00"
+  },
+  {
+    "rule_data_id": 400,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T08:15:00"
+  },
+  {
+    "rule_data_id": 401,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T08:20:00"
+  },
+  {
+    "rule_data_id": 402,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T08:25:00"
+  },
+  {
+    "rule_data_id": 403,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T08:30:00"
+  },
+  {
+    "rule_data_id": 404,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T08:35:00"
+  },
+  {
+    "rule_data_id": 405,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T08:40:00"
+  },
+  {
+    "rule_data_id": 406,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T08:45:00"
+  },
+  {
+    "rule_data_id": 407,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T08:50:00"
+  },
+  {
+    "rule_data_id": 408,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T08:55:00"
+  },
+  {
+    "rule_data_id": 409,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T09:00:00"
+  },
+  {
+    "rule_data_id": 410,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T09:05:00"
+  },
+  {
+    "rule_data_id": 411,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T09:10:00"
+  },
+  {
+    "rule_data_id": 412,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T09:15:00"
+  },
+  {
+    "rule_data_id": 413,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T09:20:00"
+  },
+  {
+    "rule_data_id": 414,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T09:25:00"
+  },
+  {
+    "rule_data_id": 415,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T09:30:00"
+  },
+  {
+    "rule_data_id": 416,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T09:35:00"
+  },
+  {
+    "rule_data_id": 417,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T09:40:00"
+  },
+  {
+    "rule_data_id": 418,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T09:45:00"
+  },
+  {
+    "rule_data_id": 419,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T09:50:00"
+  },
+  {
+    "rule_data_id": 420,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T09:55:00"
+  },
+  {
+    "rule_data_id": 421,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T10:00:00"
+  },
+  {
+    "rule_data_id": 422,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T10:05:00"
+  },
+  {
+    "rule_data_id": 423,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T10:10:00"
+  },
+  {
+    "rule_data_id": 424,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T10:15:00"
+  },
+  {
+    "rule_data_id": 425,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T10:20:00"
+  },
+  {
+    "rule_data_id": 426,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T10:25:00"
+  },
+  {
+    "rule_data_id": 427,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T10:30:00"
+  },
+  {
+    "rule_data_id": 428,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T10:35:00"
+  },
+  {
+    "rule_data_id": 429,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T10:40:00"
+  },
+  {
+    "rule_data_id": 430,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T10:45:00"
+  },
+  {
+    "rule_data_id": 431,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T10:50:00"
+  },
+  {
+    "rule_data_id": 432,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T10:55:00"
+  },
+  {
+    "rule_data_id": 433,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T11:00:00"
+  },
+  {
+    "rule_data_id": 434,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T11:05:00"
+  },
+  {
+    "rule_data_id": 435,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T11:10:00"
+  },
+  {
+    "rule_data_id": 436,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T11:15:00"
+  },
+  {
+    "rule_data_id": 437,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T11:20:00"
+  },
+  {
+    "rule_data_id": 438,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T11:25:00"
+  },
+  {
+    "rule_data_id": 439,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T11:30:00"
+  },
+  {
+    "rule_data_id": 440,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T11:35:00"
+  },
+  {
+    "rule_data_id": 441,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T11:40:00"
+  },
+  {
+    "rule_data_id": 442,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T11:45:00"
+  },
+  {
+    "rule_data_id": 443,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T11:50:00"
+  },
+  {
+    "rule_data_id": 444,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T11:55:00"
+  },
+  {
+    "rule_data_id": 445,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T12:00:00"
+  },
+  {
+    "rule_data_id": 446,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T12:05:00"
+  },
+  {
+    "rule_data_id": 447,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T12:10:00"
+  },
+  {
+    "rule_data_id": 448,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T12:15:00"
+  },
+  {
+    "rule_data_id": 449,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T12:20:00"
+  },
+  {
+    "rule_data_id": 450,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T12:25:00"
+  },
+  {
+    "rule_data_id": 451,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T12:30:00"
+  },
+  {
+    "rule_data_id": 452,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T12:35:00"
+  },
+  {
+    "rule_data_id": 453,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T12:40:00"
+  },
+  {
+    "rule_data_id": 454,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T12:45:00"
+  },
+  {
+    "rule_data_id": 455,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T12:50:00"
+  },
+  {
+    "rule_data_id": 456,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T12:55:00"
+  },
+  {
+    "rule_data_id": 457,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T13:00:00"
+  },
+  {
+    "rule_data_id": 458,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T13:05:00"
+  },
+  {
+    "rule_data_id": 459,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T13:10:00"
+  },
+  {
+    "rule_data_id": 460,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T13:15:00"
+  },
+  {
+    "rule_data_id": 461,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T13:20:00"
+  },
+  {
+    "rule_data_id": 462,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T13:25:00"
+  },
+  {
+    "rule_data_id": 463,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T13:30:00"
+  },
+  {
+    "rule_data_id": 464,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T13:35:00"
+  },
+  {
+    "rule_data_id": 465,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T13:40:00"
+  },
+  {
+    "rule_data_id": 466,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T13:45:00"
+  },
+  {
+    "rule_data_id": 467,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T13:50:00"
+  },
+  {
+    "rule_data_id": 468,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T13:55:00"
+  },
+  {
+    "rule_data_id": 469,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T14:00:00"
+  },
+  {
+    "rule_data_id": 470,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T14:05:00"
+  },
+  {
+    "rule_data_id": 471,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T14:10:00"
+  },
+  {
+    "rule_data_id": 472,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T14:15:00"
+  },
+  {
+    "rule_data_id": 473,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T14:20:00"
+  },
+  {
+    "rule_data_id": 474,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T14:25:00"
+  },
+  {
+    "rule_data_id": 475,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T14:30:00"
+  },
+  {
+    "rule_data_id": 476,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T14:35:00"
+  },
+  {
+    "rule_data_id": 477,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T14:40:00"
+  },
+  {
+    "rule_data_id": 478,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T14:45:00"
+  },
+  {
+    "rule_data_id": 479,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T14:50:00"
+  },
+  {
+    "rule_data_id": 480,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T14:55:00"
+  },
+  {
+    "rule_data_id": 481,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T15:00:00"
+  },
+  {
+    "rule_data_id": 482,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T15:05:00"
+  },
+  {
+    "rule_data_id": 483,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T15:10:00"
+  },
+  {
+    "rule_data_id": 484,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T15:15:00"
+  },
+  {
+    "rule_data_id": 485,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T15:20:00"
+  },
+  {
+    "rule_data_id": 486,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T15:25:00"
+  },
+  {
+    "rule_data_id": 487,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T15:30:00"
+  },
+  {
+    "rule_data_id": 488,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T15:35:00"
+  },
+  {
+    "rule_data_id": 489,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T15:40:00"
+  },
+  {
+    "rule_data_id": 490,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T15:45:00"
+  },
+  {
+    "rule_data_id": 491,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T15:50:00"
+  },
+  {
+    "rule_data_id": 492,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T15:55:00"
+  },
+  {
+    "rule_data_id": 493,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T16:00:00"
+  },
+  {
+    "rule_data_id": 494,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T16:05:00"
+  },
+  {
+    "rule_data_id": 495,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T16:10:00"
+  },
+  {
+    "rule_data_id": 496,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T16:15:00"
+  },
+  {
+    "rule_data_id": 497,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T16:20:00"
+  },
+  {
+    "rule_data_id": 498,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T16:25:00"
+  },
+  {
+    "rule_data_id": 499,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T16:30:00"
+  },
+  {
+    "rule_data_id": 500,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T16:35:00"
+  },
+  {
+    "rule_data_id": 501,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T16:40:00"
+  },
+  {
+    "rule_data_id": 502,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T16:45:00"
+  },
+  {
+    "rule_data_id": 503,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T16:50:00"
+  },
+  {
+    "rule_data_id": 504,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T16:55:00"
+  },
+  {
+    "rule_data_id": 505,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T17:00:00"
+  },
+  {
+    "rule_data_id": 506,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T17:05:00"
+  },
+  {
+    "rule_data_id": 507,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T17:10:00"
+  },
+  {
+    "rule_data_id": 508,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T17:15:00"
+  },
+  {
+    "rule_data_id": 509,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T17:20:00"
+  },
+  {
+    "rule_data_id": 510,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T17:25:00"
+  },
+  {
+    "rule_data_id": 511,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T17:30:00"
+  },
+  {
+    "rule_data_id": 512,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T17:35:00"
+  },
+  {
+    "rule_data_id": 513,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T17:40:00"
+  },
+  {
+    "rule_data_id": 514,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T17:45:00"
+  },
+  {
+    "rule_data_id": 515,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T17:50:00"
+  },
+  {
+    "rule_data_id": 516,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T17:55:00"
+  },
+  {
+    "rule_data_id": 517,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T18:00:00"
+  },
+  {
+    "rule_data_id": 518,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T18:05:00"
+  },
+  {
+    "rule_data_id": 519,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T18:10:00"
+  },
+  {
+    "rule_data_id": 520,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T18:15:00"
+  },
+  {
+    "rule_data_id": 521,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T18:20:00"
+  },
+  {
+    "rule_data_id": 522,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T18:25:00"
+  },
+  {
+    "rule_data_id": 523,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T18:30:00"
+  },
+  {
+    "rule_data_id": 524,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T18:35:00"
+  },
+  {
+    "rule_data_id": 525,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T18:40:00"
+  },
+  {
+    "rule_data_id": 526,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T18:45:00"
+  },
+  {
+    "rule_data_id": 527,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T18:50:00"
+  },
+  {
+    "rule_data_id": 528,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T18:55:00"
+  },
+  {
+    "rule_data_id": 529,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T19:00:00"
+  },
+  {
+    "rule_data_id": 530,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T19:05:00"
+  },
+  {
+    "rule_data_id": 531,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T19:10:00"
+  },
+  {
+    "rule_data_id": 532,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T19:15:00"
+  },
+  {
+    "rule_data_id": 533,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T19:20:00"
+  },
+  {
+    "rule_data_id": 534,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T19:25:00"
+  },
+  {
+    "rule_data_id": 535,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T19:30:00"
+  },
+  {
+    "rule_data_id": 536,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T19:35:00"
+  },
+  {
+    "rule_data_id": 537,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T19:40:00"
+  },
+  {
+    "rule_data_id": 538,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T19:45:00"
+  },
+  {
+    "rule_data_id": 539,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T19:50:00"
+  },
+  {
+    "rule_data_id": 540,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T19:55:00"
+  },
+  {
+    "rule_data_id": 541,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T20:00:00"
+  },
+  {
+    "rule_data_id": 542,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T20:05:00"
+  },
+  {
+    "rule_data_id": 543,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T20:10:00"
+  },
+  {
+    "rule_data_id": 544,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T20:15:00"
+  },
+  {
+    "rule_data_id": 545,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T20:20:00"
+  },
+  {
+    "rule_data_id": 546,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T20:25:00"
+  },
+  {
+    "rule_data_id": 547,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T20:30:00"
+  },
+  {
+    "rule_data_id": 548,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T20:35:00"
+  },
+  {
+    "rule_data_id": 549,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T20:40:00"
+  },
+  {
+    "rule_data_id": 550,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T20:45:00"
+  },
+  {
+    "rule_data_id": 551,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T20:50:00"
+  },
+  {
+    "rule_data_id": 552,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T20:55:00"
+  },
+  {
+    "rule_data_id": 553,
+    "perf_rule_instId": 29,
+    "value": 28,
+    "date": "2020-05-23T21:00:00"
+  },
+  {
+    "rule_data_id": 554,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T21:05:00"
+  },
+  {
+    "rule_data_id": 555,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T21:10:00"
+  },
+  {
+    "rule_data_id": 556,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T21:15:00"
+  },
+  {
+    "rule_data_id": 557,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T21:20:00"
+  },
+  {
+    "rule_data_id": 558,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T21:25:00"
+  },
+  {
+    "rule_data_id": 559,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T21:30:00"
+  },
+  {
+    "rule_data_id": 560,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T21:35:00"
+  },
+  {
+    "rule_data_id": 561,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T21:40:00"
+  },
+  {
+    "rule_data_id": 562,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T21:45:00"
+  },
+  {
+    "rule_data_id": 563,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T21:50:00"
+  },
+  {
+    "rule_data_id": 564,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T21:55:00"
+  },
+  {
+    "rule_data_id": 565,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T22:00:00"
+  },
+  {
+    "rule_data_id": 566,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T22:05:00"
+  },
+  {
+    "rule_data_id": 567,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T22:10:00"
+  },
+  {
+    "rule_data_id": 568,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T22:15:00"
+  },
+  {
+    "rule_data_id": 569,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T22:20:00"
+  },
+  {
+    "rule_data_id": 570,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T22:25:00"
+  },
+  {
+    "rule_data_id": 571,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-23T22:30:00"
+  },
+  {
+    "rule_data_id": 572,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-23T22:35:00"
+  },
+  {
+    "rule_data_id": 573,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T22:40:00"
+  },
+  {
+    "rule_data_id": 574,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T22:45:00"
+  },
+  {
+    "rule_data_id": 575,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T22:50:00"
+  },
+  {
+    "rule_data_id": 576,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T22:55:00"
+  },
+  {
+    "rule_data_id": 577,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T23:00:00"
+  },
+  {
+    "rule_data_id": 578,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T23:05:00"
+  },
+  {
+    "rule_data_id": 579,
+    "perf_rule_instId": 29,
+    "value": 24,
+    "date": "2020-05-23T23:10:00"
+  },
+  {
+    "rule_data_id": 580,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T23:15:00"
+  },
+  {
+    "rule_data_id": 581,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-23T23:20:00"
+  },
+  {
+    "rule_data_id": 582,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-23T23:25:00"
+  },
+  {
+    "rule_data_id": 583,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T23:30:00"
+  },
+  {
+    "rule_data_id": 584,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-23T23:35:00"
+  },
+  {
+    "rule_data_id": 585,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T23:40:00"
+  },
+  {
+    "rule_data_id": 586,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-23T23:45:00"
+  },
+  {
+    "rule_data_id": 587,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-23T23:50:00"
+  },
+  {
+    "rule_data_id": 588,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-23T23:55:00"
+  },
+  {
+    "rule_data_id": 589,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-24T00:00:00"
+  },
+  {
+    "rule_data_id": 590,
+    "perf_rule_instId": 29,
+    "value": 20,
+    "date": "2020-05-24T00:05:00"
+  },
+  {
+    "rule_data_id": 591,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-24T00:10:00"
+  },
+  {
+    "rule_data_id": 592,
+    "perf_rule_instId": 29,
+    "value": 26,
+    "date": "2020-05-24T00:15:00"
+  },
+  {
+    "rule_data_id": 593,
+    "perf_rule_instId": 29,
+    "value": 25,
+    "date": "2020-05-24T00:20:00"
+  },
+  {
+    "rule_data_id": 594,
+    "perf_rule_instId": 29,
+    "value": 27,
+    "date": "2020-05-24T00:25:00"
+  },
+  {
+    "rule_data_id": 595,
+    "perf_rule_instId": 29,
+    "value": 29,
+    "date": "2020-05-24T00:30:00"
+  },
+  {
+    "rule_data_id": 596,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-24T00:35:00"
+  },
+  {
+    "rule_data_id": 597,
+    "perf_rule_instId": 29,
+    "value": 22,
+    "date": "2020-05-24T00:40:00"
+  },
+  {
+    "rule_data_id": 598,
+    "perf_rule_instId": 29,
+    "value": 23,
+    "date": "2020-05-24T00:45:00"
+  },
+  {
+    "rule_data_id": 599,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-24T00:50:00"
+  },
+  {
+    "rule_data_id": 600,
+    "perf_rule_instId": 29,
+    "value": 21,
+    "date": "2020-05-24T00:55:00"
+  },
+  {
+    "rule_data_id": 601,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T00:00:00"
+  },
+  {
+    "rule_data_id": 602,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T00:05:00"
+  },
+  {
+    "rule_data_id": 603,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T00:10:00"
+  },
+  {
+    "rule_data_id": 604,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T00:15:00"
+  },
+  {
+    "rule_data_id": 605,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T00:20:00"
+  },
+  {
+    "rule_data_id": 606,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T00:25:00"
+  },
+  {
+    "rule_data_id": 607,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T00:30:00"
+  },
+  {
+    "rule_data_id": 608,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T00:35:00"
+  },
+  {
+    "rule_data_id": 609,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T00:40:00"
+  },
+  {
+    "rule_data_id": 610,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T00:45:00"
+  },
+  {
+    "rule_data_id": 611,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T00:50:00"
+  },
+  {
+    "rule_data_id": 612,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T00:55:00"
+  },
+  {
+    "rule_data_id": 613,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T01:00:00"
+  },
+  {
+    "rule_data_id": 614,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T01:05:00"
+  },
+  {
+    "rule_data_id": 615,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T01:10:00"
+  },
+  {
+    "rule_data_id": 616,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T01:15:00"
+  },
+  {
+    "rule_data_id": 617,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T01:20:00"
+  },
+  {
+    "rule_data_id": 618,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T01:25:00"
+  },
+  {
+    "rule_data_id": 619,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T01:30:00"
+  },
+  {
+    "rule_data_id": 620,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T01:35:00"
+  },
+  {
+    "rule_data_id": 621,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T01:40:00"
+  },
+  {
+    "rule_data_id": 622,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T01:45:00"
+  },
+  {
+    "rule_data_id": 623,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T01:50:00"
+  },
+  {
+    "rule_data_id": 624,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T01:55:00"
+  },
+  {
+    "rule_data_id": 625,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T02:00:00"
+  },
+  {
+    "rule_data_id": 626,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T02:05:00"
+  },
+  {
+    "rule_data_id": 627,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T02:10:00"
+  },
+  {
+    "rule_data_id": 628,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T02:15:00"
+  },
+  {
+    "rule_data_id": 629,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T02:20:00"
+  },
+  {
+    "rule_data_id": 630,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T02:25:00"
+  },
+  {
+    "rule_data_id": 631,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T02:30:00"
+  },
+  {
+    "rule_data_id": 632,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T02:35:00"
+  },
+  {
+    "rule_data_id": 633,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T02:40:00"
+  },
+  {
+    "rule_data_id": 634,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T02:45:00"
+  },
+  {
+    "rule_data_id": 635,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T02:50:00"
+  },
+  {
+    "rule_data_id": 636,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T02:55:00"
+  },
+  {
+    "rule_data_id": 637,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T03:00:00"
+  },
+  {
+    "rule_data_id": 638,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T03:05:00"
+  },
+  {
+    "rule_data_id": 639,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T03:10:00"
+  },
+  {
+    "rule_data_id": 640,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T03:15:00"
+  },
+  {
+    "rule_data_id": 641,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T03:20:00"
+  },
+  {
+    "rule_data_id": 642,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T03:25:00"
+  },
+  {
+    "rule_data_id": 643,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T03:30:00"
+  },
+  {
+    "rule_data_id": 644,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T03:35:00"
+  },
+  {
+    "rule_data_id": 645,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T03:40:00"
+  },
+  {
+    "rule_data_id": 646,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T03:45:00"
+  },
+  {
+    "rule_data_id": 647,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T03:50:00"
+  },
+  {
+    "rule_data_id": 648,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T03:55:00"
+  },
+  {
+    "rule_data_id": 649,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T04:00:00"
+  },
+  {
+    "rule_data_id": 650,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T04:05:00"
+  },
+  {
+    "rule_data_id": 651,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T04:10:00"
+  },
+  {
+    "rule_data_id": 652,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T04:15:00"
+  },
+  {
+    "rule_data_id": 653,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T04:20:00"
+  },
+  {
+    "rule_data_id": 654,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T04:25:00"
+  },
+  {
+    "rule_data_id": 655,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T04:30:00"
+  },
+  {
+    "rule_data_id": 656,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T04:35:00"
+  },
+  {
+    "rule_data_id": 657,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T04:40:00"
+  },
+  {
+    "rule_data_id": 658,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T04:45:00"
+  },
+  {
+    "rule_data_id": 659,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T04:50:00"
+  },
+  {
+    "rule_data_id": 660,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T04:55:00"
+  },
+  {
+    "rule_data_id": 661,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T05:00:00"
+  },
+  {
+    "rule_data_id": 662,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T05:05:00"
+  },
+  {
+    "rule_data_id": 663,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T05:10:00"
+  },
+  {
+    "rule_data_id": 664,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T05:15:00"
+  },
+  {
+    "rule_data_id": 665,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T05:20:00"
+  },
+  {
+    "rule_data_id": 666,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T05:25:00"
+  },
+  {
+    "rule_data_id": 667,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T05:30:00"
+  },
+  {
+    "rule_data_id": 668,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T05:35:00"
+  },
+  {
+    "rule_data_id": 669,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T05:40:00"
+  },
+  {
+    "rule_data_id": 670,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T05:45:00"
+  },
+  {
+    "rule_data_id": 671,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T05:50:00"
+  },
+  {
+    "rule_data_id": 672,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T05:55:00"
+  },
+  {
+    "rule_data_id": 673,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T06:00:00"
+  },
+  {
+    "rule_data_id": 674,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T06:05:00"
+  },
+  {
+    "rule_data_id": 675,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T06:10:00"
+  },
+  {
+    "rule_data_id": 676,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T06:15:00"
+  },
+  {
+    "rule_data_id": 677,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T06:20:00"
+  },
+  {
+    "rule_data_id": 678,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T06:25:00"
+  },
+  {
+    "rule_data_id": 679,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T06:30:00"
+  },
+  {
+    "rule_data_id": 680,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T06:35:00"
+  },
+  {
+    "rule_data_id": 681,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T06:40:00"
+  },
+  {
+    "rule_data_id": 682,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T06:45:00"
+  },
+  {
+    "rule_data_id": 683,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T06:50:00"
+  },
+  {
+    "rule_data_id": 684,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T06:55:00"
+  },
+  {
+    "rule_data_id": 685,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T07:00:00"
+  },
+  {
+    "rule_data_id": 686,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T07:05:00"
+  },
+  {
+    "rule_data_id": 687,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T07:10:00"
+  },
+  {
+    "rule_data_id": 688,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T07:15:00"
+  },
+  {
+    "rule_data_id": 689,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T07:20:00"
+  },
+  {
+    "rule_data_id": 690,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T07:25:00"
+  },
+  {
+    "rule_data_id": 691,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T07:30:00"
+  },
+  {
+    "rule_data_id": 692,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T07:35:00"
+  },
+  {
+    "rule_data_id": 693,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T07:40:00"
+  },
+  {
+    "rule_data_id": 694,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T07:45:00"
+  },
+  {
+    "rule_data_id": 695,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T07:50:00"
+  },
+  {
+    "rule_data_id": 696,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T07:55:00"
+  },
+  {
+    "rule_data_id": 697,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T08:00:00"
+  },
+  {
+    "rule_data_id": 698,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T08:05:00"
+  },
+  {
+    "rule_data_id": 699,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T08:10:00"
+  },
+  {
+    "rule_data_id": 700,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T08:15:00"
+  },
+  {
+    "rule_data_id": 701,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T08:20:00"
+  },
+  {
+    "rule_data_id": 702,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T08:25:00"
+  },
+  {
+    "rule_data_id": 703,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T08:30:00"
+  },
+  {
+    "rule_data_id": 704,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T08:35:00"
+  },
+  {
+    "rule_data_id": 705,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T08:40:00"
+  },
+  {
+    "rule_data_id": 706,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T08:45:00"
+  },
+  {
+    "rule_data_id": 707,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T08:50:00"
+  },
+  {
+    "rule_data_id": 708,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T08:55:00"
+  },
+  {
+    "rule_data_id": 709,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T09:00:00"
+  },
+  {
+    "rule_data_id": 710,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T09:05:00"
+  },
+  {
+    "rule_data_id": 711,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T09:10:00"
+  },
+  {
+    "rule_data_id": 712,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T09:15:00"
+  },
+  {
+    "rule_data_id": 713,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T09:20:00"
+  },
+  {
+    "rule_data_id": 714,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T09:25:00"
+  },
+  {
+    "rule_data_id": 715,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T09:30:00"
+  },
+  {
+    "rule_data_id": 716,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T09:35:00"
+  },
+  {
+    "rule_data_id": 717,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T09:40:00"
+  },
+  {
+    "rule_data_id": 718,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T09:45:00"
+  },
+  {
+    "rule_data_id": 719,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T09:50:00"
+  },
+  {
+    "rule_data_id": 720,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T09:55:00"
+  },
+  {
+    "rule_data_id": 721,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T10:00:00"
+  },
+  {
+    "rule_data_id": 722,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T10:05:00"
+  },
+  {
+    "rule_data_id": 723,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T10:10:00"
+  },
+  {
+    "rule_data_id": 724,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T10:15:00"
+  },
+  {
+    "rule_data_id": 725,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T10:20:00"
+  },
+  {
+    "rule_data_id": 726,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T10:25:00"
+  },
+  {
+    "rule_data_id": 727,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T10:30:00"
+  },
+  {
+    "rule_data_id": 728,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T10:35:00"
+  },
+  {
+    "rule_data_id": 729,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T10:40:00"
+  },
+  {
+    "rule_data_id": 730,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T10:45:00"
+  },
+  {
+    "rule_data_id": 731,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T10:50:00"
+  },
+  {
+    "rule_data_id": 732,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T10:55:00"
+  },
+  {
+    "rule_data_id": 733,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T11:00:00"
+  },
+  {
+    "rule_data_id": 734,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T11:05:00"
+  },
+  {
+    "rule_data_id": 735,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T11:10:00"
+  },
+  {
+    "rule_data_id": 736,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T11:15:00"
+  },
+  {
+    "rule_data_id": 737,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T11:20:00"
+  },
+  {
+    "rule_data_id": 738,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T11:25:00"
+  },
+  {
+    "rule_data_id": 739,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T11:30:00"
+  },
+  {
+    "rule_data_id": 740,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T11:35:00"
+  },
+  {
+    "rule_data_id": 741,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T11:40:00"
+  },
+  {
+    "rule_data_id": 742,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T11:45:00"
+  },
+  {
+    "rule_data_id": 743,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T11:50:00"
+  },
+  {
+    "rule_data_id": 744,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T11:55:00"
+  },
+  {
+    "rule_data_id": 745,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T12:00:00"
+  },
+  {
+    "rule_data_id": 746,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T12:05:00"
+  },
+  {
+    "rule_data_id": 747,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T12:10:00"
+  },
+  {
+    "rule_data_id": 748,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T12:15:00"
+  },
+  {
+    "rule_data_id": 749,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T12:20:00"
+  },
+  {
+    "rule_data_id": 750,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T12:25:00"
+  },
+  {
+    "rule_data_id": 751,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T12:30:00"
+  },
+  {
+    "rule_data_id": 752,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T12:35:00"
+  },
+  {
+    "rule_data_id": 753,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T12:40:00"
+  },
+  {
+    "rule_data_id": 754,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T12:45:00"
+  },
+  {
+    "rule_data_id": 755,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T12:50:00"
+  },
+  {
+    "rule_data_id": 756,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T12:55:00"
+  },
+  {
+    "rule_data_id": 757,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T13:00:00"
+  },
+  {
+    "rule_data_id": 758,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T13:05:00"
+  },
+  {
+    "rule_data_id": 759,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T13:10:00"
+  },
+  {
+    "rule_data_id": 760,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T13:15:00"
+  },
+  {
+    "rule_data_id": 761,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T13:20:00"
+  },
+  {
+    "rule_data_id": 762,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T13:25:00"
+  },
+  {
+    "rule_data_id": 763,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T13:30:00"
+  },
+  {
+    "rule_data_id": 764,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T13:35:00"
+  },
+  {
+    "rule_data_id": 765,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T13:40:00"
+  },
+  {
+    "rule_data_id": 766,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T13:45:00"
+  },
+  {
+    "rule_data_id": 767,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T13:50:00"
+  },
+  {
+    "rule_data_id": 768,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T13:55:00"
+  },
+  {
+    "rule_data_id": 769,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T14:00:00"
+  },
+  {
+    "rule_data_id": 770,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T14:05:00"
+  },
+  {
+    "rule_data_id": 771,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T14:10:00"
+  },
+  {
+    "rule_data_id": 772,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T14:15:00"
+  },
+  {
+    "rule_data_id": 773,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T14:20:00"
+  },
+  {
+    "rule_data_id": 774,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T14:25:00"
+  },
+  {
+    "rule_data_id": 775,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T14:30:00"
+  },
+  {
+    "rule_data_id": 776,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T14:35:00"
+  },
+  {
+    "rule_data_id": 777,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T14:40:00"
+  },
+  {
+    "rule_data_id": 778,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T14:45:00"
+  },
+  {
+    "rule_data_id": 779,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T14:50:00"
+  },
+  {
+    "rule_data_id": 780,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T14:55:00"
+  },
+  {
+    "rule_data_id": 781,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T15:00:00"
+  },
+  {
+    "rule_data_id": 782,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T15:05:00"
+  },
+  {
+    "rule_data_id": 783,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T15:10:00"
+  },
+  {
+    "rule_data_id": 784,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T15:15:00"
+  },
+  {
+    "rule_data_id": 785,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T15:20:00"
+  },
+  {
+    "rule_data_id": 786,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T15:25:00"
+  },
+  {
+    "rule_data_id": 787,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T15:30:00"
+  },
+  {
+    "rule_data_id": 788,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T15:35:00"
+  },
+  {
+    "rule_data_id": 789,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T15:40:00"
+  },
+  {
+    "rule_data_id": 790,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T15:45:00"
+  },
+  {
+    "rule_data_id": 791,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T15:50:00"
+  },
+  {
+    "rule_data_id": 792,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T15:55:00"
+  },
+  {
+    "rule_data_id": 793,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T16:00:00"
+  },
+  {
+    "rule_data_id": 794,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T16:05:00"
+  },
+  {
+    "rule_data_id": 795,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T16:10:00"
+  },
+  {
+    "rule_data_id": 796,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T16:15:00"
+  },
+  {
+    "rule_data_id": 797,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T16:20:00"
+  },
+  {
+    "rule_data_id": 798,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T16:25:00"
+  },
+  {
+    "rule_data_id": 799,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T16:30:00"
+  },
+  {
+    "rule_data_id": 800,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T16:35:00"
+  },
+  {
+    "rule_data_id": 801,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T16:40:00"
+  },
+  {
+    "rule_data_id": 802,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T16:45:00"
+  },
+  {
+    "rule_data_id": 803,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T16:50:00"
+  },
+  {
+    "rule_data_id": 804,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T16:55:00"
+  },
+  {
+    "rule_data_id": 805,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T17:00:00"
+  },
+  {
+    "rule_data_id": 806,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T17:05:00"
+  },
+  {
+    "rule_data_id": 807,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T17:10:00"
+  },
+  {
+    "rule_data_id": 808,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T17:15:00"
+  },
+  {
+    "rule_data_id": 809,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T17:20:00"
+  },
+  {
+    "rule_data_id": 810,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T17:25:00"
+  },
+  {
+    "rule_data_id": 811,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T17:30:00"
+  },
+  {
+    "rule_data_id": 812,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T17:35:00"
+  },
+  {
+    "rule_data_id": 813,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T17:40:00"
+  },
+  {
+    "rule_data_id": 814,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T17:45:00"
+  },
+  {
+    "rule_data_id": 815,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T17:50:00"
+  },
+  {
+    "rule_data_id": 816,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T17:55:00"
+  },
+  {
+    "rule_data_id": 817,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T18:00:00"
+  },
+  {
+    "rule_data_id": 818,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T18:05:00"
+  },
+  {
+    "rule_data_id": 819,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T18:10:00"
+  },
+  {
+    "rule_data_id": 820,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T18:15:00"
+  },
+  {
+    "rule_data_id": 821,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T18:20:00"
+  },
+  {
+    "rule_data_id": 822,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T18:25:00"
+  },
+  {
+    "rule_data_id": 823,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T18:30:00"
+  },
+  {
+    "rule_data_id": 824,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T18:35:00"
+  },
+  {
+    "rule_data_id": 825,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T18:40:00"
+  },
+  {
+    "rule_data_id": 826,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T18:45:00"
+  },
+  {
+    "rule_data_id": 827,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T18:50:00"
+  },
+  {
+    "rule_data_id": 828,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T18:55:00"
+  },
+  {
+    "rule_data_id": 829,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T19:00:00"
+  },
+  {
+    "rule_data_id": 830,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T19:05:00"
+  },
+  {
+    "rule_data_id": 831,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T19:10:00"
+  },
+  {
+    "rule_data_id": 832,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T19:15:00"
+  },
+  {
+    "rule_data_id": 833,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T19:20:00"
+  },
+  {
+    "rule_data_id": 834,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T19:25:00"
+  },
+  {
+    "rule_data_id": 835,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T19:30:00"
+  },
+  {
+    "rule_data_id": 836,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T19:35:00"
+  },
+  {
+    "rule_data_id": 837,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T19:40:00"
+  },
+  {
+    "rule_data_id": 838,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T19:45:00"
+  },
+  {
+    "rule_data_id": 839,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T19:50:00"
+  },
+  {
+    "rule_data_id": 840,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T19:55:00"
+  },
+  {
+    "rule_data_id": 841,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T20:00:00"
+  },
+  {
+    "rule_data_id": 842,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T20:05:00"
+  },
+  {
+    "rule_data_id": 843,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T20:10:00"
+  },
+  {
+    "rule_data_id": 844,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T20:15:00"
+  },
+  {
+    "rule_data_id": 845,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T20:20:00"
+  },
+  {
+    "rule_data_id": 846,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T20:25:00"
+  },
+  {
+    "rule_data_id": 847,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T20:30:00"
+  },
+  {
+    "rule_data_id": 848,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T20:35:00"
+  },
+  {
+    "rule_data_id": 849,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T20:40:00"
+  },
+  {
+    "rule_data_id": 850,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T20:45:00"
+  },
+  {
+    "rule_data_id": 851,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T20:50:00"
+  },
+  {
+    "rule_data_id": 852,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T20:55:00"
+  },
+  {
+    "rule_data_id": 853,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T21:00:00"
+  },
+  {
+    "rule_data_id": 854,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T21:05:00"
+  },
+  {
+    "rule_data_id": 855,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T21:10:00"
+  },
+  {
+    "rule_data_id": 856,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T21:15:00"
+  },
+  {
+    "rule_data_id": 857,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T21:20:00"
+  },
+  {
+    "rule_data_id": 858,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T21:25:00"
+  },
+  {
+    "rule_data_id": 859,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T21:30:00"
+  },
+  {
+    "rule_data_id": 860,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T21:35:00"
+  },
+  {
+    "rule_data_id": 861,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T21:40:00"
+  },
+  {
+    "rule_data_id": 862,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T21:45:00"
+  },
+  {
+    "rule_data_id": 863,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T21:50:00"
+  },
+  {
+    "rule_data_id": 864,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T21:55:00"
+  },
+  {
+    "rule_data_id": 865,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T22:00:00"
+  },
+  {
+    "rule_data_id": 866,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T22:05:00"
+  },
+  {
+    "rule_data_id": 867,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T22:10:00"
+  },
+  {
+    "rule_data_id": 868,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T22:15:00"
+  },
+  {
+    "rule_data_id": 869,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T22:20:00"
+  },
+  {
+    "rule_data_id": 870,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T22:25:00"
+  },
+  {
+    "rule_data_id": 871,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T22:30:00"
+  },
+  {
+    "rule_data_id": 872,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-23T22:35:00"
+  },
+  {
+    "rule_data_id": 873,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-23T22:40:00"
+  },
+  {
+    "rule_data_id": 874,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T22:45:00"
+  },
+  {
+    "rule_data_id": 875,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T22:50:00"
+  },
+  {
+    "rule_data_id": 876,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T22:55:00"
+  },
+  {
+    "rule_data_id": 877,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-23T23:00:00"
+  },
+  {
+    "rule_data_id": 878,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T23:05:00"
+  },
+  {
+    "rule_data_id": 879,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T23:10:00"
+  },
+  {
+    "rule_data_id": 880,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T23:15:00"
+  },
+  {
+    "rule_data_id": 881,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-23T23:20:00"
+  },
+  {
+    "rule_data_id": 882,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-23T23:25:00"
+  },
+  {
+    "rule_data_id": 883,
+    "perf_rule_instId": 30,
+    "value": 24,
+    "date": "2020-05-23T23:30:00"
+  },
+  {
+    "rule_data_id": 884,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-23T23:35:00"
+  },
+  {
+    "rule_data_id": 885,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T23:40:00"
+  },
+  {
+    "rule_data_id": 886,
+    "perf_rule_instId": 30,
+    "value": 29,
+    "date": "2020-05-23T23:45:00"
+  },
+  {
+    "rule_data_id": 887,
+    "perf_rule_instId": 30,
+    "value": 22,
+    "date": "2020-05-23T23:50:00"
+  },
+  {
+    "rule_data_id": 888,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-23T23:55:00"
+  },
+  {
+    "rule_data_id": 889,
+    "perf_rule_instId": 30,
+    "value": 21,
+    "date": "2020-05-24T00:00:00"
+  },
+  {
+    "rule_data_id": 890,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-24T00:05:00"
+  },
+  {
+    "rule_data_id": 891,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-24T00:10:00"
+  },
+  {
+    "rule_data_id": 892,
+    "perf_rule_instId": 30,
+    "value": 27,
+    "date": "2020-05-24T00:15:00"
+  },
+  {
+    "rule_data_id": 893,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-24T00:20:00"
+  },
+  {
+    "rule_data_id": 894,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-24T00:25:00"
+  },
+  {
+    "rule_data_id": 895,
+    "perf_rule_instId": 30,
+    "value": 20,
+    "date": "2020-05-24T00:30:00"
+  },
+  {
+    "rule_data_id": 896,
+    "perf_rule_instId": 30,
+    "value": 28,
+    "date": "2020-05-24T00:35:00"
+  },
+  {
+    "rule_data_id": 897,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-24T00:40:00"
+  },
+  {
+    "rule_data_id": 898,
+    "perf_rule_instId": 30,
+    "value": 23,
+    "date": "2020-05-24T00:45:00"
+  },
+  {
+    "rule_data_id": 899,
+    "perf_rule_instId": 30,
+    "value": 25,
+    "date": "2020-05-24T00:50:00"
+  },
+  {
+    "rule_data_id": 900,
+    "perf_rule_instId": 30,
+    "value": 26,
+    "date": "2020-05-24T00:55:00"
+  }
+]

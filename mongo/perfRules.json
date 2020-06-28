@@ -1,0 +1,117 @@
+[
+  {
+    "ruleId": 1,
+    "rule_name": "Disk Read Bytes/sec",
+    "rule_description": "Disk Read Bytes/sec"
+  },
+  {
+    "ruleId": 2,
+    "rule_name": "Disk Reads/sec",
+    "rule_description": "Disk Reads/sec"
+  },
+  {
+    "ruleId": 3,
+    "rule_name": "Disk Transfers/sec",
+    "rule_description": "Disk Transfers/sec"
+  },
+  {
+    "ruleId": 4,
+    "rule_name": "Disk Write Bytes/sec",
+    "rule_description": "Disk Write Bytes/sec"
+  },
+  {
+    "ruleId": 5,
+    "rule_name": "Disk Writes/sec",
+    "rule_description": "Disk Writes/sec"
+  },
+  {
+    "ruleId": 6,
+    "rule_name": "Free Megabytes",
+    "rule_description": "Free Megabytes"
+  },
+  {
+    "ruleId": 7,
+    "rule_name": "% Free Inodes",
+    "rule_description": "% Free Inodes"
+  },
+  {
+    "ruleId": 8,
+    "rule_name": "% Free Space",
+    "rule_description": "% Free Space"
+  },
+  {
+    "ruleId": 9,
+    "rule_name": "% Used Inodes",
+    "rule_description": "% Used Inodes"
+  },
+  {
+    "ruleId": 10,
+    "rule_name": "% Used Space",
+    "rule_description": "% Used Space"
+  },
+  {
+    "ruleId": 11,
+    "rule_name": "Used Megabytes",
+    "rule_description": "Used Megabytes"
+  },
+  {
+    "ruleId": 12,
+    "rule_name": "Byte Received/Sec",
+    "rule_description": "Byte Received/Sec"
+  },
+  {
+    "ruleId": 13,
+    "rule_name": "Byte Sent/Sec",
+    "rule_description": "Byte Sent/Sec"
+  },
+  {
+    "ruleId": 14,
+    "rule_name": "Bytes Total/Sec",
+    "rule_description": "Bytes Total/Sec"
+  },
+  {
+    "ruleId": 15,
+    "rule_name": "Available MBytes Memory",
+    "rule_description": "Available MBytes Memory"
+  },
+  {
+    "ruleId": 16,
+    "rule_name": "Available MBytes Swap",
+    "rule_description": "Available MBytes Swap"
+  },
+  {
+    "ruleId": 17,
+    "rule_name": "Page Reads/sec",
+    "rule_description": "Page Reads/sec"
+  },
+  {
+    "ruleId": 18,
+    "rule_name": "Pages/sec",
+    "rule_description": "Pages/sec"
+  },
+  {
+    "ruleId": 19,
+    "rule_name": "Page Writes/sec",
+    "rule_description": "Page Writes/sec"
+  },
+  {
+    "ruleId": 20,
+    "rule_name": "% Available Memory",
+    "rule_description": "% Available Memory"
+  },
+  {
+    "ruleId": 21,
+    "rule_name": "% Available Swap Space",
+    "rule_description": "% Available Swap Space"
+  },
+  {
+    "ruleId": 22,
+    "rule_name": "% Used Memory",
+    "rule_description": "% Used Memory"
+  },
+  {
+    "ruleId": 23,
+    "rule_name": "% Processor usage",
+    "rule_description": "% Processor usage"
+  }
+]
