@@ -848,51 +848,172 @@ switched to db sysmonitor
 
 ### Consultas realizadas
 
-Listado de alertas con prioridad New:  
+Procedemos a conectarnos directamente a la shell de mongo para efectuar de una manera más cómoda consultas que nos ayuden a comprobar que la información se importó correctamente y que podemos consultar los datos de una forma eficiente:
 
-**db.alerts.find({\"priority\":\"New\"},{"alert_name":"1","alert_description":"1","configuration_item":"1","state_change_date":"1"})'**
+Iniciamos una shell interactiva de mongo en uno de los routers y hacemos una consulta para ver que las colecciones son accesibles. Comprobamos que hay 23 CIs de tipo 'server' al igual que en la base de datos relacional usada como fuente.:
 
 ```bash
-❯ docker exec -it mongos1 bash -c "echo -e 'use sysmonitor \n db.alerts.find({\"priority\":\"New\"},{\"alert_name\":\"1\",\"alert_description\":\"1\",\"configuration_item\":\"1\",\"state_change_date\":\"1\"})' |  mongo"
+❯ docker exec -it mongos1 mongo
 MongoDB shell version v4.2.8
 connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
-Implicit session: session { "id" : UUID("8f2a7873-d7a2-4a27-92aa-a45eafef6939") }
+Implicit session: session { "id" : UUID("d9b0b540-1278-4a88-a906-5bb68ac31ce3") }
 MongoDB server version: 4.2.8
+mongos> use sysmonitor
 switched to db sysmonitor
-{ "_id" : ObjectId("5ef9262de267e9c00481f20a"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "rubberyclock.local", "state_change_date" : "2020-05-23T03:44:37" }
-{ "_id" : ObjectId("5ef9262de267e9c00481f20b"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "wrytug.local", "state_change_date" : "2020-05-23T03:44:27" }
-{ "_id" : ObjectId("5ef9262de267e9c00481f20c"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "worstblip.local", "state_change_date" : "2020-05-23T03:44:12" }
-{ "_id" : ObjectId("5ef9262de267e9c00481f20d"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "lastbuyer.local", "state_change_date" : "2020-05-23T03:44:21" }
+mongos> db.configuration_item.find({"device_type": "server"}).length()
+23
+mongos> DBQuery.shellBatchSize = 300
+300
+mongos> db.configuration_item.find({"device_type": "server"},{"name":"1"})
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe42"), "name" : "austeredear.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe49"), "name" : "classicslang.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe4b"), "name" : "discreteexit.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe4c"), "name" : "dopeycell.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe4e"), "name" : "extraneousbent.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe52"), "name" : "frigidkiwi.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe53"), "name" : "grotesqueforty.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe55"), "name" : "grouchybaker.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe56"), "name" : "helpfulduet.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe5a"), "name" : "heftystrum.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe62"), "name" : "infatuatedomega.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe6a"), "name" : "neglectedmouse.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe6e"), "name" : "palehoagy.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe77"), "name" : "productivetrue.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe7d"), "name" : "shimmeringtomb.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe7e"), "name" : "spottedbody.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe81"), "name" : "squarenasal.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe87"), "name" : "tediouslat.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe88"), "name" : "unsungsugar.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe8a"), "name" : "urbanfast.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe8c"), "name" : "usefulname.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe97"), "name" : "vengefulpick.local" }
+{ "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe98"), "name" : "zanydip.local" }
+```
+
+
+
+A continuación mostramos las consultas planteadas:
+
+
+
+**Listado de alertas con prioridad New:**  
+
+```bash
+mongos> db.alerts.find({"priority":"New"},{"_id":0, "alert_name":"1", "alert_description":"1", "configuration_item":"1", "state_change_date":"1"})
+
+{ "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "rubberyclock.local", "state_change_date" : "2020-05-23T03:44:37" }
+{ "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "wrytug.local", "state_change_date" : "2020-05-23T03:44:27" }
+{ "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "worstblip.local", "state_change_date" : "2020-05-23T03:44:12" }
+{ "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "lastbuyer.local", "state_change_date" : "2020-05-23T03:44:21" }
+{ "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "rapidhinge.local", "state_change_date" : "2020-05-23T03:44:32" }
+{ "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "productivetrue.local", "state_change_date" : "2020-05-23T03:44:36" }
+{ "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "extraneousbent.local", "state_change_date" : "2020-05-23T03:44:40" }
+{ "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "neglectedmouse.local", "state_change_date" : "2020-05-23T03:44:14" }
+{ "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "givingpromo.local", "state_change_date" : "2020-05-23T03:44:12" }
 ...
 ```
 
 
 
+**Obtener los cambios de estado para el monitor ``Heartbeat Monitor`` para el servidor ``productivetrue.local``**
+
+```bash
+use sysmonitor;
+
+db.configuration_item.aggregate(
+    [   { $match: { "name" : "productivetrue.local" } },
+        { $unwind: "$monitors" },
+        { $match: { "monitors.name" : "Heartbeat Monitor" } },
+        { $replaceRoot: { newRoot: "$monitors" } }
+    ] 
+).pretty()
+```
+
+Resultado:
+
+```bash
+mongo < query1.js   | more
+MongoDB shell version v4.2.8
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("926a7816-be5c-4ae1-9529-e133c944b37a") }
+MongoDB server version: 4.2.8
+switched to db sysmonitor
+{
+        "mon_isntance_id" : 7,
+        "name" : "Heartbeat Monitor",
+        "description" : "This monitor checks if the device is up",
+        "states" : [
+                {
+                        "state_change_date" : "2020-05-17T15:47:00",
+                        "health_State_id" : "Healthy"
+                },
+                {
+                        "state_change_date" : "2020-05-23T03:44:36",
+                        "health_State_id" : "Critical"
+                },
+                {
+                        "state_change_date" : "2020-05-23T04:15:57",
+                        "health_State_id" : "Healthy"
+                }
+        ]
+}
+bye
+```
 
 
-Cambios de estado para un monitor en un servidor:
 
-- CI
-- Nombre de monitor
-- Estado
-- Fecha
-  
-  
+**Obtener datos recolectados por la regla de rendimiento `% Processor Usage` para el CI `productivetrue.local`:**
 
-Obtener datos de regla de rendimiento para un servidor:
+Para esta consulta, utilizaremos el Aggregation Framework, que nos permite de una forma más cómoda devolver una parte de un documento filtrando a varios niveles de profundidad. Esta sería la consulta:
 
-- CI name
-- Regla
-- Fecha
-- Valor
+```javascript
+use sysmonitor;
 
+db.configuration_item.aggregate(
+    [   { $match: { "name" : "productivetrue.local" } },
+        { $unwind: "$performance_rules" },
+        { $match: { "performance_rules.rule_name" : "% Processor usage" } },
+        { $replaceRoot: { newRoot: "$performance_rules" } }
+    ] 
+).pretty()
+```
 
+Y las primeras líneas del resultado:
 
-# 
-
-
-
-
+```bash
+❯ mongo < query1.js    
+MongoDB shell version v4.2.8
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("7997b2b2-bf8c-45cb-b517-c8c83dc80d50") }
+MongoDB server version: 4.2.8
+switched to db sysmonitor
+{
+        "ruleId" : 23,
+        "rule_name" : "% Processor usage",
+        "rule_description" : "% Processor usage",
+        "data" : [
+                {
+                        "value" : 21,
+                        "date" : NumberLong("1590192000000")
+                },
+                {
+                        "value" : 25,
+                        "date" : NumberLong("1590192300000")
+                },
+                {
+                        "value" : 20,
+                        "date" : NumberLong("1590192600000")
+                },
+                {
+                        "value" : 24,
+                        "date" : NumberLong("1590192900000")
+                },
+                {
+                        "value" : 24,
+                        "date" : NumberLong("1590193200000")
+                },
+                ....
+```
 
 
 
