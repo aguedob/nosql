@@ -82,13 +82,13 @@ Esquema de relacional:
 
 # Consultas
 
+A continuación se describen las consultas a realizar:
 
-
-Listado de alertas en estado New:
+Listado de alertas con prioridad New:
 
  - Nombre de alerta
  - Severidad
- - CI
+ - CI afectado
  - Fecha
    
 
@@ -250,11 +250,13 @@ El fichero de Composer es bastante descriptivo: levantará un docker por cada un
 
 Con respecto a los volúmenes montados para cada uno merece la pena comentar que:
 
-	- Todos los contenedores montarán en `/etc/localtime` el volumen del host  `~/nosql/mongo_cluster/localtime`. Esa ruta local no es más que un enlace simbólico al fichero `/etc/localtime` de la máquina host. No se ha montado directamente por restricciones de seguridad de Docker en OSX. Por defecto no permite montar la ruta /etc del host. El objetivo de esta configuración, es que todos los contenedores compartan la configuración horaria con entre ellos y con el host.
-	- Los contenedores dedicados a replicar la configuración y los shards de datos, almacenarán la información en `/nosql/mongo_cluster/configX` y `/nosql/mongo_cluster/dataX` respectivamente, siendo X el número que identifica al nodo en el set. Los contenedores de los routers no necesitan almacenar ningún tipo de información, ya que simplemente se limitarán a rutar las conexiones de los clientes.
-	-  El nodo1 del shard de datos `mongors1n1` monta el volumen del host `~/nosql/source` en `/source` con el fin de tener accesibles los ficheros fuente necesarios para la importación
+ - Todos los contenedores montarán en `/etc/localtime` el volumen del host  `~/nosql/mongo_cluster/localtime`. Esa ruta local no es más que un enlace simbólico al fichero `/etc/localtime` de la máquina host. No se ha montado directamente por restricciones de seguridad de Docker en OSX. Por defecto no permite montar la ruta /etc del host. El objetivo de esta configuración, es que todos los contenedores compartan la configuración horaria con entre ellos y con el host.
 
+ - Los contenedores dedicados a replicar la configuración y los shards de datos, almacenarán la información en `/nosql/mongo_cluster/configX` y `/nosql/mongo_cluster/dataX` respectivamente, siendo X el número que identifica al nodo en el set. Los contenedores de los routers no necesitan almacenar ningún tipo de información, ya que simplemente se limitarán a rutar las conexiones de los clientes.
 
+ -  El nodo1 del shard de datos `mongors1n1` monta el volumen del host `~/nosql/source` en `/source` con el fin de tener accesibles los ficheros fuente necesarios para la importación.
+
+   
 
 Tras ejecutar `docker compose up`, podemos comprobar que se han levantado todos los nodos que conforman la arquitectura:
 
@@ -276,11 +278,7 @@ Inicializamos el set de réplicas de configuración ejecutando el siguiente coma
 ❯ docker exec -it mongocfg1 bash -c "echo 'rs.initiate({_id: \"mongors1conf\",configsvr: true, members: [{ _id : 0, host : \"mongocfg1\" },{ _id : 1, host : \"mongocfg2\" }, { _id : 2, host : \"mongocfg3\" }]})' | mongo"
 ```
 
-Comprobamos con rs.status() que el replica set de configuración está correctamente inicializado.
-
-
-
-Ahora, necesitamos inicializar el shard sobre los nodos mongors1n1, mongors1n2 y mongors1n3.
+Inicializamos el shard de datos sobre los nodos mongors1n1, mongors1n2 y mongors1n3:
 
 ```bash
 ❯ docker exec -it mongors1n1 bash -c "echo 'rs.initiate({_id : \"mongors1\", members: [{ _id : 0, host : \"mongors1n1\" },{ _id : 1, host : \"mongors1n2\" },{ _id : 2, host : \"mongors1n3\" }]})' | mongo"
@@ -473,7 +471,7 @@ Ahora ya podemos proceder a la creación de nuestra base de datos, que llamaremo
 
 
 
-Comprobamos que todo ha funcionado como esperábamos. Efectivamente vemos el shard mongors1 desde uno de los routers, y también ambas bases de datos, la de configuración y la que acabamos de crear, aunque aún no tenemos shard key definida.
+Comprobamos que todo ha funcionado como esperábamos. Efectivamente vemos el shard mongors1 desde uno de los routers, y también ambas bases de datos: la de configuración y la que acabamos de crear, aunque aún no tenemos shard key definida.
 
 ```bash
 ❯ docker exec -it mongos1 bash -c "echo 'sh.status()' | mongo"                       
@@ -516,17 +514,21 @@ bye
 
 
 
+#### Comandos útiles para la gestión de la infrastructura
 
+Despliegue del cluster:
 
-**Arranque y parada del servicio:**
+```
+❯ docker-compose up
+```
 
-Start mongo cluster:
+Arranque del mongo cluster:
 
 ```bash
 ❯ docker start mongos2 mongos1 mongors1n1 mongocfg2 mongors1n3 mongocfg1 mongocfg3 mongors1n2
 ```
 
-Stop mongo cluster:
+Parada mongo cluster:
 
 ```bash
 ❯ docker start mongos2 mongos1 mongors1n1 mongocfg2 mongors1n3 mongocfg1 mongocfg3 mongors1n2
@@ -540,43 +542,25 @@ Stop mongo cluster:
 
 
 
-#### Organización de la información
+### Organización de la información
 
-#### Agregación e importación de datos
+A la hora de diseñar la estructura de los documentos donde almacenaremos la información, es imprescindible analizar cuáles serán las consultas que más se ejecutarán sobre los datos, con el fin de optimizarlas. El sistema de monitorización que se utiliza como ejemplo, existen dos roles principales de uso, que determinan claramente el diseño.
+
+**Rol de operador**: El operador de la infraestructura de TI tiene como principal tarea comprobar de forma periódica la consola de monitorización, donde aparece en primera instancia una vista de las alertas que se encuentra en estado "New". 
+
+**Rol de técnicos de nivel 2 o nivel 3:** Los técnicos de nivel 2 y nivel 3 tan sólo intervendrán cuando el operador les avise que existe un incidente en un CI determinado que no han podido solventar. Dichos técnicos acudirán al sistema de monitorización para obtener más información sobre el estado de salud del CI afectado. Para ello, revisarán qué monitores se encuentran en un estado no saludable, desde cuándo así los últimos datos de rendimiento tomados por el sistema, como por ejemplo el consumo de CPU o memoria.
+
+Una vez identificados los casos de uno más comunes, identificamos claramente que las entidades Configuration_Item y Alert deben ser las que se utilicen para particionar la información.
+
+
+
+### Agregación e importación de datos
 
 Con el fin de importar los datos en mongo, se comienza exportando cada una de las tablas de la base de datos relacional en formato json. Puesto que las relaciones definidas en la base de datos relacional son todas uno a muchos, existe una tabla por cada una de las entidades definidas en el esquema.
 
 
 
-Comenzaremos agregando la tabla **Configuration_Item**, y la tabla **Attributes**:
-
-```bash
-❯ head Configuration_Item.json  
-[
-  {
-    "ci_id": 1,
-    "name": "impossiblejamb.local"
-  },
-  {
-    "ci_id": 2,
-    "name": "rubberyclock.local"
-  },
-  {
-
-❯ head Attributes.json 
-[
-  {
-    "att_name": "ip_address",
-    "att_value": "97.206.53.89",
-    "ci_id": 1
-  },
-  {
-    "att_name": "ip_address",
-    "att_value": "244.218.216.63",
-    "ci_id": 2
-```
-
-Con el siguiente script en Python, se cargan ambos ficheros json y se genera un csv con los datos agregados:
+Con el siguiente script en Python, se cargan ambos los ficheros json con las tablas relacionales y se generan dos ficheros json. El primero contendrá un array con los documentos que representan los CIs, mientras que el segundo corresponderá al listado de documentos de alertas.
 
 ```python
 import pandas as pd
@@ -598,15 +582,20 @@ monitor_instances_df = pd.read_json("../sql/MonitorInstances.json")
 monitor_instance_states_df=pd.read_json("../sql/MonitorInstanceStates.json")
 health_states_df=pd.read_json("../sql/HealthStates.json").set_index('state_id')
 
+# Load alert instances relational data
+alert_instances_df = pd.read_json("../sql/AlertInstances.json")
+alert_states_df = pd.read_json("../sql/AlertStates.json").set_index("state_id")
+
 
 # Merge CI and attributes data into one dataframe
 ci_att_df = pd.merge(ci_df,attributes_df,on="ci_id")
+# We apply dataframe pivot operation to convert attribute values into columns
 cp=ci_att_df.pivot(index="name", columns="att_name")
+# Rename columns
 cp.columns = ['ci_id','ci_id2','ci_id3','device_type','env','ip_address']
 cp.drop(columns=['ci_id2', 'ci_id3'], inplace=True)
 configuration_items=cp.reset_index()
 monitor_instances_df = pd.merge(monitor_instances_df,monitors_df,on="monitor_id")
-
 
 # Merge performance dataframes
 rule_instances_df.rename(columns={'per_ruleId':'ruleId'}, inplace=True)
@@ -614,17 +603,26 @@ rule_instances_df = pd.merge(ci_df,rule_instances_df,on="ci_id")
 rule_instances = pd.merge(rule_instances_df,rules_df,on="ruleId")
 rule_instances.sort_values('ci_id')
 
-documents = []
+# Merge alert dataframes
+alert_instances_df = pd.merge(alert_instances_df,monitor_instances_df,on="mon_isntance_id" )
+alert_instances_df = pd.merge(alert_instances_df,ci_df, on="ci_id")
+alert_instances_df = alert_instances_df.loc[:,['alert_name','alert_description','name_y','state_change_date','priority']]
+alert_instances_df.rename(columns={'name_y':'configuration_item'}, inplace=True)
 
+
+
+configuration_item_documents= []
+
+# Generate configuration_items documents
 for ci_index, configuration_item in configuration_items.iterrows():
     ci = json.loads(configuration_item.to_json())
     
-    # Attach performance rules instances
+    # Attach performance rules instances to CIs
     ci["performance_rules"]=[]
     for rule_index, rule_instance in rule_instances[rule_instances["ci_id"]==ci["ci_id"]].loc[:,'ruleId':'rule_description'].iterrows():
         rule = json.loads(rule_instance.to_json())
         
-        # Attach performance data 
+        # Attach performance data to rules
         data = []
         for perf_data_index, perf_data in perf_data_df[perf_data_df["perf_rule_instId"]==rule["ruleId"]].loc[:,'value':'date'].iterrows():
             d = json.loads(perf_data.to_json())
@@ -632,13 +630,13 @@ for ci_index, configuration_item in configuration_items.iterrows():
         rule["data"]=data
         ci["performance_rules"].append(rule)
         
-    # Attach monitor instances
+    # Attach monitor instances to CIs
     ci["monitors"]= []
     
     for monitor_index, monitor_instance in monitor_instances_df[monitor_instances_df["ci_id"]==ci["ci_id"]].loc[:,['mon_isntance_id','name','description']].iterrows():
         monitor = json.loads(monitor_instance.to_json())
         
-        # Attach health state for each monitor instance
+        # Attach health state changes to monitor instances
         states = []
         
         for monitor_instance_index, monitor_instance_state in monitor_instance_states_df[monitor_instance_states_df["mon_isntance_id"]==monitor["mon_isntance_id"]].loc[:,['state_change_date','health_State_id']].iterrows():
@@ -651,15 +649,33 @@ for ci_index, configuration_item in configuration_items.iterrows():
         
         ci["monitors"].append(monitor)
     
-    documents.append(ci)
-with open('../nosql/cis.json', 'w') as fout:
-    fout.write(json.dumps(documents, indent=4))
+    configuration_item_documents.append(ci)
 
+# Save ci documents
+with open('../nosql/cis.json', 'w') as fout:
+    fout.write(json.dumps(configuration_item_documents, indent=4))    
+
+    
+# Generate alert documents    
+    
+alert_documents = []
+
+for alert_index, alert_row in alert_instances_df.iterrows():
+    alert = json.loads(alert_row.to_json())
+    priority_id=int(alert_row["priority"])-1
+    alert['priority']= alert_states_df.iloc[priority_id].state_name
+    alert_documents.append(alert)
+    
+# Save alerts documents
+with open('../nosql/alerts.json', 'w') as fout:
+    fout.write(json.dumps(alert_documents, indent=4)) 
+    
 ```
 
-El fichero resultante contendrá un array json con un documento por cada Configuration_Item. A continuación se muestra el ejemplo de un CI. Se han reducido los datos de rendimiento para minimizar la salida.
+El fichero `cis.json` contendrá un array json con un documento por cada Configuration_Item. A continuación se muestra parte uno de los documentos contenidos , que representa un CI. Se han reducido los datos de rendimiento para minimizar la salida.
 
 ```json
+[
 {
         "name": "austeredear.local",
         "ci_id": 17,
@@ -680,6 +696,7 @@ El fichero resultante contendrá un array json con un documento por cada Configu
                         "value": 25,
                         "date": 1590192300000
                     },
+                  	....
                     {
                         "value": 21,
                         "date": 1590281700000
@@ -730,12 +747,43 @@ El fichero resultante contendrá un array json con un documento por cada Configu
                 ]
             }
         ]
-    }
+    },
+	  ...
+]
+```
+
+El fichero `alerts.json` contendrá el listado de documentos que representan las alertas. 
+
+```json
+[
+    {
+        "alert_name": "Heartbeat failure",
+        "alert_description": "The device is not sending heartbeats",
+        "configuration_item": "impossiblejamb.local",
+        "state_change_date": "2020-05-23T03:44:08",
+        "priority": "New"
+    },
+    {
+        "alert_name": "Heartbeat failure",
+        "alert_description": "The device is not sending heartbeats",
+        "configuration_item": "rubberyclock.local",
+        "state_change_date": "2020-05-23T03:44:37",
+        "priority": "New"
+    },
+    {
+        "alert_name": "Heartbeat failure",
+        "alert_description": "The device is not sending heartbeats",
+        "configuration_item": "wrytug.local",
+        "state_change_date": "2020-05-23T03:44:27",
+        "priority": "New"
+    },
+  ...
+]
 ```
 
 
 
-Como puede observarse en el fichero de definición de Docker Compose, en el primer nodo de las réplicas hemos exportado un directorio (`/source`) de la máquina host donde se han guardado los ficheros csv generados. Ejecutamos `mongoimport` para importar los documentos del json generado en la colección `configuration_item` :
+Como se menciona anteriormente, en el primer nodo de las réplicas de datos hemos exportado un directorio de la máquina host donde se han guardado los ficheros json generados. Ejecutamos `mongoimport` para importar los documentos del json generado en la colección `configuration_item` :
 
 ```bash
 ❯ docker exec -it mongors1n1 bash -c "mongoimport -d sysmonitor -c configuration_item --jsonArray --type=json /source/cis.json"
@@ -743,6 +791,8 @@ Como puede observarse en el fichero de definición de Docker Compose, en el prim
 2020-06-28T21:24:19.615+0200    100 document(s) imported successfully. 0 document(s) failed to import.
 
 ```
+
+
 
 Comprobamos con un simple `find()` que los documentos se han cargado correctamente. A continuación se muestran tan sólo algunos atributos del CI de nombre ``productivetrue.local``
 
@@ -764,22 +814,77 @@ bye
 
 
 
+Importamos ahora los documentos que representan las alertas:
 
-
-
-
-```
-docker exec -it mongors1n1 bash -c "echo 'use sysmonitor' | mongo"
-
-docker exec -it mongos1 bash -c "echo 'sh.enableSharding(\"sysmonitor\")' | mongo "
-docker exec -it mongors1n1 bash -c "echo 'db.createCollection(\"sysmonitor.configurationItem\")' | mongo "
-docker exec -it mongos1 bash -c "echo 'sh.shardCollection(\"sysmonitor.configurationItem\", {\"shardingField\" : 1})' | mongo "
-
+```bash
+❯ docker exec -it mongors1n1 bash -c "mongoimport -d sysmonitor -c alerts --jsonArray --type=json /source/alerts.json"
+2020-06-29T01:22:21.455+0200    connected to: mongodb://localhost/
+2020-06-29T01:22:21.524+0200    100 document(s) imported successfully. 0 document(s) failed to import.
 ```
 
 
 
+Verificamos el contenido de la colección:
 
+```bash
+❯ docker exec -it mongos1 bash -c "echo -e 'use sysmonitor \n db.alerts.find()' | mongo"
+MongoDB shell version v4.2.8
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("dca0ecbd-529f-451d-b575-09ae920d90d0") }
+MongoDB server version: 4.2.8
+switched to db sysmonitor
+{ "_id" : ObjectId("5ef9262de267e9c00481f20a"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "rubberyclock.local", "state_change_date" : "2020-05-23T03:44:37", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20b"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "wrytug.local", "state_change_date" : "2020-05-23T03:44:27", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20c"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "worstblip.local", "state_change_date" : "2020-05-23T03:44:12", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20d"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "lastbuyer.local", "state_change_date" : "2020-05-23T03:44:21", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20e"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "rapidhinge.local", "state_change_date" : "2020-05-23T03:44:32", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20f"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "productivetrue.local", "state_change_date" : "2020-05-23T03:44:36", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f210"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "extraneousbent.local", "state_change_date" : "2020-05-23T03:44:40", "priority" : "New" }
+...
+
+```
+
+
+
+### Consultas realizadas
+
+Listado de alertas con prioridad New:  
+
+**db.alerts.find({\"priority\":\"New\"},{"alert_name":"1","alert_description":"1","configuration_item":"1","state_change_date":"1"})'**
+
+```bash
+❯ docker exec -it mongos1 bash -c "echo -e 'use sysmonitor \n db.alerts.find({\"priority\":\"New\"},{\"alert_name\":\"1\",\"alert_description\":\"1\",\"configuration_item\":\"1\",\"state_change_date\":\"1\"})' |  mongo"
+MongoDB shell version v4.2.8
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("8f2a7873-d7a2-4a27-92aa-a45eafef6939") }
+MongoDB server version: 4.2.8
+switched to db sysmonitor
+{ "_id" : ObjectId("5ef9262de267e9c00481f20a"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "rubberyclock.local", "state_change_date" : "2020-05-23T03:44:37" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20b"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "wrytug.local", "state_change_date" : "2020-05-23T03:44:27" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20c"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "worstblip.local", "state_change_date" : "2020-05-23T03:44:12" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20d"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "lastbuyer.local", "state_change_date" : "2020-05-23T03:44:21" }
+...
+```
+
+
+
+
+
+Cambios de estado para un monitor en un servidor:
+
+- CI
+- Nombre de monitor
+- Estado
+- Fecha
+  
+  
+
+Obtener datos de regla de rendimiento para un servidor:
+
+- CI name
+- Regla
+- Fecha
+- Valor
 
 
 
@@ -787,7 +892,11 @@ docker exec -it mongos1 bash -c "echo 'sh.shardCollection(\"sysmonitor.configura
 
 
 
-# Implementación en NEO4J
+
+
+
+
+## NEO4J
 
 <!--INTRO DE LOS PASOS QUE SE VAN A REALIZAR Y LA MÁQUINA QUE SE VA A USAR-->
 
