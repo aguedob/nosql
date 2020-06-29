@@ -898,19 +898,19 @@ Obtener datos de regla de rendimiento para un servidor:
 
 ## NEO4J
 
-<!--INTRO DE LOS PASOS QUE SE VAN A REALIZAR Y LA MÁQUINA QUE SE VA A USAR-->
+En este apartado realiza la adaptación del esquema relacional a una base de datos de grafos. Para ello, se hace uso de la máquina NOSQL-029-1, donde se ha instalado NEO4J con la versión 3.3.0. Para realizar tal adaptación, primero se discute cómo adaptar la base de datos relacional a la base de datos de grafos, y más adelante realizar la implantación del modelo en NEO4J. Por último, se comprueba la correcta implementación a partir de las consultas citadas anteriormente.
 
 ### Aproximación de BDR a BDG
 
-En primer lugar, como la base de datos de grafos (BDG) es creada a partir de una base de datos relacional, se recuerda que la base de datos relacional (BDR) es la siguiente:
+En primer lugar, como la base de datos de grafos (BDG) es creada a partir de una base de datos relacional (BDR), se recuerda que la base de datos relacional es la siguiente:
 
 <!--IMAGEN-->
 
 Si se analiza con detenimiento el esquema relacional, se observa que no hay tablas de unión, por lo que cada tabla de la base de datos relacional puede corresponderse con una tabla en la base de datos de grafos.
 
-En la BDR, se observa que existen tablas que asocian un ID con una descripción, como por ejemplo Alert_State o Health_State. Se puede plantear una reducción, de forma que en los nodos del grafo se informen directamente los nombres en vez de un ID asociado a otra tabla. En el caso de grafos, esta reducción es interesante ya que las consultas se realizan sobre caminos (paths), y lo más común es que mediante un único camino no se pueda obtener tal descripción, sobre todo en queries complejas. Sin embargo, en este proyecto no se realizará tal simplificación, de cara a que sea más enriquecedor.
+En la BDR, se observa que existen tablas que asocian un ID con una descripción, como por ejemplo Alert_State o Health_State. Por tanto, se plantea una reducción, de forma que en los nodos del grafo se informen directamente los nombres en vez de un ID asociado a otra tabla. En el caso de grafos, esta reducción es especialmente interesante ya que las consultas se realizan sobre caminos (paths), y lo más común es que mediante un único camino no se pueda obtener tal descripción, sobre todo en queries complejas. 
 
-Una vez decidido que cada tabla se corresponde con un nodo y que las relaciones entre nodos se corresponden con las relaciones entre tablas, se procede a crear la base de datos de grafos.
+Por tanto, una vez se comprende la BDR, se llega a la conclusión de eliminar las tablas Alert_State y Health_State, y en las tablas Alert_Instance y Monitor_Instance_State, uno de sus campos, en vez de ser un ID asociado a otra tabla, será directamente un nombre o descripción.  Para las demás tablas de la BDR, se observa que cada tabla se corresponde con un nodo del grafo, y que las relaciones entre tablas serán relaciones entre los nodos de la BDG.
 
 ### Creación de la base de datos de grafos
 
@@ -928,7 +928,7 @@ Tras esto, se inicia NEO4J:
 
 Una vez iniciado, se puede observar que la base de datos activa se corresponde con la que acabamos de crear:
 
-<!--`IMAGEN BASE DE DATOS`-->
+![baseDeDatos](./images/neo4j/baseDeDatos.png)
 
 ### Creación de los nodos de la BDG
 
@@ -1005,39 +1005,55 @@ Como la lectura de un archivo CSV en NEO4J considera todos los campos como carac
 `n.monitor_id = toInteger(row.monitor_id),`
 `n.mon_isntance_id = toInteger(row.mon_isntance_id);`
 
-*Monitor instance state:* El nodo se llama **Monitor_Instance_State**, y se crea utilizando el siguiente comando:
+*Monitor instance state:* A partir de esta tabla se genera el nodo **Monitor_Instance_State**, que ha de crearse de una forma diferente a los anteriores, ya que debe integrar datos de dos fuentes diferentes. Esto se puede realizar de diferentes formas, pero en este caso la resolución ha sido la siguiente:
 
-`LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Monitor_Instance_State.csv" AS row CREATE (n:Monitor_Instance_State)` 
-`SET` 
-`n.monitor_instance_state_id = toInteger(row.monitor_instance_state_id),`
-`n.state_change_date = row.state_change_date,`
-`n.mon_isntance_id = toInteger(row.mon_isntance_id),`
-`n.health_State_id = toInteger(row.health_State_id);`
-
-*Health state*: El nodo se llama **Health_State**, y se genera mediante:
+- Se genera un nodo llamado **Health_State** con los datos de la tabla Health state:
 
 `LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Health_State.csv" AS row CREATE (n:Health_State)` 
 `SET` 
 `n.state_name = row.state_name,`
 `n.state_id = toInteger(row.state_id);`
 
-*Alert instance*: El nodo se llama **Alert_Instance**, y se produce mediante:
+- Se crea el nodo Monitor_Instance_State, equivalente a la tabla relacional Monitor Instance State, donde se sustituye el ID del estado de salud por la descripción gracias al nodo creado anteriormente:
 
-`LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Alert_Instance.csv" AS row CREATE (n:Alert_Instance)` 
+`LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Monitor_Instance_State.csv" AS row` 
+`MERGE (healthState:Health_State {state_id: toInteger(row.health_State_id)})`
+`CREATE (n:Monitor_Instance_State)` 
 `SET` 
-`n.severity = toInteger(row.severity),`
-`n.alert_State_id = toInteger(row.alert_State_id),`
+`n.monitor_instance_state_id = toInteger(row.monitor_instance_state_id),`
 `n.state_change_date = row.state_change_date,`
-`n.priority = toInteger(row.priority),`
 `n.mon_isntance_id = toInteger(row.mon_isntance_id),`
-`n.alert_instance_id = toInteger(row.alert_instance_id);`
+`n.health_state_name = healthState.state_name;`
 
-*Alert state*: El nodo se llama **Alert_State**, y se origina mediante el siguiente código:
+- Se elimina el nodo Health_State:
+
+`MATCH (n:Health_State) delete n`
+
+*Alert instance*:  A partir de esta tabla se genera el nodo **Alert_Instance**. Este nodo tiene el mismo comportamiento que el anterior, y su creación se ha realizado de la siguiente forma:
+
+- Se genera un nodo llamado **Alert_State**, con los datos de la tabla Alert state:
 
 `LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Alert_State.csv" AS row CREATE (n:Alert_State)` 
 `SET` 
 `n.state_name = row.state_name,`
 `n.state_id = toInteger(row.state_id);`
+
+- Una vez generado el nodo anterior, se utiliza para la creación del nodo Alert_Instance, donde en vez de informar el ID del estado de la alerta, se informa la descripción directamente de la siguiente forma:
+
+`LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Alert_Instance.csv" AS row` 
+`MERGE (alertState:Alert_State {state_id: toInteger(row.alert_State_id)})`
+`CREATE (n:Alert_Instance)` 
+`SET` 
+`n.severity = toInteger(row.severity),`
+`n.alert_state_name = alertState.state_name,`
+`n.state_change_date = row.state_change_date,`
+`n.priority = toInteger(row.priority),`
+`n.mon_isntance_id = toInteger(row.mon_isntance_id),`
+`n.alert_instance_id = toInteger(row.alert_instance_id);`
+
+- Por último, se elimina el nodo Alert_State:
+
+`MATCH (n:Alert_State) delete n`
 
 Tras aplicar estos comandos, se han generado todos los nodos de la base de datos con sus respectivas propiedades.
 
@@ -1105,13 +1121,6 @@ Por tanto, la creación de todas las relaciones ha sido de la siguiente forma:
 `MATCH (alertInstance:Alert_Instance {mon_isntance_id: toInteger(row.mon_isntance_id)})`
 `MERGE (monitorInstance)-[:WITH_ALERT]->(alertInstance);`
 
-*WITH_ALERT_STATE:* Relaciona los nodos **Alert_State** y **Alert_Instance**:
-
-`LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Alert_Instance.csv" AS row`
-`MATCH (alertState:Alert_State {state_id: toInteger(row.alert_State_id)})`
-`MATCH (alertInstance:Alert_Instance {alert_State_id: toInteger(row.alert_State_id)})`
-`MERGE (alertState)-[:WITH_ALERT_STATE]->(alertInstance);`
-
 *WITH_STATE*: Relaciona los nodos **Monitor_Instance** y **Monitor_Instance_State:**
 
 `LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Monitor_Instance_State.csv" AS row`
@@ -1119,16 +1128,9 @@ Por tanto, la creación de todas las relaciones ha sido de la siguiente forma:
 `MATCH (monInstanceState:Monitor_Instance_State {mon_isntance_id: toInteger(row.mon_isntance_id)})`
 `MERGE (monitorInstance)-[:WITH_STATE]->(monInstanceState);`
 
-*WITH_HEALTH_STATE*: Relaciona los nodos **Health_State** y **Monitor_Instance_State:**
-
-`LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Monitor_Instance_State.csv" AS row`
-`MATCH (healthState:Health_State {state_id: toInteger(row.health_State_id)})`
-`MATCH (monInstanceState:Monitor_Instance_State {health_State_id: toInteger(row.health_State_id)})`
-`MERGE (healthState)-[:WITH_HEALTH_STATE]->(monInstanceState);`
-
 Tras generar todas las relaciones entre nodos, la base de datos se puede visualizar utilizando el comando `call db.schema`, y al ejecutarlo se observa el siguiente diagrama:
 
-<!--IMAGEN DEL DIAGRAMA DE GRAFOS--> 
+![esquemaBDG](./images/neo4j/esquemaBDG.png)
 
 ### Creación de restricciones
 
@@ -1162,10 +1164,6 @@ En caso de no añadir nada más al modelo, nada impide que existan dos nodos dif
 
 `CREATE CONSTRAINT ON (n:Alert_Instance) ASSERT n.alert_instance_id IS UNIQUE`
 
-*Alert_State:* La restricción de unicidad se alcanza mediante:
-
-`CREATE CONSTRAINT ON (n:Alert_State) ASSERT n.state_id IS UNIQUE`
-
 Las demás restricciones a crear contienen varios campos a definir como únicos, como es el caso de *Monitor_Parameter*. Para generar una restricción de unicidad con múltiples propiedades, se necesita la versión Enterprise, y tal restricción se realizaría como sigue:
 
 `CREATE CONSTRAINT Monitor_Parameter_Constraint ON (n:Monitor_Parameter) ASSERT (n.monitor_id, n.param_id) IS NODE KEY`
@@ -1178,3 +1176,77 @@ Se han realizado distintas consultas para comprobar el correcto funcionamiento d
 
 Las primeras consultas se realizan para comprobar el número de nodos y relaciones:
 
+![nodos](./images/neo4j/nodos.png)
+
+![relaciones](./images/neo4j/relaciones.png)
+
+
+
+- Se consultan todos los *Configuration item* cuyo tipo de dispositivo es *server*  mediante el siguiente comando:
+
+`MATCH (n)-[:CI_CONTAINS]->(atr:CI_Attributes) where atr.att_name = "device_type" and atr.att_value = "server"  return n.ci_id, n.name`
+
+El resultado de esta consulta en NEO4J es:
+
+![consulta1](./images/neo4j/consulta1.png)
+
+Se comprueba que se ha realizado correctamente la consulta comprobando el resultado con el de la BDR:
+
+![consulta1SQL](./images/neo4j/consulta1SQL.png)
+
+- Se  consultan todos los *Monitor instances* para el servidor *productivetrue.local:*
+
+`MATCH (atr:CI_Attributes)<-[:CI_CONTAINS]-(ci:Conf_Item)-[:CI_MONITORED_BY]->(mi:Monitor_Instance)<-[:MONITOR_INSTANTIATED_BY]-(mon:Monitor) WHERE atr.att_name = "device_type" AND atr.att_value = "server" AND ci.name = "productivetrue.local" return mon.name`
+
+El resultado de esta consulta en NEO4J es:
+
+![consulta2](./images/neo4j/consulta2.png)
+
+Se comprueba que el resultado es correcto realizando la misma consulta en la base de datos relacional:
+
+![consulta2SQL](./images/neo4j/consulta2SQL.png)
+
+
+
+- Se consultan todos los cambios de estado para *Heartbeat monitor* en el servidor *productivetrue.local*:
+
+`MATCH (atr:CI_Attributes)<-[:CI_CONTAINS]-(ci:Conf_Item)-[:CI_MONITORED_BY]->(mi:Monitor_Instance)-[:WITH_STATE]->(mis:Monitor_Instance_State)`
+`match (mi)<-[:MONITOR_INSTANTIATED_BY]-(mon:Monitor)`
+`WHERE atr.att_name = "device_type"   AND ci.name = "productivetrue.local" AND mon.name = "Heartbeat Monitor"`
+`return mon.name, ci.name, mis.state_name, mis.state_change_date`
+
+El resultado de esta consulta en NEO4J es:
+
+![consulta3](./images/neo4j/consulta3.png)
+
+Si se realiza una consulta similar en la BDR, se obtiene el mismo resultado:
+
+![consulta3SQL](./images/neo4j/consulta3SQL.png)
+
+- Se consultan todas las *Performance rule* disponibles para el servidor *productivetrue.local:*
+
+`MATCH (atr:CI_Attributes)<-[:CI_CONTAINS]-(ci:Conf_Item)-[:CI_MEASURED_BY]->(rins:Perf_Rule_Instance)<-[:RULE_EXECUTED_IN]-(prule:Performance_Rule) WHERE ci.name = "productivetrue.local" AND atr.att_name = "device_type" return prule.rule_name`
+
+El resultado de esta consulta en NEO4J es:
+
+![consulta4](./images/neo4j/consulta4.png)
+
+Se comprueba que el resultado es correcto mediante la misma consulta en la BDR:
+
+![consulta4SQL](./images/neo4j/consulta4SQL.png)
+
+- Se obtiene el %Procesador usado para el servidor *productivetrue.local* entre dos fechas:
+
+Respecto a esta consulta, debido a que la versión de NEO4J instalada es la 3.3.0, no incluye el paquete APOC (**A**wesome **P**rocedures **o**n **C**ypher). En este paquete se añade el tratamiento de fechas, por lo que al no estar disponible, no es posible realizar el tratamiento pedido en la consulta. Además, investigando se ha descubierto que NEO4J no contempla la sentencia BETWEEN, por lo que esta consulta no es óptima. Como aproximación, se realiza la siguiente consulta:
+
+Se obtiene el %Procesador usado para el servidor *productivetrue.local* en un día determinado: Para realizar esta consulta, la fecha se trata como un String, y el comando que la ejecuta es:
+
+`MATCH (atr:CI_Attributes)<-[:CI_CONTAINS]-(ci:Conf_Item)-[:CI_MEASURED_BY]->(rins:Perf_Rule_Instance)-[:RULE_INS_CHANGE_LOG]->(pdata:Perf_Rule_Data) MATCH (rins)<-[:RULE_EXECUTED_IN]-(rule:Performance_Rule) WHERE rule.rule_name = "% Processor usage" and atr.att_name = "device_type" and pdata.date CONTAINS  "2020-05-23" return ci.name, rule.rule_name, pdata.date, pdata.value order by pdata.date`
+
+Se puede observar el resultado de la consulta en NEO4J:
+
+![consulta5](./images/neo4j/consulta5.png)
+
+Y además, se comprueba que la consulta se ha realizado correctamente realizando una equivalente en la BDR:
+
+![consulta5SQL](./images/neo4j/consulta5SQL.png)
