@@ -122,13 +122,19 @@ La arquitectura utilizada para la implementacion de la practica es la misma que 
 - Topologia: Un único datacenter
 
 - Cluster de 6 nodos
+  
   - NOSQL-025-1 , NOSQL-025-2, NOSQL-025-3, NOSQL-025-4, NOSQL-025-5 y NOSQL-025-6
 - Nodos Seed
+  
   - NOSQL-025-1
+  
+    
+
+![cassandra-architecture](images/cassandra-architecture.png)
+
+
 
 En esta arquitectura se ha dejado solamente un nodo seed. Los nodos seed tienen un rol especial dentro del cluster, y es que se encargan de la sincronizacion de los nuevos nodos que entran a formar parte del cluster o incluso de nodos que ya formaban parte pero se han apartado bien por mantenimiento o bien por errores y desincronizacion. Idealmente deberia haber mas de uno, pero para el caso practico que nos atañe con uno será suficiente.
-
-IMAGEN Arquitectura
 
 #### Instalacion y configuracion del cluster
 
@@ -160,6 +166,8 @@ En esta fase se ha estudiado los diferentes metodos de carga de datos:
 
 - Generacion de scripts CQL a partir del sistema relacional
 - ETL mediante el uso de Python
+  - Instalacion dsbulk for JSON: https://docs.datastax.com/en/dsbulk/doc/dsbulk/install/dsbulkInstall.html
+  - 
 
 ### Consultas
 
