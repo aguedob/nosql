@@ -2,6 +2,8 @@
 
 
 
+
+
 # NoSQL
 
 Máster en Big Data Analytics. Curso 2019/2020
@@ -80,13 +82,13 @@ Esquema de relacional:
 
 # Consultas
 
+A continuación se describen las consultas a realizar:
 
-
-Listado de alertas en estado New:
+Listado de alertas con prioridad New:
 
  - Nombre de alerta
  - Severidad
- - CI
+ - CI afectado
  - Fecha
    
 
@@ -115,9 +117,9 @@ Obtener datos de regla de rendimiento para un servidor:
 
 
 
-## MongoDB Hola caracola
+## MongoDB
 
-### Infraestructura del cluster mongo
+### Infraestructura y despliegue del cluster mongo
 
 Comenzamos describiendo la arquitectura del cluster de mongo implementada.
 
@@ -134,9 +136,9 @@ Comenzamos describiendo la arquitectura del cluster de mongo implementada.
 
 
 
-## 
-
 Aunque en un sistema de producción nunca se deberían instalar todos los servicios en el mismo nodo, con el fin de simplificar la instalación para el propósito de la práctica, se han utilizado contenedores Docker siguiendo la guía referenciada en este sitio web: https://dzone.com/articles/composing-a-sharded-mongodb-on-docker. 
+
+
 
 Este es el fichero docker-compose.yaml utilizado:
 
@@ -154,6 +156,7 @@ services:
         environment:
             TERM: xterm
         volumes:
+        - ~/nosql/source:/source
         - ~/nosql/mongo_cluster/localtime:/etc/localtime:ro
         - ~/nosql/mongo_cluster/data1:/data/db
     mongors1n2:
@@ -243,12 +246,22 @@ services:
         - ~/nosql/mongo_cluster/localtime:/etc/localtime:ro
 ```
 
+El fichero de Composer es bastante descriptivo: levantará un docker por cada uno de los nodos descritos previamente haciendo uso de la imagen mongo de Docker y arrancándolos con diferentes parámetros en función de su rol en el cluster.
 
+Con respecto a los volúmenes montados para cada uno merece la pena comentar que:
+
+ - Todos los contenedores montarán en `/etc/localtime` el volumen del host  `~/nosql/mongo_cluster/localtime`. Esa ruta local no es más que un enlace simbólico al fichero `/etc/localtime` de la máquina host. No se ha montado directamente por restricciones de seguridad de Docker en OSX. Por defecto no permite montar la ruta /etc del host. El objetivo de esta configuración, es que todos los contenedores compartan la configuración horaria con entre ellos y con el host.
+
+ - Los contenedores dedicados a replicar la configuración y los shards de datos, almacenarán la información en `/nosql/mongo_cluster/configX` y `/nosql/mongo_cluster/dataX` respectivamente, siendo X el número que identifica al nodo en el set. Los contenedores de los routers no necesitan almacenar ningún tipo de información, ya que simplemente se limitarán a rutar las conexiones de los clientes.
+
+ -  El nodo1 del shard de datos `mongors1n1` monta el volumen del host `~/nosql/source` en `/source` con el fin de tener accesibles los ficheros fuente necesarios para la importación.
+
+   
 
 Tras ejecutar `docker compose up`, podemos comprobar que se han levantado todos los nodos que conforman la arquitectura:
 
 ```bash
-ONTAINER ID     IMAGE       COMMAND                  CREATED         STATUS          PORTS                      NAMES
+CONTAINER ID    IMAGE       COMMAND                  CREATED         STATUS          PORTS                      NAMES
 082dd7e0e899    mongo       "docker-entrypoint.s…"   37 minutes ago  Up 15 minutes   0.0.0.0:27020->27017/tcp   mongos2
 6ce9bec6177d    mongo       "docker-entrypoint.s…"   37 minutes ago  Up 15 minutes   0.0.0.0:27019->27017/tcp   mongos1
 1a00b0558347    mongo       "docker-entrypoint.s…"   37 minutes ago  Up 15 minutes   0.0.0.0:27017->27017/tcp   mongors1n1
@@ -259,89 +272,619 @@ f6f2c8c7351a    mongo       "docker-entrypoint.s…"   37 minutes ago  Up 15 min
 68bd894e1157    mongo       "docker-entrypoint.s…"   37 minutes ago  Up 15 minutes   0.0.0.0:27027->27017/tcp   mongors1n2
 ```
 
+Inicializamos el set de réplicas de configuración ejecutando el siguiente comando sobre el contenedor mongocfg1 (uno de los servidores de configuración mongo):
+
+```bash
+❯ docker exec -it mongocfg1 bash -c "echo 'rs.initiate({_id: \"mongors1conf\",configsvr: true, members: [{ _id : 0, host : \"mongocfg1\" },{ _id : 1, host : \"mongocfg2\" }, { _id : 2, host : \"mongocfg3\" }]})' | mongo"
+```
+
+Inicializamos el shard de datos sobre los nodos mongors1n1, mongors1n2 y mongors1n3:
+
+```bash
+❯ docker exec -it mongors1n1 bash -c "echo 'rs.initiate({_id : \"mongors1\", members: [{ _id : 0, host : \"mongors1n1\" },{ _id : 1, host : \"mongors1n2\" },{ _id : 2, host : \"mongors1n3\" }]})' | mongo"
+```
+
+Comprobamos con `rs.status()` que el replica set de configuración está correctamente inicializado (en mongocfg1) y repetimos la operación para verificar el shard para datos en mongors1n1.
+
+Podemos comprobar que ya tenemos un shard de nombre **mongors1** y que los tres nodos que hemos configurado pueden verlo:
+
+```bash
+❯ docker exec -it mongors1n1 bash -c "echo 'rs.status()' | mongo"
+MongoDB shell version v4.2.8
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("a6b894cc-b029-4645-a007-af20afdec868") }
+MongoDB server version: 4.2.8
+{
+        "set" : "mongors1",
+        "date" : ISODate("2020-06-28T10:50:48.423Z"),
+        "myState" : 1,
+        "term" : NumberLong(1),
+        "syncingTo" : "",
+        "syncSourceHost" : "",
+        "syncSourceId" : -1,
+        "heartbeatIntervalMillis" : NumberLong(2000),
+        "majorityVoteCount" : 2,
+        "writeMajorityCount" : 2,
+        "optimes" : {
+                "lastCommittedOpTime" : {
+                        "ts" : Timestamp(1593341442, 1),
+                        "t" : NumberLong(1)
+                },
+                "lastCommittedWallTime" : ISODate("2020-06-28T10:50:42.702Z"),
+                "readConcernMajorityOpTime" : {
+                        "ts" : Timestamp(1593341442, 1),
+                        "t" : NumberLong(1)
+                },
+                "readConcernMajorityWallTime" : ISODate("2020-06-28T10:50:42.702Z"),
+                "appliedOpTime" : {
+                        "ts" : Timestamp(1593341442, 1),
+                        "t" : NumberLong(1)
+                },
+                "durableOpTime" : {
+                        "ts" : Timestamp(1593341442, 1),
+                        "t" : NumberLong(1)
+                },
+                "lastAppliedWallTime" : ISODate("2020-06-28T10:50:42.702Z"),
+                "lastDurableWallTime" : ISODate("2020-06-28T10:50:42.702Z")
+        },
+        "lastStableRecoveryTimestamp" : Timestamp(1593341432, 3),
+        "lastStableCheckpointTimestamp" : Timestamp(1593341432, 3),
+        "electionCandidateMetrics" : {
+                "lastElectionReason" : "electionTimeout",
+                "lastElectionDate" : ISODate("2020-06-28T10:50:32.672Z"),
+                "electionTerm" : NumberLong(1),
+                "lastCommittedOpTimeAtElection" : {
+                        "ts" : Timestamp(0, 0),
+                        "t" : NumberLong(-1)
+                },
+                "lastSeenOpTimeAtElection" : {
+                        "ts" : Timestamp(1593341421, 1),
+                        "t" : NumberLong(-1)
+                },
+                "numVotesNeeded" : 2,
+                "priorityAtElection" : 1,
+                "electionTimeoutMillis" : NumberLong(10000),
+                "numCatchUpOps" : NumberLong(0),
+                "newTermStartDate" : ISODate("2020-06-28T10:50:32.701Z"),
+                "wMajorityWriteAvailabilityDate" : ISODate("2020-06-28T10:50:33.186Z")
+        },
+        "members" : [
+                {
+                        "_id" : 0,
+                        "name" : "mongors1n1:27017",
+                        "health" : 1,
+                        "state" : 1,
+                        "stateStr" : "PRIMARY",
+                        "uptime" : 71,
+                        "optime" : {
+                                "ts" : Timestamp(1593341442, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDate" : ISODate("2020-06-28T10:50:42Z"),
+                        "syncingTo" : "",
+                        "syncSourceHost" : "",
+                        "syncSourceId" : -1,
+                        "infoMessage" : "could not find member to sync from",
+                        "electionTime" : Timestamp(1593341432, 1),
+                        "electionDate" : ISODate("2020-06-28T10:50:32Z"),
+                        "configVersion" : 1,
+                        "self" : true,
+                        "lastHeartbeatMessage" : ""
+                },
+                {
+                        "_id" : 1,
+                        "name" : "mongors1n2:27017",
+                        "health" : 1,
+                        "state" : 2,
+                        "stateStr" : "SECONDARY",
+                        "uptime" : 27,
+                        "optime" : {
+                                "ts" : Timestamp(1593341442, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDurable" : {
+                                "ts" : Timestamp(1593341442, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDate" : ISODate("2020-06-28T10:50:42Z"),
+                        "optimeDurableDate" : ISODate("2020-06-28T10:50:42Z"),
+                        "lastHeartbeat" : ISODate("2020-06-28T10:50:46.686Z"),
+                        "lastHeartbeatRecv" : ISODate("2020-06-28T10:50:47.223Z"),
+                        "pingMs" : NumberLong(0),
+                        "lastHeartbeatMessage" : "",
+                        "syncingTo" : "mongors1n1:27017",
+                        "syncSourceHost" : "mongors1n1:27017",
+                        "syncSourceId" : 0,
+                        "infoMessage" : "",
+                        "configVersion" : 1
+                },
+                {
+                        "_id" : 2,
+                        "name" : "mongors1n3:27017",
+                        "health" : 1,
+                        "state" : 2,
+                        "stateStr" : "SECONDARY",
+                        "uptime" : 27,
+                        "optime" : {
+                                "ts" : Timestamp(1593341442, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDurable" : {
+                                "ts" : Timestamp(1593341442, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDate" : ISODate("2020-06-28T10:50:42Z"),
+                        "optimeDurableDate" : ISODate("2020-06-28T10:50:42Z"),
+                        "lastHeartbeat" : ISODate("2020-06-28T10:50:46.686Z"),
+                        "lastHeartbeatRecv" : ISODate("2020-06-28T10:50:47.223Z"),
+                        "pingMs" : NumberLong(0),
+                        "lastHeartbeatMessage" : "",
+                        "syncingTo" : "mongors1n1:27017",
+                        "syncSourceHost" : "mongors1n1:27017",
+                        "syncSourceId" : 0,
+                        "infoMessage" : "",
+                        "configVersion" : 1
+                }
+        ],
+        "ok" : 1,
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1593341442, 1),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        },
+        "operationTime" : Timestamp(1593341442, 1)
+}
+bye
+```
+
+Ya podemos mostrar el shard mongors1 a los routers:
+
+```bash
+❯ docker exec -it mongos1 bash -c "echo 'sh.addShard(\"mongors1/mongors1n1\")' | mongo "
+MongoDB shell version v4.2.8
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("d9025c60-eba3-4d3d-929a-e666794be22f") }
+MongoDB server version: 4.2.8
+{
+        "shardAdded" : "mongors1",
+        "ok" : 1,
+        "operationTime" : Timestamp(1593341557, 7),
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1593341557, 7),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        }
+}
+bye
+```
+
+Ahora ya podemos proceder a la creación de nuestra base de datos, que llamaremos `sysmonitor`. Tras la creación habilitaremos el shardening:
+
+```bash
+❯ docker exec -it mongors1n1 bash -c "echo 'use sysmonitor' | mongo" 
+❯ docker exec -it mongos1 bash -c "echo 'sh.enableSharding(\"sysmonitor\")' | mongo "
+```
 
 
-**Arranque y parada del servicio:**
 
-Start mongo cluster:
+Comprobamos que todo ha funcionado como esperábamos. Efectivamente vemos el shard mongors1 desde uno de los routers, y también ambas bases de datos: la de configuración y la que acabamos de crear, aunque aún no tenemos shard key definida.
 
-``docker start mongos2 mongos1 mongors1n1 mongocfg2 mongors1n3 mongocfg1 mongocfg3 mongors1n2``
+```bash
+❯ docker exec -it mongos1 bash -c "echo 'sh.status()' | mongo"                       
+MongoDB shell version v4.2.8
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("65bdb589-bbda-43cf-a30c-6c654716242c") }
+MongoDB server version: 4.2.8
+--- Sharding Status --- 
+  sharding version: {
+        "_id" : 1,
+        "minCompatibleVersion" : 5,
+        "currentVersion" : 6,
+        "clusterId" : ObjectId("5ef875eac5e6ff49bccb2a3f")
+  }
+  shards:
+        {  "_id" : "mongors1",  "host" : "mongors1/mongors1n1:27017,mongors1n2:27017,mongors1n3:27017",  "state" : 1 }
+  active mongoses:
+        "4.2.8" : 2
+  autosplit:
+        Currently enabled: yes
+  balancer:
+        Currently enabled:  yes
+        Currently running:  no
+        Failed balancer rounds in last 5 attempts:  0
+        Migration Results for the last 24 hours: 
+                No recent migrations
+  databases:
+        {  "_id" : "config",  "primary" : "config",  "partitioned" : true }
+                config.system.sessions
+                        shard key: { "_id" : 1 }
+                        unique: false
+                        balancing: true
+                        chunks:
+                                mongors1        1024
+                        too many chunks to print, use verbose if you want to force print
+        {  "_id" : "sysmonitor",  "primary" : "mongors1",  "partitioned" : true,  "version" : {  "uuid" : UUID("71365c44-3606-4b6f-8c16-de20e49217ab"),  "lastMod" : 1 } }
 
-Stop mongo cluster:
-
-``docker stop docker start mongos2 mongos1 mongors1n1 mongocfg2 mongors1n3 mongocfg1 mongocfg3 mongors1n2``
-
+bye
+```
 
 
-#### Agregación e importación de datos
+
+#### Comandos útiles para la gestión de la infrastructura
+
+Despliegue del cluster:
+
+```
+❯ docker-compose up
+```
+
+Arranque del mongo cluster:
+
+```bash
+❯ docker start mongos2 mongos1 mongors1n1 mongocfg2 mongors1n3 mongocfg1 mongocfg3 mongors1n2
+```
+
+Parada mongo cluster:
+
+```bash
+❯ docker start mongos2 mongos1 mongors1n1 mongocfg2 mongors1n3 mongocfg1 mongocfg3 mongors1n2
+```
+
+<u>Borrar TODO el cluster de mongo</u>:
+
+```bash
+❯ docker rm mongos2 mongos1 mongors1n1 mongocfg2 mongors1n3 mongocfg1 mongocfg3 mongors1n2
+```
+
+
+
+### Organización de la información
+
+A la hora de diseñar la estructura de los documentos donde almacenaremos la información, es imprescindible analizar cuáles serán las consultas que más se ejecutarán sobre los datos, con el fin de optimizarlas. El sistema de monitorización que se utiliza como ejemplo, existen dos roles principales de uso, que determinan claramente el diseño.
+
+**Rol de operador**: El operador de la infraestructura de TI tiene como principal tarea comprobar de forma periódica la consola de monitorización, donde aparece en primera instancia una vista de las alertas que se encuentra en estado "New". 
+
+**Rol de técnicos de nivel 2 o nivel 3:** Los técnicos de nivel 2 y nivel 3 tan sólo intervendrán cuando el operador les avise que existe un incidente en un CI determinado que no han podido solventar. Dichos técnicos acudirán al sistema de monitorización para obtener más información sobre el estado de salud del CI afectado. Para ello, revisarán qué monitores se encuentran en un estado no saludable, desde cuándo así los últimos datos de rendimiento tomados por el sistema, como por ejemplo el consumo de CPU o memoria.
+
+Una vez identificados los casos de uno más comunes, identificamos claramente que las entidades Configuration_Item y Alert deben ser las que se utilicen para particionar la información.
+
+
+
+### Agregación e importación de datos
 
 Con el fin de importar los datos en mongo, se comienza exportando cada una de las tablas de la base de datos relacional en formato json. Puesto que las relaciones definidas en la base de datos relacional son todas uno a muchos, existe una tabla por cada una de las entidades definidas en el esquema.
 
 
 
-Comenzaremos agregando la tabla **Configuration_Item**, y la tabla **Attributes**:
-
-```bash
-❯ head Configuration_Item.json  
-[
-  {
-    "ci_id": 1,
-    "name": "impossiblejamb.local"
-  },
-  {
-    "ci_id": 2,
-    "name": "rubberyclock.local"
-  },
-  {
-
-❯ head Attributes.json 
-[
-  {
-    "att_name": "ip_address",
-    "att_value": "97.206.53.89",
-    "ci_id": 1
-  },
-  {
-    "att_name": "ip_address",
-    "att_value": "244.218.216.63",
-    "ci_id": 2
-```
-
-Con el siguiente script en Python, se cargan ambos ficheros json y se genera un csv con los datos agregados:
+Con el siguiente script en Python, se cargan ambos los ficheros json con las tablas relacionales y se generan dos ficheros json. El primero contendrá un array con los documentos que representan los CIs, mientras que el segundo corresponderá al listado de documentos de alertas.
 
 ```python
 import pandas as pd
-ci_df = pd.read_json("Configuration_Item.json")
-attributes_df = pd.read_json("Attribute.json")
+import json
+import numpy as np    
+
+# Load basic CI relational data
+ci_df = pd.read_json("../sql/Configuration_Item.json")
+attributes_df = pd.read_json("../sql/Attribute.json")
+
+# Load performance relational data
+rules_df = pd.read_json("../sql/perfRules.json")
+rule_instances_df = pd.read_json("../sql/perfRuleInstances.json")
+perf_data_df = pd.read_json("../sql/perfRuleData.json")
+
+# Load monitors relational data
+monitors_df = pd.read_json("../sql/Monitors.json")
+monitor_instances_df = pd.read_json("../sql/MonitorInstances.json")
+monitor_instance_states_df=pd.read_json("../sql/MonitorInstanceStates.json")
+health_states_df=pd.read_json("../sql/HealthStates.json").set_index('state_id')
+
+# Load alert instances relational data
+alert_instances_df = pd.read_json("../sql/AlertInstances.json")
+alert_states_df = pd.read_json("../sql/AlertStates.json").set_index("state_id")
+
+
+# Merge CI and attributes data into one dataframe
 ci_att_df = pd.merge(ci_df,attributes_df,on="ci_id")
+# We apply dataframe pivot operation to convert attribute values into columns
 cp=ci_att_df.pivot(index="name", columns="att_name")
+# Rename columns
 cp.columns = ['ci_id','ci_id2','ci_id3','device_type','env','ip_address']
 cp.drop(columns=['ci_id2', 'ci_id3'], inplace=True)
-cp=cp.reset_index()
-cp.set_index('ci_id',inplace=True)
-cp.to_csv("CI_Attribute.csv")
+configuration_items=cp.reset_index()
+monitor_instances_df = pd.merge(monitor_instances_df,monitors_df,on="monitor_id")
+
+# Merge performance dataframes
+rule_instances_df.rename(columns={'per_ruleId':'ruleId'}, inplace=True)
+rule_instances_df = pd.merge(ci_df,rule_instances_df,on="ci_id")
+rule_instances = pd.merge(rule_instances_df,rules_df,on="ruleId")
+rule_instances.sort_values('ci_id')
+
+# Merge alert dataframes
+alert_instances_df = pd.merge(alert_instances_df,monitor_instances_df,on="mon_isntance_id" )
+alert_instances_df = pd.merge(alert_instances_df,ci_df, on="ci_id")
+alert_instances_df = alert_instances_df.loc[:,['alert_name','alert_description','name_y','state_change_date','priority']]
+alert_instances_df.rename(columns={'name_y':'configuration_item'}, inplace=True)
+
+
+
+configuration_item_documents= []
+
+# Generate configuration_items documents
+for ci_index, configuration_item in configuration_items.iterrows():
+    ci = json.loads(configuration_item.to_json())
+    
+    # Attach performance rules instances to CIs
+    ci["performance_rules"]=[]
+    for rule_index, rule_instance in rule_instances[rule_instances["ci_id"]==ci["ci_id"]].loc[:,'ruleId':'rule_description'].iterrows():
+        rule = json.loads(rule_instance.to_json())
+        
+        # Attach performance data to rules
+        data = []
+        for perf_data_index, perf_data in perf_data_df[perf_data_df["perf_rule_instId"]==rule["ruleId"]].loc[:,'value':'date'].iterrows():
+            d = json.loads(perf_data.to_json())
+            data.append(d)
+        rule["data"]=data
+        ci["performance_rules"].append(rule)
+        
+    # Attach monitor instances to CIs
+    ci["monitors"]= []
+    
+    for monitor_index, monitor_instance in monitor_instances_df[monitor_instances_df["ci_id"]==ci["ci_id"]].loc[:,['mon_isntance_id','name','description']].iterrows():
+        monitor = json.loads(monitor_instance.to_json())
+        
+        # Attach health state changes to monitor instances
+        states = []
+        
+        for monitor_instance_index, monitor_instance_state in monitor_instance_states_df[monitor_instance_states_df["mon_isntance_id"]==monitor["mon_isntance_id"]].loc[:,['state_change_date','health_State_id']].iterrows():
+            state_id=int(monitor_instance_state["health_State_id"])-1
+            monitor_instance_state["health_State_id"] = health_states_df.iloc[state_id].state_name
+            currentState = json.loads(monitor_instance_state.to_json())
+            states.append(currentState)
+        
+        monitor["states"]=states
+        
+        ci["monitors"].append(monitor)
+    
+    configuration_item_documents.append(ci)
+
+# Save ci documents
+with open('../nosql/cis.json', 'w') as fout:
+    fout.write(json.dumps(configuration_item_documents, indent=4))    
+
+    
+# Generate alert documents    
+    
+alert_documents = []
+
+for alert_index, alert_row in alert_instances_df.iterrows():
+    alert = json.loads(alert_row.to_json())
+    priority_id=int(alert_row["priority"])-1
+    alert['priority']= alert_states_df.iloc[priority_id].state_name
+    alert_documents.append(alert)
+    
+# Save alerts documents
+with open('../nosql/alerts.json', 'w') as fout:
+    fout.write(json.dumps(alert_documents, indent=4)) 
+    
 ```
 
-El fichero resultante tiene este formato:
+El fichero `cis.json` contendrá un array json con un documento por cada Configuration_Item. A continuación se muestra parte uno de los documentos contenidos , que representa un CI. Se han reducido los datos de rendimiento para minimizar la salida.
 
-```csv
-ci_id,name,device_type,env,ip_address
-79,admirablerole.local,ip_phone,stg,149.187.243.207
-23,adorablehitch.local,switch,stg,34.89.1.73
-31,alertcall.local,router,stg,206.67.228.180
-26,angrylink.local,router,dev,14.34.207.247
-17,austeredear.local,server,dev,185.206.227.93
-68,backelect.local,ip_phone,dev,137.45.34.212
-59,black-and-whiteplate.local,ip_phone,dev,225.223.144.179
-78,bonyazure.local,router,stg,30.53.59.151
-67,brilliantshoes.local,switch,stg,17.84.7.54
+```json
+[
+{
+        "name": "austeredear.local",
+        "ci_id": 17,
+        "device_type": "server",
+        "env": "dev",
+        "ip_address": "185.206.227.93",
+        "performance_rules": [
+            {
+                "ruleId": 23,
+                "rule_name": "% Processor usage",
+                "rule_description": "% Processor usage",
+                "data": [
+                    {
+                        "value": 21,
+                        "date": 1590192000000
+                    },
+                    {
+                        "value": 25,
+                        "date": 1590192300000
+                    },
+                  	....
+                    {
+                        "value": 21,
+                        "date": 1590281700000
+                    }
+                ]
+            }
+        ],
+        "monitors": [
+            {
+                "mon_isntance_id": 17,
+                "name": "Heartbeat Monitor",
+                "description": "This monitor checks if the device is up",
+                "states": [
+                    {
+                        "state_change_date": "2020-05-17T03:24:00",
+                        "health_State_id": "Healthy"
+                    },
+                    {
+                        "state_change_date": "2020-05-23T03:44:04",
+                        "health_State_id": "Critical"
+                    },
+                    {
+                        "state_change_date": "2020-05-23T04:15:59",
+                        "health_State_id": "Healthy"
+                    }
+                ]
+            },
+            {
+                "mon_isntance_id": 251,
+                "name": "Process Ssh",
+                "description": "This process monitor watches for the Ssh Daemon process to be running.",
+                "states": [
+                    {
+                        "state_change_date": "2020-05-17T15:25:00",
+                        "health_State_id": "Healthy"
+                    }
+                ]
+            },
+            {
+                "mon_isntance_id": 252,
+                "name": "Operating System Available MBytes",
+                "description": "Available megabytes of memory is low. System performance may be adversely affected.  The available megabytes memory value represents the sum of MemFree, Buffers and Cached as reported by the operating system.",
+                "states": [
+                    {
+                        "state_change_date": "2020-05-17T02:51:00",
+                        "health_State_id": "Healthy"
+                    }
+                ]
+            }
+        ]
+    },
+	  ...
+]
+```
+
+El fichero `alerts.json` contendrá el listado de documentos que representan las alertas. 
+
+```json
+[
+    {
+        "alert_name": "Heartbeat failure",
+        "alert_description": "The device is not sending heartbeats",
+        "configuration_item": "impossiblejamb.local",
+        "state_change_date": "2020-05-23T03:44:08",
+        "priority": "New"
+    },
+    {
+        "alert_name": "Heartbeat failure",
+        "alert_description": "The device is not sending heartbeats",
+        "configuration_item": "rubberyclock.local",
+        "state_change_date": "2020-05-23T03:44:37",
+        "priority": "New"
+    },
+    {
+        "alert_name": "Heartbeat failure",
+        "alert_description": "The device is not sending heartbeats",
+        "configuration_item": "wrytug.local",
+        "state_change_date": "2020-05-23T03:44:27",
+        "priority": "New"
+    },
+  ...
+]
+```
+
+
+
+Como se menciona anteriormente, en el primer nodo de las réplicas de datos hemos exportado un directorio de la máquina host donde se han guardado los ficheros json generados. Ejecutamos `mongoimport` para importar los documentos del json generado en la colección `configuration_item` :
+
+```bash
+❯ docker exec -it mongors1n1 bash -c "mongoimport -d sysmonitor -c configuration_item --jsonArray --type=json /source/cis.json"
+2020-06-28T21:24:19.481+0200    connected to: mongodb://localhost/
+2020-06-28T21:24:19.615+0200    100 document(s) imported successfully. 0 document(s) failed to import.
+
+```
+
+
+
+Comprobamos con un simple `find()` que los documentos se han cargado correctamente. A continuación se muestran tan sólo algunos atributos del CI de nombre ``productivetrue.local``
+
+```bash
+❯ docker exec -it mongos1 bash -c "echo -e 'use sysmonitor \n db.configuration_item.find({ \"name\":\"productivetrue.local\"}, { name: 1, ip_address: 1, env: 1 } ).pretty()' | mongo"             
+MongoDB shell version v4.2.8
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("f1632408-b566-4d1f-a491-84b73c8f4344") }
+MongoDB server version: 4.2.8
+switched to db sysmonitor
+{
+        "_id" : ObjectId("5ef8ee639f3bb1c5cbbbbe77"),
+        "name" : "productivetrue.local",
+        "env" : "dev",
+        "ip_address" : "6.2.24.168"
+}
+bye
+```
+
+
+
+Importamos ahora los documentos que representan las alertas:
+
+```bash
+❯ docker exec -it mongors1n1 bash -c "mongoimport -d sysmonitor -c alerts --jsonArray --type=json /source/alerts.json"
+2020-06-29T01:22:21.455+0200    connected to: mongodb://localhost/
+2020-06-29T01:22:21.524+0200    100 document(s) imported successfully. 0 document(s) failed to import.
+```
+
+
+
+Verificamos el contenido de la colección:
+
+```bash
+❯ docker exec -it mongos1 bash -c "echo -e 'use sysmonitor \n db.alerts.find()' | mongo"
+MongoDB shell version v4.2.8
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("dca0ecbd-529f-451d-b575-09ae920d90d0") }
+MongoDB server version: 4.2.8
+switched to db sysmonitor
+{ "_id" : ObjectId("5ef9262de267e9c00481f20a"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "rubberyclock.local", "state_change_date" : "2020-05-23T03:44:37", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20b"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "wrytug.local", "state_change_date" : "2020-05-23T03:44:27", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20c"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "worstblip.local", "state_change_date" : "2020-05-23T03:44:12", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20d"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "lastbuyer.local", "state_change_date" : "2020-05-23T03:44:21", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20e"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "rapidhinge.local", "state_change_date" : "2020-05-23T03:44:32", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20f"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "productivetrue.local", "state_change_date" : "2020-05-23T03:44:36", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f210"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "extraneousbent.local", "state_change_date" : "2020-05-23T03:44:40", "priority" : "New" }
+...
+
+```
+
+
+
+### Consultas realizadas
+
+Listado de alertas con prioridad New:  
+
+**db.alerts.find({\"priority\":\"New\"},{"alert_name":"1","alert_description":"1","configuration_item":"1","state_change_date":"1"})'**
+
+```bash
+❯ docker exec -it mongos1 bash -c "echo -e 'use sysmonitor \n db.alerts.find({\"priority\":\"New\"},{\"alert_name\":\"1\",\"alert_description\":\"1\",\"configuration_item\":\"1\",\"state_change_date\":\"1\"})' |  mongo"
+MongoDB shell version v4.2.8
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("8f2a7873-d7a2-4a27-92aa-a45eafef6939") }
+MongoDB server version: 4.2.8
+switched to db sysmonitor
+{ "_id" : ObjectId("5ef9262de267e9c00481f20a"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "rubberyclock.local", "state_change_date" : "2020-05-23T03:44:37" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20b"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "wrytug.local", "state_change_date" : "2020-05-23T03:44:27" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20c"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "worstblip.local", "state_change_date" : "2020-05-23T03:44:12" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20d"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "lastbuyer.local", "state_change_date" : "2020-05-23T03:44:21" }
+...
 ```
 
 
 
 
 
+Cambios de estado para un monitor en un servidor:
 
+- CI
+- Nombre de monitor
+- Estado
+- Fecha
+  
+  
+
+Obtener datos de regla de rendimiento para un servidor:
+
+- CI name
+- Regla
+- Fecha
+- Valor
 
 
 
@@ -349,7 +892,11 @@ ci_id,name,device_type,env,ip_address
 
 
 
-# Implementación en NEO4J
+
+
+
+
+## NEO4J
 
 <!--INTRO DE LOS PASOS QUE SE VAN A REALIZAR Y LA MÁQUINA QUE SE VA A USAR-->
 

@@ -1,0 +1,350 @@
+[
+  {
+    "param_id": 1,
+    "name": "interval",
+    "value": 600,
+    "monitor_id": 1
+  },
+  {
+    "param_id": 2,
+    "name": "interval",
+    "value": 900,
+    "monitor_id": 2
+  },
+  {
+    "param_id": 3,
+    "name": "interval",
+    "value": 600,
+    "monitor_id": 3
+  },
+  {
+    "param_id": 4,
+    "name": "interval",
+    "value": 900,
+    "monitor_id": 4
+  },
+  {
+    "param_id": 5,
+    "name": "interval",
+    "value": 300,
+    "monitor_id": 5
+  },
+  {
+    "param_id": 6,
+    "name": "interval",
+    "value": 600,
+    "monitor_id": 6
+  },
+  {
+    "param_id": 7,
+    "name": "interval",
+    "value": 300,
+    "monitor_id": 7
+  },
+  {
+    "param_id": 8,
+    "name": "interval",
+    "value": 600,
+    "monitor_id": 8
+  },
+  {
+    "param_id": 9,
+    "name": "interval",
+    "value": 300,
+    "monitor_id": 9
+  },
+  {
+    "param_id": 10,
+    "name": "interval",
+    "value": 900,
+    "monitor_id": 10
+  },
+  {
+    "param_id": 11,
+    "name": "interval",
+    "value": 900,
+    "monitor_id": 11
+  },
+  {
+    "param_id": 12,
+    "name": "interval",
+    "value": 300,
+    "monitor_id": 12
+  },
+  {
+    "param_id": 13,
+    "name": "interval",
+    "value": 600,
+    "monitor_id": 13
+  },
+  {
+    "param_id": 14,
+    "name": "interval",
+    "value": 60,
+    "monitor_id": 14
+  },
+  {
+    "param_id": 15,
+    "name": "interval",
+    "value": 900,
+    "monitor_id": 15
+  },
+  {
+    "param_id": 16,
+    "name": "interval",
+    "value": 900,
+    "monitor_id": 16
+  },
+  {
+    "param_id": 17,
+    "name": "interval",
+    "value": 600,
+    "monitor_id": 17
+  },
+  {
+    "param_id": 18,
+    "name": "interval",
+    "value": 60,
+    "monitor_id": 18
+  },
+  {
+    "param_id": 19,
+    "name": "interval",
+    "value": 900,
+    "monitor_id": 19
+  },
+  {
+    "param_id": 20,
+    "name": "interval",
+    "value": 600,
+    "monitor_id": 20
+  },
+  {
+    "param_id": 21,
+    "name": "interval",
+    "value": 300,
+    "monitor_id": 21
+  },
+  {
+    "param_id": 22,
+    "name": "interval",
+    "value": 600,
+    "monitor_id": 22
+  },
+  {
+    "param_id": 23,
+    "name": "interval",
+    "value": 600,
+    "monitor_id": 23
+  },
+  {
+    "param_id": 24,
+    "name": "interval",
+    "value": 300,
+    "monitor_id": 24
+  },
+  {
+    "param_id": 25,
+    "name": "interval",
+    "value": 900,
+    "monitor_id": 25
+  },
+  {
+    "param_id": 26,
+    "name": "interval",
+    "value": 60,
+    "monitor_id": 26
+  },
+  {
+    "param_id": 27,
+    "name": "interval",
+    "value": 60,
+    "monitor_id": 27
+  },
+  {
+    "param_id": 28,
+    "name": "interval",
+    "value": 900,
+    "monitor_id": 28
+  },
+  {
+    "param_id": 29,
+    "name": "interval",
+    "value": 300,
+    "monitor_id": 29
+  },
+  {
+    "param_id": 30,
+    "name": "interval",
+    "value": 60,
+    "monitor_id": 30
+  },
+  {
+    "param_id": 31,
+    "name": "warning_threshold",
+    "value": 55,
+    "monitor_id": 4
+  },
+  {
+    "param_id": 32,
+    "name": "warning_threshold",
+    "value": 75,
+    "monitor_id": 5
+  },
+  {
+    "param_id": 33,
+    "name": "warning_threshold",
+    "value": 60,
+    "monitor_id": 9
+  },
+  {
+    "param_id": 34,
+    "name": "warning_threshold",
+    "value": 75,
+    "monitor_id": 10
+  },
+  {
+    "param_id": 35,
+    "name": "warning_threshold",
+    "value": 60,
+    "monitor_id": 11
+  },
+  {
+    "param_id": 36,
+    "name": "warning_threshold",
+    "value": 60,
+    "monitor_id": 28
+  },
+  {
+    "param_id": 37,
+    "name": "warning_threshold",
+    "value": 75,
+    "monitor_id": 29
+  },
+  {
+    "param_id": 38,
+    "name": "warning_threshold",
+    "value": 75,
+    "monitor_id": 30
+  },
+  {
+    "param_id": 39,
+    "name": "critical_threshold",
+    "value": 95,
+    "monitor_id": 4
+  },
+  {
+    "param_id": 40,
+    "name": "critical_threshold",
+    "value": 90,
+    "monitor_id": 5
+  },
+  {
+    "param_id": 41,
+    "name": "critical_threshold",
+    "value": 95,
+    "monitor_id": 9
+  },
+  {
+    "param_id": 42,
+    "name": "critical_threshold",
+    "value": 90,
+    "monitor_id": 10
+  },
+  {
+    "param_id": 43,
+    "name": "critical_threshold",
+    "value": 85,
+    "monitor_id": 11
+  },
+  {
+    "param_id": 44,
+    "name": "critical_threshold",
+    "value": 80,
+    "monitor_id": 28
+  },
+  {
+    "param_id": 45,
+    "name": "critical_threshold",
+    "value": 85,
+    "monitor_id": 29
+  },
+  {
+    "param_id": 46,
+    "name": "critical_threshold",
+    "value": 85,
+    "monitor_id": 30
+  },
+  {
+    "param_id": 47,
+    "name": "consecutive_samples",
+    "value": 3,
+    "monitor_id": 4
+  },
+  {
+    "param_id": 48,
+    "name": "consecutive_samples",
+    "value": 4,
+    "monitor_id": 24
+  },
+  {
+    "param_id": 49,
+    "name": "consecutive_samples",
+    "value": 4,
+    "monitor_id": 11
+  },
+  {
+    "param_id": 50,
+    "name": "consecutive_samples",
+    "value": 5,
+    "monitor_id": 1
+  },
+  {
+    "param_id": 51,
+    "name": "consecutive_samples",
+    "value": 4,
+    "monitor_id": 2
+  },
+  {
+    "param_id": 52,
+    "name": "consecutive_samples",
+    "value": 2,
+    "monitor_id": 11
+  },
+  {
+    "param_id": 53,
+    "name": "consecutive_samples",
+    "value": 3,
+    "monitor_id": 5
+  },
+  {
+    "param_id": 54,
+    "name": "consecutive_samples",
+    "value": 3,
+    "monitor_id": 30
+  },
+  {
+    "param_id": 55,
+    "name": "consecutive_samples",
+    "value": 4,
+    "monitor_id": 13
+  },
+  {
+    "param_id": 56,
+    "name": "consecutive_samples",
+    "value": 2,
+    "monitor_id": 29
+  },
+  {
+    "param_id": 57,
+    "name": "consecutive_samples",
+    "value": 3,
+    "monitor_id": 9
+  },
+  {
+    "param_id": 58,
+    "name": "consecutive_samples",
+    "value": 4,
+    "monitor_id": 6
+  }
+]
