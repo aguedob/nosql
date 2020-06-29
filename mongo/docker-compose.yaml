@@ -86,6 +86,7 @@ services:
         - "27017"
         volumes:
         - ~/nosql/mongo_cluster/localtime:/etc/localtime:ro
+        - ~/nosql:/source
     mongos2:
         container_name: mongos2
         image: mongo
