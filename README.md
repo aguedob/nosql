@@ -82,13 +82,13 @@ Esquema de relacional:
 
 # Consultas
 
+A continuación se describen las consultas a realizar:
 
-
-Listado de alertas en estado New:
+Listado de alertas con prioridad New:
 
  - Nombre de alerta
  - Severidad
- - CI
+ - CI afectado
  - Fecha
    
 
@@ -316,11 +316,13 @@ El fichero de Composer es bastante descriptivo: levantará un docker por cada un
 
 Con respecto a los volúmenes montados para cada uno merece la pena comentar que:
 
-	- Todos los contenedores montarán en `/etc/localtime` el volumen del host  `~/nosql/mongo_cluster/localtime`. Esa ruta local no es más que un enlace simbólico al fichero `/etc/localtime` de la máquina host. No se ha montado directamente por restricciones de seguridad de Docker en OSX. Por defecto no permite montar la ruta /etc del host. El objetivo de esta configuración, es que todos los contenedores compartan la configuración horaria con entre ellos y con el host.
-	- Los contenedores dedicados a replicar la configuración y los shards de datos, almacenarán la información en `/nosql/mongo_cluster/configX` y `/nosql/mongo_cluster/dataX` respectivamente, siendo X el número que identifica al nodo en el set. Los contenedores de los routers no necesitan almacenar ningún tipo de información, ya que simplemente se limitarán a rutar las conexiones de los clientes.
-	-  El nodo1 del shard de datos `mongors1n1` monta el volumen del host `~/nosql/source` en `/source` con el fin de tener accesibles los ficheros fuente necesarios para la importación
+ - Todos los contenedores montarán en `/etc/localtime` el volumen del host  `~/nosql/mongo_cluster/localtime`. Esa ruta local no es más que un enlace simbólico al fichero `/etc/localtime` de la máquina host. No se ha montado directamente por restricciones de seguridad de Docker en OSX. Por defecto no permite montar la ruta /etc del host. El objetivo de esta configuración, es que todos los contenedores compartan la configuración horaria con entre ellos y con el host.
 
+ - Los contenedores dedicados a replicar la configuración y los shards de datos, almacenarán la información en `/nosql/mongo_cluster/configX` y `/nosql/mongo_cluster/dataX` respectivamente, siendo X el número que identifica al nodo en el set. Los contenedores de los routers no necesitan almacenar ningún tipo de información, ya que simplemente se limitarán a rutar las conexiones de los clientes.
 
+ -  El nodo1 del shard de datos `mongors1n1` monta el volumen del host `~/nosql/source` en `/source` con el fin de tener accesibles los ficheros fuente necesarios para la importación.
+
+   
 
 Tras ejecutar `docker compose up`, podemos comprobar que se han levantado todos los nodos que conforman la arquitectura:
 
@@ -342,11 +344,7 @@ Inicializamos el set de réplicas de configuración ejecutando el siguiente coma
 ❯ docker exec -it mongocfg1 bash -c "echo 'rs.initiate({_id: \"mongors1conf\",configsvr: true, members: [{ _id : 0, host : \"mongocfg1\" },{ _id : 1, host : \"mongocfg2\" }, { _id : 2, host : \"mongocfg3\" }]})' | mongo"
 ```
 
-Comprobamos con rs.status() que el replica set de configuración está correctamente inicializado.
-
-
-
-Ahora, necesitamos inicializar el shard sobre los nodos mongors1n1, mongors1n2 y mongors1n3.
+Inicializamos el shard de datos sobre los nodos mongors1n1, mongors1n2 y mongors1n3:
 
 ```bash
 ❯ docker exec -it mongors1n1 bash -c "echo 'rs.initiate({_id : \"mongors1\", members: [{ _id : 0, host : \"mongors1n1\" },{ _id : 1, host : \"mongors1n2\" },{ _id : 2, host : \"mongors1n3\" }]})' | mongo"
@@ -539,7 +537,7 @@ Ahora ya podemos proceder a la creación de nuestra base de datos, que llamaremo
 
 
 
-Comprobamos que todo ha funcionado como esperábamos. Efectivamente vemos el shard mongors1 desde uno de los routers, y también ambas bases de datos, la de configuración y la que acabamos de crear, aunque aún no tenemos shard key definida.
+Comprobamos que todo ha funcionado como esperábamos. Efectivamente vemos el shard mongors1 desde uno de los routers, y también ambas bases de datos: la de configuración y la que acabamos de crear, aunque aún no tenemos shard key definida.
 
 ```bash
 ❯ docker exec -it mongos1 bash -c "echo 'sh.status()' | mongo"                       
@@ -582,17 +580,21 @@ bye
 
 
 
+#### Comandos útiles para la gestión de la infrastructura
 
+Despliegue del cluster:
 
-**Arranque y parada del servicio:**
+```
+❯ docker-compose up
+```
 
-Start mongo cluster:
+Arranque del mongo cluster:
 
 ```bash
 ❯ docker start mongos2 mongos1 mongors1n1 mongocfg2 mongors1n3 mongocfg1 mongocfg3 mongors1n2
 ```
 
-Stop mongo cluster:
+Parada mongo cluster:
 
 ```bash
 ❯ docker start mongos2 mongos1 mongors1n1 mongocfg2 mongors1n3 mongocfg1 mongocfg3 mongors1n2
@@ -606,43 +608,25 @@ Stop mongo cluster:
 
 
 
-#### Organización de la información
+### Organización de la información
 
-#### Agregación e importación de datos
+A la hora de diseñar la estructura de los documentos donde almacenaremos la información, es imprescindible analizar cuáles serán las consultas que más se ejecutarán sobre los datos, con el fin de optimizarlas. El sistema de monitorización que se utiliza como ejemplo, existen dos roles principales de uso, que determinan claramente el diseño.
+
+**Rol de operador**: El operador de la infraestructura de TI tiene como principal tarea comprobar de forma periódica la consola de monitorización, donde aparece en primera instancia una vista de las alertas que se encuentra en estado "New". 
+
+**Rol de técnicos de nivel 2 o nivel 3:** Los técnicos de nivel 2 y nivel 3 tan sólo intervendrán cuando el operador les avise que existe un incidente en un CI determinado que no han podido solventar. Dichos técnicos acudirán al sistema de monitorización para obtener más información sobre el estado de salud del CI afectado. Para ello, revisarán qué monitores se encuentran en un estado no saludable, desde cuándo así los últimos datos de rendimiento tomados por el sistema, como por ejemplo el consumo de CPU o memoria.
+
+Una vez identificados los casos de uno más comunes, identificamos claramente que las entidades Configuration_Item y Alert deben ser las que se utilicen para particionar la información.
+
+
+
+### Agregación e importación de datos
 
 Con el fin de importar los datos en mongo, se comienza exportando cada una de las tablas de la base de datos relacional en formato json. Puesto que las relaciones definidas en la base de datos relacional son todas uno a muchos, existe una tabla por cada una de las entidades definidas en el esquema.
 
 
 
-Comenzaremos agregando la tabla **Configuration_Item**, y la tabla **Attributes**:
-
-```bash
-❯ head Configuration_Item.json  
-[
-  {
-    "ci_id": 1,
-    "name": "impossiblejamb.local"
-  },
-  {
-    "ci_id": 2,
-    "name": "rubberyclock.local"
-  },
-  {
-
-❯ head Attributes.json 
-[
-  {
-    "att_name": "ip_address",
-    "att_value": "97.206.53.89",
-    "ci_id": 1
-  },
-  {
-    "att_name": "ip_address",
-    "att_value": "244.218.216.63",
-    "ci_id": 2
-```
-
-Con el siguiente script en Python, se cargan ambos ficheros json y se genera un csv con los datos agregados:
+Con el siguiente script en Python, se cargan ambos los ficheros json con las tablas relacionales y se generan dos ficheros json. El primero contendrá un array con los documentos que representan los CIs, mientras que el segundo corresponderá al listado de documentos de alertas.
 
 ```python
 import pandas as pd
@@ -664,15 +648,20 @@ monitor_instances_df = pd.read_json("../sql/MonitorInstances.json")
 monitor_instance_states_df=pd.read_json("../sql/MonitorInstanceStates.json")
 health_states_df=pd.read_json("../sql/HealthStates.json").set_index('state_id')
 
+# Load alert instances relational data
+alert_instances_df = pd.read_json("../sql/AlertInstances.json")
+alert_states_df = pd.read_json("../sql/AlertStates.json").set_index("state_id")
+
 
 # Merge CI and attributes data into one dataframe
 ci_att_df = pd.merge(ci_df,attributes_df,on="ci_id")
+# We apply dataframe pivot operation to convert attribute values into columns
 cp=ci_att_df.pivot(index="name", columns="att_name")
+# Rename columns
 cp.columns = ['ci_id','ci_id2','ci_id3','device_type','env','ip_address']
 cp.drop(columns=['ci_id2', 'ci_id3'], inplace=True)
 configuration_items=cp.reset_index()
 monitor_instances_df = pd.merge(monitor_instances_df,monitors_df,on="monitor_id")
-
 
 # Merge performance dataframes
 rule_instances_df.rename(columns={'per_ruleId':'ruleId'}, inplace=True)
@@ -680,17 +669,26 @@ rule_instances_df = pd.merge(ci_df,rule_instances_df,on="ci_id")
 rule_instances = pd.merge(rule_instances_df,rules_df,on="ruleId")
 rule_instances.sort_values('ci_id')
 
-documents = []
+# Merge alert dataframes
+alert_instances_df = pd.merge(alert_instances_df,monitor_instances_df,on="mon_isntance_id" )
+alert_instances_df = pd.merge(alert_instances_df,ci_df, on="ci_id")
+alert_instances_df = alert_instances_df.loc[:,['alert_name','alert_description','name_y','state_change_date','priority']]
+alert_instances_df.rename(columns={'name_y':'configuration_item'}, inplace=True)
 
+
+
+configuration_item_documents= []
+
+# Generate configuration_items documents
 for ci_index, configuration_item in configuration_items.iterrows():
     ci = json.loads(configuration_item.to_json())
     
-    # Attach performance rules instances
+    # Attach performance rules instances to CIs
     ci["performance_rules"]=[]
     for rule_index, rule_instance in rule_instances[rule_instances["ci_id"]==ci["ci_id"]].loc[:,'ruleId':'rule_description'].iterrows():
         rule = json.loads(rule_instance.to_json())
         
-        # Attach performance data 
+        # Attach performance data to rules
         data = []
         for perf_data_index, perf_data in perf_data_df[perf_data_df["perf_rule_instId"]==rule["ruleId"]].loc[:,'value':'date'].iterrows():
             d = json.loads(perf_data.to_json())
@@ -698,13 +696,13 @@ for ci_index, configuration_item in configuration_items.iterrows():
         rule["data"]=data
         ci["performance_rules"].append(rule)
         
-    # Attach monitor instances
+    # Attach monitor instances to CIs
     ci["monitors"]= []
     
     for monitor_index, monitor_instance in monitor_instances_df[monitor_instances_df["ci_id"]==ci["ci_id"]].loc[:,['mon_isntance_id','name','description']].iterrows():
         monitor = json.loads(monitor_instance.to_json())
         
-        # Attach health state for each monitor instance
+        # Attach health state changes to monitor instances
         states = []
         
         for monitor_instance_index, monitor_instance_state in monitor_instance_states_df[monitor_instance_states_df["mon_isntance_id"]==monitor["mon_isntance_id"]].loc[:,['state_change_date','health_State_id']].iterrows():
@@ -717,15 +715,33 @@ for ci_index, configuration_item in configuration_items.iterrows():
         
         ci["monitors"].append(monitor)
     
-    documents.append(ci)
-with open('../nosql/cis.json', 'w') as fout:
-    fout.write(json.dumps(documents, indent=4))
+    configuration_item_documents.append(ci)
 
+# Save ci documents
+with open('../nosql/cis.json', 'w') as fout:
+    fout.write(json.dumps(configuration_item_documents, indent=4))    
+
+    
+# Generate alert documents    
+    
+alert_documents = []
+
+for alert_index, alert_row in alert_instances_df.iterrows():
+    alert = json.loads(alert_row.to_json())
+    priority_id=int(alert_row["priority"])-1
+    alert['priority']= alert_states_df.iloc[priority_id].state_name
+    alert_documents.append(alert)
+    
+# Save alerts documents
+with open('../nosql/alerts.json', 'w') as fout:
+    fout.write(json.dumps(alert_documents, indent=4)) 
+    
 ```
 
-El fichero resultante contendrá un array json con un documento por cada Configuration_Item. A continuación se muestra el ejemplo de un CI. Se han reducido los datos de rendimiento para minimizar la salida.
+El fichero `cis.json` contendrá un array json con un documento por cada Configuration_Item. A continuación se muestra parte uno de los documentos contenidos , que representa un CI. Se han reducido los datos de rendimiento para minimizar la salida.
 
 ```json
+[
 {
         "name": "austeredear.local",
         "ci_id": 17,
@@ -746,6 +762,7 @@ El fichero resultante contendrá un array json con un documento por cada Configu
                         "value": 25,
                         "date": 1590192300000
                     },
+                  	....
                     {
                         "value": 21,
                         "date": 1590281700000
@@ -796,12 +813,43 @@ El fichero resultante contendrá un array json con un documento por cada Configu
                 ]
             }
         ]
-    }
+    },
+	  ...
+]
+```
+
+El fichero `alerts.json` contendrá el listado de documentos que representan las alertas. 
+
+```json
+[
+    {
+        "alert_name": "Heartbeat failure",
+        "alert_description": "The device is not sending heartbeats",
+        "configuration_item": "impossiblejamb.local",
+        "state_change_date": "2020-05-23T03:44:08",
+        "priority": "New"
+    },
+    {
+        "alert_name": "Heartbeat failure",
+        "alert_description": "The device is not sending heartbeats",
+        "configuration_item": "rubberyclock.local",
+        "state_change_date": "2020-05-23T03:44:37",
+        "priority": "New"
+    },
+    {
+        "alert_name": "Heartbeat failure",
+        "alert_description": "The device is not sending heartbeats",
+        "configuration_item": "wrytug.local",
+        "state_change_date": "2020-05-23T03:44:27",
+        "priority": "New"
+    },
+  ...
+]
 ```
 
 
 
-Como puede observarse en el fichero de definición de Docker Compose, en el primer nodo de las réplicas hemos exportado un directorio (`/source`) de la máquina host donde se han guardado los ficheros csv generados. Ejecutamos `mongoimport` para importar los documentos del json generado en la colección `configuration_item` :
+Como se menciona anteriormente, en el primer nodo de las réplicas de datos hemos exportado un directorio de la máquina host donde se han guardado los ficheros json generados. Ejecutamos `mongoimport` para importar los documentos del json generado en la colección `configuration_item` :
 
 ```bash
 ❯ docker exec -it mongors1n1 bash -c "mongoimport -d sysmonitor -c configuration_item --jsonArray --type=json /source/cis.json"
@@ -809,6 +857,8 @@ Como puede observarse en el fichero de definición de Docker Compose, en el prim
 2020-06-28T21:24:19.615+0200    100 document(s) imported successfully. 0 document(s) failed to import.
 
 ```
+
+
 
 Comprobamos con un simple `find()` que los documentos se han cargado correctamente. A continuación se muestran tan sólo algunos atributos del CI de nombre ``productivetrue.local``
 
@@ -830,22 +880,77 @@ bye
 
 
 
+Importamos ahora los documentos que representan las alertas:
 
-
-
-
-```
-docker exec -it mongors1n1 bash -c "echo 'use sysmonitor' | mongo"
-
-docker exec -it mongos1 bash -c "echo 'sh.enableSharding(\"sysmonitor\")' | mongo "
-docker exec -it mongors1n1 bash -c "echo 'db.createCollection(\"sysmonitor.configurationItem\")' | mongo "
-docker exec -it mongos1 bash -c "echo 'sh.shardCollection(\"sysmonitor.configurationItem\", {\"shardingField\" : 1})' | mongo "
-
+```bash
+❯ docker exec -it mongors1n1 bash -c "mongoimport -d sysmonitor -c alerts --jsonArray --type=json /source/alerts.json"
+2020-06-29T01:22:21.455+0200    connected to: mongodb://localhost/
+2020-06-29T01:22:21.524+0200    100 document(s) imported successfully. 0 document(s) failed to import.
 ```
 
 
 
+Verificamos el contenido de la colección:
 
+```bash
+❯ docker exec -it mongos1 bash -c "echo -e 'use sysmonitor \n db.alerts.find()' | mongo"
+MongoDB shell version v4.2.8
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("dca0ecbd-529f-451d-b575-09ae920d90d0") }
+MongoDB server version: 4.2.8
+switched to db sysmonitor
+{ "_id" : ObjectId("5ef9262de267e9c00481f20a"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "rubberyclock.local", "state_change_date" : "2020-05-23T03:44:37", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20b"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "wrytug.local", "state_change_date" : "2020-05-23T03:44:27", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20c"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "worstblip.local", "state_change_date" : "2020-05-23T03:44:12", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20d"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "lastbuyer.local", "state_change_date" : "2020-05-23T03:44:21", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20e"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "rapidhinge.local", "state_change_date" : "2020-05-23T03:44:32", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20f"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "productivetrue.local", "state_change_date" : "2020-05-23T03:44:36", "priority" : "New" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f210"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "extraneousbent.local", "state_change_date" : "2020-05-23T03:44:40", "priority" : "New" }
+...
+
+```
+
+
+
+### Consultas realizadas
+
+Listado de alertas con prioridad New:  
+
+**db.alerts.find({\"priority\":\"New\"},{"alert_name":"1","alert_description":"1","configuration_item":"1","state_change_date":"1"})'**
+
+```bash
+❯ docker exec -it mongos1 bash -c "echo -e 'use sysmonitor \n db.alerts.find({\"priority\":\"New\"},{\"alert_name\":\"1\",\"alert_description\":\"1\",\"configuration_item\":\"1\",\"state_change_date\":\"1\"})' |  mongo"
+MongoDB shell version v4.2.8
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("8f2a7873-d7a2-4a27-92aa-a45eafef6939") }
+MongoDB server version: 4.2.8
+switched to db sysmonitor
+{ "_id" : ObjectId("5ef9262de267e9c00481f20a"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "rubberyclock.local", "state_change_date" : "2020-05-23T03:44:37" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20b"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "wrytug.local", "state_change_date" : "2020-05-23T03:44:27" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20c"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "worstblip.local", "state_change_date" : "2020-05-23T03:44:12" }
+{ "_id" : ObjectId("5ef9262de267e9c00481f20d"), "alert_name" : "Heartbeat failure", "alert_description" : "The device is not sending heartbeats", "configuration_item" : "lastbuyer.local", "state_change_date" : "2020-05-23T03:44:21" }
+...
+```
+
+
+
+
+
+Cambios de estado para un monitor en un servidor:
+
+- CI
+- Nombre de monitor
+- Estado
+- Fecha
+  
+  
+
+Obtener datos de regla de rendimiento para un servidor:
+
+- CI name
+- Regla
+- Fecha
+- Valor
 
 
 
@@ -853,21 +958,25 @@ docker exec -it mongos1 bash -c "echo 'sh.shardCollection(\"sysmonitor.configura
 
 
 
-# Implementación en NEO4J
 
-<!--INTRO DE LOS PASOS QUE SE VAN A REALIZAR Y LA MÁQUINA QUE SE VA A USAR-->
+
+
+
+## NEO4J
+
+En este apartado realiza la adaptación del esquema relacional a una base de datos de grafos. Para ello, se hace uso de la máquina NOSQL-029-1, donde se ha instalado NEO4J con la versión 3.3.0. Para realizar tal adaptación, primero se discute cómo adaptar la base de datos relacional a la base de datos de grafos, y más adelante realizar la implantación del modelo en NEO4J. Por último, se comprueba la correcta implementación a partir de las consultas citadas anteriormente.
 
 ### Aproximación de BDR a BDG
 
-En primer lugar, como la base de datos de grafos (BDG) es creada a partir de una base de datos relacional, se recuerda que la base de datos relacional (BDR) es la siguiente:
+En primer lugar, como la base de datos de grafos (BDG) es creada a partir de una base de datos relacional (BDR), se recuerda que la base de datos relacional es la siguiente:
 
 <!--IMAGEN-->
 
 Si se analiza con detenimiento el esquema relacional, se observa que no hay tablas de unión, por lo que cada tabla de la base de datos relacional puede corresponderse con una tabla en la base de datos de grafos.
 
-En la BDR, se observa que existen tablas que asocian un ID con una descripción, como por ejemplo Alert_State o Health_State. Se puede plantear una reducción, de forma que en los nodos del grafo se informen directamente los nombres en vez de un ID asociado a otra tabla. En el caso de grafos, esta reducción es interesante ya que las consultas se realizan sobre caminos (paths), y lo más común es que mediante un único camino no se pueda obtener tal descripción, sobre todo en queries complejas. Sin embargo, en este proyecto no se realizará tal simplificación, de cara a que sea más enriquecedor.
+En la BDR, se observa que existen tablas que asocian un ID con una descripción, como por ejemplo Alert_State o Health_State. Por tanto, se plantea una reducción, de forma que en los nodos del grafo se informen directamente los nombres en vez de un ID asociado a otra tabla. En el caso de grafos, esta reducción es especialmente interesante ya que las consultas se realizan sobre caminos (paths), y lo más común es que mediante un único camino no se pueda obtener tal descripción, sobre todo en queries complejas. 
 
-Una vez decidido que cada tabla se corresponde con un nodo y que las relaciones entre nodos se corresponden con las relaciones entre tablas, se procede a crear la base de datos de grafos.
+Por tanto, una vez se comprende la BDR, se llega a la conclusión de eliminar las tablas Alert_State y Health_State, y en las tablas Alert_Instance y Monitor_Instance_State, uno de sus campos, en vez de ser un ID asociado a otra tabla, será directamente un nombre o descripción.  Para las demás tablas de la BDR, se observa que cada tabla se corresponde con un nodo del grafo, y que las relaciones entre tablas serán relaciones entre los nodos de la BDG.
 
 ### Creación de la base de datos de grafos
 
@@ -885,7 +994,7 @@ Tras esto, se inicia NEO4J:
 
 Una vez iniciado, se puede observar que la base de datos activa se corresponde con la que acabamos de crear:
 
-<!--`IMAGEN BASE DE DATOS`-->
+![baseDeDatos](./images/neo4j/baseDeDatos.png)
 
 ### Creación de los nodos de la BDG
 
@@ -962,39 +1071,55 @@ Como la lectura de un archivo CSV en NEO4J considera todos los campos como carac
 `n.monitor_id = toInteger(row.monitor_id),`
 `n.mon_isntance_id = toInteger(row.mon_isntance_id);`
 
-*Monitor instance state:* El nodo se llama **Monitor_Instance_State**, y se crea utilizando el siguiente comando:
+*Monitor instance state:* A partir de esta tabla se genera el nodo **Monitor_Instance_State**, que ha de crearse de una forma diferente a los anteriores, ya que debe integrar datos de dos fuentes diferentes. Esto se puede realizar de diferentes formas, pero en este caso la resolución ha sido la siguiente:
 
-`LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Monitor_Instance_State.csv" AS row CREATE (n:Monitor_Instance_State)` 
-`SET` 
-`n.monitor_instance_state_id = toInteger(row.monitor_instance_state_id),`
-`n.state_change_date = row.state_change_date,`
-`n.mon_isntance_id = toInteger(row.mon_isntance_id),`
-`n.health_State_id = toInteger(row.health_State_id);`
-
-*Health state*: El nodo se llama **Health_State**, y se genera mediante:
+- Se genera un nodo llamado **Health_State** con los datos de la tabla Health state:
 
 `LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Health_State.csv" AS row CREATE (n:Health_State)` 
 `SET` 
 `n.state_name = row.state_name,`
 `n.state_id = toInteger(row.state_id);`
 
-*Alert instance*: El nodo se llama **Alert_Instance**, y se produce mediante:
+- Se crea el nodo Monitor_Instance_State, equivalente a la tabla relacional Monitor Instance State, donde se sustituye el ID del estado de salud por la descripción gracias al nodo creado anteriormente:
 
-`LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Alert_Instance.csv" AS row CREATE (n:Alert_Instance)` 
+`LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Monitor_Instance_State.csv" AS row` 
+`MERGE (healthState:Health_State {state_id: toInteger(row.health_State_id)})`
+`CREATE (n:Monitor_Instance_State)` 
 `SET` 
-`n.severity = toInteger(row.severity),`
-`n.alert_State_id = toInteger(row.alert_State_id),`
+`n.monitor_instance_state_id = toInteger(row.monitor_instance_state_id),`
 `n.state_change_date = row.state_change_date,`
-`n.priority = toInteger(row.priority),`
 `n.mon_isntance_id = toInteger(row.mon_isntance_id),`
-`n.alert_instance_id = toInteger(row.alert_instance_id);`
+`n.health_state_name = healthState.state_name;`
 
-*Alert state*: El nodo se llama **Alert_State**, y se origina mediante el siguiente código:
+- Se elimina el nodo Health_State:
+
+`MATCH (n:Health_State) delete n`
+
+*Alert instance*:  A partir de esta tabla se genera el nodo **Alert_Instance**. Este nodo tiene el mismo comportamiento que el anterior, y su creación se ha realizado de la siguiente forma:
+
+- Se genera un nodo llamado **Alert_State**, con los datos de la tabla Alert state:
 
 `LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Alert_State.csv" AS row CREATE (n:Alert_State)` 
 `SET` 
 `n.state_name = row.state_name,`
 `n.state_id = toInteger(row.state_id);`
+
+- Una vez generado el nodo anterior, se utiliza para la creación del nodo Alert_Instance, donde en vez de informar el ID del estado de la alerta, se informa la descripción directamente de la siguiente forma:
+
+`LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Alert_Instance.csv" AS row` 
+`MERGE (alertState:Alert_State {state_id: toInteger(row.alert_State_id)})`
+`CREATE (n:Alert_Instance)` 
+`SET` 
+`n.severity = toInteger(row.severity),`
+`n.alert_state_name = alertState.state_name,`
+`n.state_change_date = row.state_change_date,`
+`n.priority = toInteger(row.priority),`
+`n.mon_isntance_id = toInteger(row.mon_isntance_id),`
+`n.alert_instance_id = toInteger(row.alert_instance_id);`
+
+- Por último, se elimina el nodo Alert_State:
+
+`MATCH (n:Alert_State) delete n`
 
 Tras aplicar estos comandos, se han generado todos los nodos de la base de datos con sus respectivas propiedades.
 
@@ -1062,13 +1187,6 @@ Por tanto, la creación de todas las relaciones ha sido de la siguiente forma:
 `MATCH (alertInstance:Alert_Instance {mon_isntance_id: toInteger(row.mon_isntance_id)})`
 `MERGE (monitorInstance)-[:WITH_ALERT]->(alertInstance);`
 
-*WITH_ALERT_STATE:* Relaciona los nodos **Alert_State** y **Alert_Instance**:
-
-`LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Alert_Instance.csv" AS row`
-`MATCH (alertState:Alert_State {state_id: toInteger(row.alert_State_id)})`
-`MATCH (alertInstance:Alert_Instance {alert_State_id: toInteger(row.alert_State_id)})`
-`MERGE (alertState)-[:WITH_ALERT_STATE]->(alertInstance);`
-
 *WITH_STATE*: Relaciona los nodos **Monitor_Instance** y **Monitor_Instance_State:**
 
 `LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Monitor_Instance_State.csv" AS row`
@@ -1076,16 +1194,9 @@ Por tanto, la creación de todas las relaciones ha sido de la siguiente forma:
 `MATCH (monInstanceState:Monitor_Instance_State {mon_isntance_id: toInteger(row.mon_isntance_id)})`
 `MERGE (monitorInstance)-[:WITH_STATE]->(monInstanceState);`
 
-*WITH_HEALTH_STATE*: Relaciona los nodos **Health_State** y **Monitor_Instance_State:**
-
-`LOAD CSV WITH HEADERS FROM "file:///datosSysmonitor/Monitor_Instance_State.csv" AS row`
-`MATCH (healthState:Health_State {state_id: toInteger(row.health_State_id)})`
-`MATCH (monInstanceState:Monitor_Instance_State {health_State_id: toInteger(row.health_State_id)})`
-`MERGE (healthState)-[:WITH_HEALTH_STATE]->(monInstanceState);`
-
 Tras generar todas las relaciones entre nodos, la base de datos se puede visualizar utilizando el comando `call db.schema`, y al ejecutarlo se observa el siguiente diagrama:
 
-<!--IMAGEN DEL DIAGRAMA DE GRAFOS--> 
+![esquemaBDG](./images/neo4j/esquemaBDG.png)
 
 ### Creación de restricciones
 
@@ -1119,10 +1230,6 @@ En caso de no añadir nada más al modelo, nada impide que existan dos nodos dif
 
 `CREATE CONSTRAINT ON (n:Alert_Instance) ASSERT n.alert_instance_id IS UNIQUE`
 
-*Alert_State:* La restricción de unicidad se alcanza mediante:
-
-`CREATE CONSTRAINT ON (n:Alert_State) ASSERT n.state_id IS UNIQUE`
-
 Las demás restricciones a crear contienen varios campos a definir como únicos, como es el caso de *Monitor_Parameter*. Para generar una restricción de unicidad con múltiples propiedades, se necesita la versión Enterprise, y tal restricción se realizaría como sigue:
 
 `CREATE CONSTRAINT Monitor_Parameter_Constraint ON (n:Monitor_Parameter) ASSERT (n.monitor_id, n.param_id) IS NODE KEY`
@@ -1135,3 +1242,77 @@ Se han realizado distintas consultas para comprobar el correcto funcionamiento d
 
 Las primeras consultas se realizan para comprobar el número de nodos y relaciones:
 
+![nodos](./images/neo4j/nodos.png)
+
+![relaciones](./images/neo4j/relaciones.png)
+
+
+
+- Se consultan todos los *Configuration item* cuyo tipo de dispositivo es *server*  mediante el siguiente comando:
+
+`MATCH (n)-[:CI_CONTAINS]->(atr:CI_Attributes) where atr.att_name = "device_type" and atr.att_value = "server"  return n.ci_id, n.name`
+
+El resultado de esta consulta en NEO4J es:
+
+![consulta1](./images/neo4j/consulta1.png)
+
+Se comprueba que se ha realizado correctamente la consulta comprobando el resultado con el de la BDR:
+
+![consulta1SQL](./images/neo4j/consulta1SQL.png)
+
+- Se  consultan todos los *Monitor instances* para el servidor *productivetrue.local:*
+
+`MATCH (atr:CI_Attributes)<-[:CI_CONTAINS]-(ci:Conf_Item)-[:CI_MONITORED_BY]->(mi:Monitor_Instance)<-[:MONITOR_INSTANTIATED_BY]-(mon:Monitor) WHERE atr.att_name = "device_type" AND atr.att_value = "server" AND ci.name = "productivetrue.local" return mon.name`
+
+El resultado de esta consulta en NEO4J es:
+
+![consulta2](./images/neo4j/consulta2.png)
+
+Se comprueba que el resultado es correcto realizando la misma consulta en la base de datos relacional:
+
+![consulta2SQL](./images/neo4j/consulta2SQL.png)
+
+
+
+- Se consultan todos los cambios de estado para *Heartbeat monitor* en el servidor *productivetrue.local*:
+
+`MATCH (atr:CI_Attributes)<-[:CI_CONTAINS]-(ci:Conf_Item)-[:CI_MONITORED_BY]->(mi:Monitor_Instance)-[:WITH_STATE]->(mis:Monitor_Instance_State)`
+`match (mi)<-[:MONITOR_INSTANTIATED_BY]-(mon:Monitor)`
+`WHERE atr.att_name = "device_type"   AND ci.name = "productivetrue.local" AND mon.name = "Heartbeat Monitor"`
+`return mon.name, ci.name, mis.state_name, mis.state_change_date`
+
+El resultado de esta consulta en NEO4J es:
+
+![consulta3](./images/neo4j/consulta3.png)
+
+Si se realiza una consulta similar en la BDR, se obtiene el mismo resultado:
+
+![consulta3SQL](./images/neo4j/consulta3SQL.png)
+
+- Se consultan todas las *Performance rule* disponibles para el servidor *productivetrue.local:*
+
+`MATCH (atr:CI_Attributes)<-[:CI_CONTAINS]-(ci:Conf_Item)-[:CI_MEASURED_BY]->(rins:Perf_Rule_Instance)<-[:RULE_EXECUTED_IN]-(prule:Performance_Rule) WHERE ci.name = "productivetrue.local" AND atr.att_name = "device_type" return prule.rule_name`
+
+El resultado de esta consulta en NEO4J es:
+
+![consulta4](./images/neo4j/consulta4.png)
+
+Se comprueba que el resultado es correcto mediante la misma consulta en la BDR:
+
+![consulta4SQL](./images/neo4j/consulta4SQL.png)
+
+- Se obtiene el %Procesador usado para el servidor *productivetrue.local* entre dos fechas:
+
+Respecto a esta consulta, debido a que la versión de NEO4J instalada es la 3.3.0, no incluye el paquete APOC (**A**wesome **P**rocedures **o**n **C**ypher). En este paquete se añade el tratamiento de fechas, por lo que al no estar disponible, no es posible realizar el tratamiento pedido en la consulta. Además, investigando se ha descubierto que NEO4J no contempla la sentencia BETWEEN, por lo que esta consulta no es óptima. Como aproximación, se realiza la siguiente consulta:
+
+Se obtiene el %Procesador usado para el servidor *productivetrue.local* en un día determinado: Para realizar esta consulta, la fecha se trata como un String, y el comando que la ejecuta es:
+
+`MATCH (atr:CI_Attributes)<-[:CI_CONTAINS]-(ci:Conf_Item)-[:CI_MEASURED_BY]->(rins:Perf_Rule_Instance)-[:RULE_INS_CHANGE_LOG]->(pdata:Perf_Rule_Data) MATCH (rins)<-[:RULE_EXECUTED_IN]-(rule:Performance_Rule) WHERE rule.rule_name = "% Processor usage" and atr.att_name = "device_type" and pdata.date CONTAINS  "2020-05-23" return ci.name, rule.rule_name, pdata.date, pdata.value order by pdata.date`
+
+Se puede observar el resultado de la consulta en NEO4J:
+
+![consulta5](./images/neo4j/consulta5.png)
+
+Y además, se comprueba que la consulta se ha realizado correctamente realizando una equivalente en la BDR:
+
+![consulta5SQL](./images/neo4j/consulta5SQL.png)
