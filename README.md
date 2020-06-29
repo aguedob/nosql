@@ -8,8 +8,6 @@
 
 Máster en Big Data Analytics. Curso 2019/2020
 
-
-
 [TOC]
 
 Autores:
