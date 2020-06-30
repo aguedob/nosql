@@ -14,7 +14,7 @@ Máster en Big Data Analytics. Curso 2019/2020
 
 ## Objetivos
 
-El objetivo de estre trabajo es ilustrar las ventajas e inconvenientes de los sistemas de bases de datos relacionales frente a sistemas NoSQL o libres de esquema.
+El objetivo de este trabajo es ilustrar las ventajas e inconvenientes de los sistemas de bases de datos relacionales frente a sistemas NoSQL o libres de esquema.
 
 ## Autoría del trabajo
 
@@ -77,7 +77,7 @@ Una vez identificados los casos de uno más comunes, identificamos claramente qu
 
 # Consultas
 
-Con el fin de comprobar la eficiencia del sistema una vez migrado a una arquitectura libre de esquema,  hemos planteado el diseño de la siguientes consultas:
+Con el fin de comprobar la eficiencia del sistema una vez migrado a una arquitectura libre de esquema, hemos planteado el diseño de la siguientes consultas:
 
 1. **Listado de alertas pendientes (prioridad == New)**: Tal y como mencionamos en el análisis previo, la consulta de alertas pendientes es uno de los principales casos de uso del sistema de monitorización. La vista de alertas pendientes se refrescará con una periodicidad alta en las consolas de los operadores. La información mínima a mostrar por alerta consistirá en el nombre de la alerta, la severidad, el item afectado y la fecha en la que se registra el incidente.
 
@@ -91,13 +91,13 @@ Con el fin de comprobar la eficiencia del sistema una vez migrado a una arquitec
 
 ## Cassandra
 
-### Infraestructura del cluster cassandra
+### Infraestructura del clúster cassandra
 
-La arquitectura utilizada para la implementacion de la practica es la misma que se utilizo durante las clases en el entorno del DSIC con las 6 maquinas virtuales proporcionadas.
+La arquitectura utilizada para la implementación de la práctica es la misma que se utilizo durante las clases en el entorno del DSIC con las 6 maquinas virtuales proporcionadas.
 
-- Topologia: Un único datacenter
+- Topología: Un único datacenter
 
-- Cluster de 6 nodos
+- Clúster de 6 nodos
   
   - NOSQL-025-1 , NOSQL-025-2, NOSQL-025-3, NOSQL-025-4, NOSQL-025-5 y NOSQL-025-6
 - Nodos Seed
@@ -109,26 +109,25 @@ La arquitectura utilizada para la implementacion de la practica es la misma que 
 ![cassandra-architecture](images/cassandra-architecture.png)
 
 
-
 En esta arquitectura se ha dejado solamente un nodo seed. Los nodos seed tienen un rol especial dentro del cluster, y es que se encargan de la sincronizacion de los nuevos nodos que entran a formar parte del cluster o incluso de nodos que ya formaban parte pero se han apartado bien por mantenimiento o bien por errores y desincronizacion. Idealmente deberia haber mas de uno, pero para el caso practico que nos atañe con uno será suficiente.
 
-#### Instalacion y configuracion del cluster
+#### Instalacion y configuración del clúster
 
-Tal y como se ha comentado anteriormente, para la implementacion del modelo en casandra se ha utilizado el cluster que se instalo y configuro en clase. A continuacion se detallan los pasos seguidos:
+Tal y como se ha comentado anteriormente, para la implementación del modelo en casandra se ha utilizado el cluster que se instaló y configuró en clase. A continuación se detallan los pasos seguidos:
 
-1. Instalacion de cassandra
-2. Conffiguracion cassanda (cassandar.yml) cluster 1 nodo
-3.  Despliegue del cluster en el resto de nodos
+1. Instalacion de Cassandra
+2. Configuración Cassanda (cassandar.yml) cluster 1 nodo
+3. Despliegue del clúster en el resto de nodos
 
 
 
 ### Modelo de base de datos
 
-A partir del modelo entidad-relacion del sistema elegido, se ha credo un keyspace en el cluster de cassandra y se ha modelado una solucion para el mismo.
+A partir del modelo entidad-relacion del sistema elegido, se ha credo un keyspace en el cluster de cassandra y se ha modelado una solución para el mismo.
 
 #### Keyspace
 
-PAra esta practica y puesto que solamente estamos usando un único data center se ha creado el keyspace **sysmonitor** con SimpleStrategy y un factor de replicacion de 3 nodos que supone el 50% de los nodos del cluster.
+Para esta practica y puesto que solamente estamos usando un único data center, se ha creado el keyspace **sysmonitor** con SimpleStrategy y un factor de replicación de 3 nodos que supone el 50% de los nodos del clúster.
 
 ```cassandra
 CREATE KEYSPACE sysmonitor 
@@ -139,11 +138,10 @@ WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '3'}
 
 #### Modelo
 
-Una se ha creado el keyspace se ha pasado a la fase de modelado. En este caso en particular y en base a las consultas que se quieren poder resolver en este caso de uso en concreto hemos definido varios tipos de datos personalizados, Mapas de clave valor y unicamente dos tablas, una de alertas y otra de configuration items.
+Una vez creado el keyspace, comenzamos con la fase de modelado. En este caso en particular, y en base a las consultas que se quieren poder resolver en este caso de uso en concreto, hemos definido varios tipos de datos personalizados, Mapas de clave valor y únicamente dos tablas, una de alertas y otra de configuration items.
 
-El principal motivo de esta decision es debido al uso y a las consultas que necesita el sistema. Este tipo de soluciones de monitorizacion suelen ser utilziadas por 2 roles:
-
-- **Operador**: Se encarga de ver las alertas abiertas y asignarlas a los tecnicos a traves de incidencias.
+El principal motivo de esta decisión es debido al uso y a las consultas que necesita el sistema. Este tipo de soluciones de monitorización suelen ser utilizadas por 2 roles:
+- **Operador**: Se encarga de ver las alertas abiertas y asígnarlas a los tecnicos a traves de incidencias.
 - **Tecnico**: Se encarga de revisar las incidencias y revisar los configuration items relacionados.
 
 En base a estos requisitos, pese a que las alertas estan relacionadas con monitores que estasn asociados a configuration items, hemos preferido crear dos tablas y redundar ciertos datos para satisfacer las consultas clave del sistema de monitorizacion.
@@ -214,11 +212,11 @@ CREATE TABLE sysmonitor.alert (
 
 ### Carga de datos
 
-En esta fase se ha estudiado los diferentes metodos de carga de datos:
+En esta fase se estudian los diferentes métodos de carga de datos:
 
-- ##### Generacion de scripts CQL a partir del sistema relacional
+- ##### Generación de scripts CQL a partir del sistema relacional
 
-  Una primera aproximacion para la carga de datos en cassandra ha sido usar los comandos conocidos de TSQL en SQL Server (base de datos original) para generar los scripts de insercion de datos en cassandra con la sintaxis esperada. Por ejemplo, para insertar las alertas en la tabla de alertas de cassandra hemos usado el siguiente script de TSQL:
+  Una primera aproximación para la carga de datos en cassandra ha sido usar los comandos conocidos de TSQL en SQL Server (base de datos original) para generar los scripts de inserción de datos en cassandra con la sintaxis esperada. Por ejemplo, para insertar las alertas en la tabla de alertas de cassandra hemos usado el siguiente script de TSQL:
 
   ```mssql
   select
@@ -290,7 +288,7 @@ En esta fase se ha estudiado los diferentes metodos de carga de datos:
       );
   ```
 
-  De este modo se puede ir guardando los comandos de cassandra en ficheros *.cql y ejecutar la carga de datos. Para ello se ha creado uns cript de bash que realiza esta tarea.
+  De este modo se puede ir guardando los comandos de cassandra en ficheros *.cql y ejecutar la carga de datos. Para ello se ha creado un script de bash que realiza esta tarea.
 
   ```bash
   #!/bin/shell
@@ -331,40 +329,37 @@ En esta fase se ha estudiado los diferentes metodos de carga de datos:
 
   Una vez se ha ejecutado este script los datos se cargan en el keyspace de cassandra y estan disponibles para consultas.
 
-  Un ejemplo de ejecucion del script seria el siguiente:
+  Un ejemplo de ejecución del script sería el siguiente:
 
   ![carga_datos_cassandra_bash](images/carga_datos_cassandra_bash.png)
 
 
+Una vez cargados los datos se puede conectar al cluster de cassandra y comprobar que efectivamente tenemos datos, como por ejemplo alertas:
 
-​		Una vez caragdos los datos se puede conectar al cluster de cassandra y comprobar que efectivamente 		tenemos datos, como por ejemplo alertas:
-
-​		![consulta_datos_cassandra_1](images/consulta_datos_cassandra_1.png)
+​![consulta_datos_cassandra_1](images/consulta_datos_cassandra_1.png)
 
 ​		Pese a que este metodo en la práctica ha funcionado y es útil, no es una buena práctica en cuanto a la 		ingesta de datos. Es mejor utilizar una aproximacion por ETL (Extraction, Transform and Load).
 
 - ##### ETL mediante el uso de Python
 
-  Durante el desarrollo de la práctica se ha valorado la definicion e implementacion de un proceso de ETL mediante el uso de Python. Para ello se han diseñado el siguiente flujo para definir el proceso de carga:
+Durante el desarrollo de la práctica se ha valorado la definición e implementación de un proceso de ETL mediante el uso de Python. Para ello se ha diseñado el siguiente flujo para definir el proceso de carga:
 
-  ![cassandra-etl-2](images/cassandra-etl-2.png)
+![cassandra-etl-2](images/cassandra-etl-2.png)
 
-  
-
-  Los pasos que se han seguido en el ETL son:
+Los pasos que se han seguido en el ETL son:
 
   1. SQL Server to Python pandas dataframes
 
-     Se desea leer la informacion directamente desde las tablas de la base de datos y cargarlas en los dataframes de pandas. Una vez cargados los dato se pueden hacer las transformaciones pertinentes para adaptarlo al modelo de cassandra y asi poder insertar los datos.
+     Se desea leer la información directamente desde las tablas de la base de datos y cargarlas en los dataframes de pandas. Una vez cargados los dato se pueden hacer las transformaciones pertinentes para adaptarlo al modelo de cassandra y así poder insertar los datos.
 
-     En este caso en concreto, para evitar la configuracion de conexiones entre el entorno del dsic y SQL Server se ha hecho una exportacion manual de las tablas a ficheors JSON. Estos ficheros seran pues de donde se cargaran los dataframes para proceder a su procesado.
+     En este caso en concreto, para evitar la configuración de conexiónes entre el entorno del dsic y SQL Server se ha hecho una exportación manual de las tablas a ficheors JSON. Estos ficheros seran pues de donde se cargaran los dataframes para proceder a su procesado.
 
      El codigo Python de que lee los datos de SQL y exporta el fichero de CSV que posteriormente se cargara es el siguiente:
 
      ```python
      import pandas as pd
      
-     # Load basic CI relational data
+     # Load basíc CI relational data
      ci_df = pd.read_json("../data/Configuration_Item.json")
      attributes_df = pd.read_json("../data/Attribute.json")
      
@@ -456,13 +451,13 @@ En esta fase se ha estudiado los diferentes metodos de carga de datos:
 
   2. Pandas dataframe to CSV
 
-     Una vez los dataframes estan listos, se hace una exportacion al CSV (siguiendo un formato especifico mediante notaciones JSON en columnas de tipos complejos para cassandra)
+     Una vez los dataframes estan listos, se hace una exportación al CSV (siguiendo un formato específico mediante notaciones JSON en columnas de tipos complejos para cassandra)
 
   3. Carga de datos en cassandra con la tool dsbulk
 
      Por ultimo, se realiza una carga de datos a cassandra directamente del CSV mediante le uso de dsbulk. Esta herramienta ha sido desarrollada por Datastax y permite cargar datos desde ficheros con formato CSV y JSON. 
 
-     A continuacion se muestra el comando utilizado para la carag de datos del CSV. En este caso en concreto se hace para la tabla Configuration Items.
+     A continuación se muestra el comando utilizado para la carga de datos del CSV. En este caso en concreto se hace para la tabla Configuration Items.
 
      1. Truncamos la tabla para vaciarla y comprobamos que no hay datos
 
@@ -478,7 +473,7 @@ En esta fase se ha estudiado los diferentes metodos de carga de datos:
 
      ​	
 
-     3. hacemos una query sencilla para comprobar la carga de datos
+     3. Ejecutamos una consulta sencilla para comprobar la carga de datos:
 
         ```cassandra
         select ci_id,attributes,name from sysmonitor.configuration_item where ci_id =1;
@@ -488,23 +483,20 @@ En esta fase se ha estudiado los diferentes metodos de carga de datos:
 
      ​		
 
-     **NOTA**: Para instalar dsbulk en el servidor de cassandra se ha seguido la guia oficial de datastax https://docs.datastax.com/en/dsbulk/doc/dsbulk/install/dsbulkInstall.html
+     **NOTA**: Para instalar dsbulk en el servidor de Cassandra se ha seguido la guia oficial de datastax https://docs.datastax.com/en/dsbulk/doc/dsbulk/install/dsbulkInstall.html
 
 ### Consultas
 
 Una vez se han cargado los datos en el modelo de casandra, pasamos a ver como realizar las [consultas](#Consultas) claves del sistema implementado. 
 
-**NOTA**: En el caso de cassandra, el lenguaje de consultas CQL es limitado y solo permite realizar consultas basicas con filtros sencillos. Cualquier tipo de agregacion o acceso a tipos de datos complejos o custom, debe ser realizado a nivel de aplicativo.
+**NOTA**: En el caso de cassandra, el lenguaje de consultas CQL es limitado y solo permite realizar consultas basícas con filtros sencillos. Cualquier tipo de agregacion o acceso a tipos de datos complejos o custom, debe ser realizado a nivel de aplicativo.
 
 A continuación mostramos las consultas planteadas:
 
 
-
-  
-
 - Consulta 1 - **Listado de alertas con prioridad New:**
 
-  Esta consulta se puede efectuar desde CQL ya que la clave de particion de las alertas es el estado de la alerta y por eso es que se puede realizar el filtro en la consulta.
+  Esta consulta se puede efectuar desde CQL ya que la clave de partición de las alertas es el estado de la alerta y por eso es que se puede realizar el filtro en la consulta.
 
   ```cassandra
   select 
@@ -770,7 +762,7 @@ Con respecto a los volúmenes montados para cada uno merece la pena comentar que
 
  - Todos los contenedores montarán en `/etc/localtime` el volumen del host  `~/nosql/mongo_cluster/localtime`. Esa ruta local no es más que un enlace simbólico al fichero `/etc/localtime` de la máquina host. No se ha montado directamente por restricciones de seguridad de Docker en OSX. Por defecto no permite montar la ruta /etc del host. El objetivo de esta configuración, es que todos los contenedores compartan la configuración horaria con entre ellos y con el host.
 
- - Los contenedores dedicados a replicar la configuración y los shards de datos, almacenarán la información en `/nosql/mongo_cluster/configX` y `/nosql/mongo_cluster/dataX` respectivamente, siendo X el número que identifica al nodo en el set. Los contenedores de los routers no necesitan almacenar ningún tipo de información, ya que simplemente se limitarán a rutar las conexiones de los clientes.
+ - Los contenedores dedicados a replicar la configuración y los shards de datos, almacenarán la información en `/nosql/mongo_cluster/configX` y `/nosql/mongo_cluster/dataX` respectivamente, siendo X el número que identifica al nodo en el set. Los contenedores de los routers no necesitan almacenar ningún tipo de información, ya que simplemente se limitarán a rutar las conexiónes de los clientes.
 
  -  El nodo1 del shard de datos `mongors1n1` monta el volumen del host `~/nosql/source` en `/source` con el fin de tener accesibles los ficheros fuente necesarios para la importación.
 
@@ -1073,7 +1065,7 @@ import pandas as pd
 import json
 import numpy as np    
 
-# Load basic CI relational data
+# Load basíc CI relational data
 ci_df = pd.read_json("../sql/Configuration_Item.json")
 attributes_df = pd.read_json("../sql/Attribute.json")
 
