@@ -132,17 +132,86 @@ La arquitectura utilizada para la implementacion de la practica es la misma que 
 
 
 
-En esta arquitectura se ha dejado solamente un nodo seed. Los nodos seed tienen un rol especial dentro del cluster, y es que se encargan de la sincronizacion de los nuevos nodos que entran a formar parte del cluster o incluso de nodos que ya formaban parte pero se han apartado bien por mantenimiento o bien por errores y desincronizacion. Idealmente deberia haber mas de uno, pero para el caso practico que nos atañe con uno será suficiente.
+En esta arquitectura se ha dejado solamente un nodo seed. Los nodos seed tienen un rol especial dentro del cluster, y es que se encargan de la sincronización de los nuevos nodos que entran a formar parte del cluster o incluso de nodos que ya formaban parte pero se han apartado bien por mantenimiento o bien por errores y desincronización. Idealmente deberia haber mas de uno, pero para el caso practico que nos atañe con uno será suficiente.
 
-#### Instalacion y configuracion del cluster
+#### Instalacion y configuración del cluster
 
-Tal y como se ha comentado anteriormente, para la implementacion del modelo en casandra se ha utilizado el cluster que se instalo y configuro en clase. A continuacion se detallan los pasos seguidos:
+Tal y como se ha comentado anteriormente, para la implementación del modelo en casandra se ha utilizado el cluster que se instaló y configuró en clase. A continuación se detallan los pasos seguidos:
 
-1. Instalacion de cassandra
-2. Conffiguracion cassanda (cassandar.yml) cluster 1 nodo
-3.  Despliegue del cluster en el resto de nodos
+1. Instalación de cassandra
 
+   - Se ha instalado cassandra mediante los paquetes RPM que ya habian sido descargados previamente.
 
+     ```bash
+     rpm -ivf /root/Software/cassandra/dsc22/*.rpm
+     ```
+
+   - Se han borrado las carpetas por defecto
+
+     ```bash
+     rm -rf /var/lib/cassandra/*
+     ```
+
+   - Asignación de permisos al usuario cassandra a la carpeta home de cassandra
+
+     ```bash
+     chown cassandra.cassandra /var/lib/cassandra
+     ```
+
+2. Configuración cassanda (cassandar.yml) cluster 1 nodo
+
+   Para la configuración del cluster de cassandra se configura primero un nodo y despues se replica al resto de nodos. Para ello se han realizado los siguientes cambios en el fichero `/etc/cassandra/conf/cassandra.yaml`
+
+   - cluster_name: **nosql-025**
+   - data_file_directories: **`/var/lib/cassandra/cluster_nosql-025/data`**
+   - commitlog_directory: **`/var/lib/cassandra/cluster_nosql-025/commitlog`**
+   - saved_caches_directory: **`/var/lib/cassandra/cluster_nosql-025/saved_caches`**
+   - commitlog_total_space_in_mb: **1024**
+
+3. Arrancar el servicio de cassandra
+
+   - `service cassandra start`
+
+4. Despliegue del cluster en el resto de nodos
+
+   Una vez se ha configurado el nodo 1, se extiende esta configuración al resto de nodos. Para ello se ha implementado un script en bash que automiza este trabajo. 
+
+   ```bash
+   #!/bin/bash
+   
+   if [[ $# -eq 0 ]]; then
+           echo "Missing arguments. no action has been done!"
+           exit 2
+   fi
+   
+   for i in $@
+   do
+           echo $i
+   
+           #install cassandra software
+           ssh root@$i rpm -ivf /root/Software/cassandra/dsc22/*.rpm
+   
+           #delete default folders
+           ssh root@$i rm -rf /var/lib/cassandra/*
+   
+           #assign permissions to cassandra folder
+           ssh root@$i chown cassandra.cassandra /var/lib/cassandra
+   
+           #copy config files from node 1 to others
+           scp /etc/cassandra/conf/cassandra.yaml root@$i:/etc/cassandra/conf/
+           scp /etc/cassandra/conf/cassandra-env.sh root@$i:/etc/cassandra/conf/
+   
+           #start cassandra
+           ssh root@$i service cassandra start
+   
+   done
+   ```
+
+5. Una vez instalado e iniciado el servicio de cassandra en todos los nodos del cluster, podemos ver el estado del mismo mediante la utilidad **nodetool**. Se ejecuta el comando y se observan los 6 nodos levantados con el servicio ejecutándose y en estado normal.
+
+   `nodetool status`
+
+   ![cassandra-nodetool](images/cassandra-nodetool.png)
 
 ### Modelo de base de datos
 
