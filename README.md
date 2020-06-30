@@ -565,7 +565,6 @@ import json
 cluster = Cluster(['nosql-025-1'],port=9042)
 session = cluster.connect('sysmonitor',wait_for_all_pools=True)
 session.execute('USE sysmonitor')
-#rows = session.execute('SELECT * FROM alert')
 
 #retrieve data from cassandra
 rows = session.execute("select * from sysmonitor.configuration_item WHERE name = 'productivetrue.local';")
@@ -622,7 +621,6 @@ print(json.dumps(res))
   cluster = Cluster(['nosql-025-1'],port=9042)
   session = cluster.connect('sysmonitor',wait_for_all_pools=True)
   session.execute('USE sysmonitor')
-  #rows = session.execute('SELECT * FROM alert')
   
   #retrieve data from cassandra
   rows = session.execute("select * from sysmonitor.configuration_item WHERE name = 'productivetrue.local';")
