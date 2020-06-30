@@ -162,10 +162,279 @@ ss
 
 En esta fase se ha estudiado los diferentes metodos de carga de datos:
 
-- Generacion de scripts CQL a partir del sistema relacional
-- ETL mediante el uso de Python
-  - Instalacion dsbulk for JSON: https://docs.datastax.com/en/dsbulk/doc/dsbulk/install/dsbulkInstall.html
-  - 
+- ##### Generacion de scripts CQL a partir del sistema relacional
+
+  Una primera aproximacion para la carga de datos en cassandra ha sido usar los comandos conocidos de TSQL en SQL Server (base de datos original) para generar los scripts de insercion de datos en cassandra con la sintaxis esperada. Por ejemplo, para insertar las alertas en la tabla de alertas de cassandra hemos usado el siguiente script de TSQL:
+
+  ```mssql
+  select
+      '
+      INSERT INTO sysmonitor.alert 
+      (
+          ci_id,monitor_id,
+          monitor_instance_id,
+          alert_instance_id,
+          severity,
+          priority,
+          state_change_date,
+          alert_state_name,
+          ci_name,
+          alert_name
+      ) 
+      values (
+          '+cast(mins.ci_id as varchar(100))+',
+          '+cast(mins.monitor_id as varchar(100))+',
+          '+cast(ai.mon_isntance_id as varchar(100))+',
+          '+cast(ai.alert_instance_id as varchar(100))+',
+          '''+severity+''',
+          '''+priority+''',
+          '''+convert(varchar(20),ai.state_change_date,120)+''',
+          '''+ast.state_name+''',
+          '''+ci.name+''',
+          '''+m.alert_name+'''
+      );
+      '
+  from Alert_Instance as ai
+  inner join Alert_State as ast
+      on ast.state_id=ai.alert_State_id
+  inner join Monitor_Instance as mins
+      on mins.mon_isntance_id=ai.mon_isntance_id
+  inner join Monitor as m
+      on m.monitor_id=mins.monitor_id
+  inner JOIN ConfigurationItem as ci
+      on ci.ci_id=mins.ci_id
+  
+  ```
+
+  Esta consulta nos genera comandos insert como el siguiente:
+
+  ```mssql
+  
+      INSERT INTO sysmonitor.alert 
+      (
+          ci_id,monitor_id,
+          monitor_instance_id,
+          alert_instance_id,
+          severity,
+          priority,
+          state_change_date,
+          alert_state_name,
+          ci_name,
+          alert_name
+      ) 
+      values (
+          1,
+          31,
+          1,
+          1,
+          '1',
+          '1',
+          '2020-05-23 03:44:08',
+          'New',
+          'impossiblejamb.local',
+          'Heartbeat failure'
+      );
+  ```
+
+  De este modo se puede ir guardando los comandos de cassandra en ficheros *.cql y ejecutar la carga de datos. Para ello se ha creado uns cript de bash que realiza esta tarea.
+
+  ```bash
+  #!/bin/shell
+  
+  #execute steps at local host
+  
+  host=$(hostname)
+  
+  echo $host
+  
+  echo "creating tables and types (drop if exists).."
+  cqlsh $host -f create-types-tables.cql
+  echo "done"
+  
+  sleep 1
+  
+  echo "inserting CIs from SQL Server...."
+  cqlsh $host -f insert-sqlserver-cis-data.cql
+  echo "done"
+  
+  sleep 1
+  
+  echo "adding performance counter data to CIs...."
+  cqlsh $host -f add-performance-data.cql
+  echo "done"
+  
+  sleep 1
+  
+  echo "adding monitor data to CIs..."
+  cqlsh $host -f add-monitor-data.cql
+  echo "done"
+  
+  
+  echo "adding alerts data..."
+  cqlsh $host -f add-alert-data.cql
+  echo "done"
+  ```
+
+  Una vez se ha ejecutado este script los datos se cargan en el keyspace de cassandra y estan disponibles para consultas.
+
+  Un ejemplo de ejecucion del script seria el siguiente:
+
+  ![carga_datos_cassandra_bash](images/carga_datos_cassandra_bash.png)
+
+
+
+​		Una vez caragdos los datos se puede conectar al cluster de cassandra y comprobar que efectivamente 		tenemos datos, como por ejemplo alertas:
+
+​		![consulta_datos_cassandra_1](images/consulta_datos_cassandra_1.png)
+
+​		Pese a que este metodo en la práctica ha funcionado y es útil, no es una buena práctica en cuanto a la 		ingesta de datos. Es mejor utilizar una aproximacion por ETL (Extraction, Transform and Load).
+
+- ##### ETL mediante el uso de Python
+
+  Durante el desarrollo de la práctica se ha valorado la definicion e implementacion de un proceso de ETL mediante el uso de Python. Para ello se han diseñado el siguiente flujo para definir el proceso de carga:
+
+  ![cassandra-etl-2](images/cassandra-etl-2.png)
+
+  
+
+  Los pasos que se han seguido en el ETL son:
+
+  1. SQL Server to Python pandas dataframes
+
+     Se desea leer la informacion directamente desde las tablas de la base de datos y cargarlas en los dataframes de pandas. Una vez cargados los dato se pueden hacer las transformaciones pertinentes para adaptarlo al modelo de cassandra y asi poder insertar los datos.
+
+     En este caso en concreto, para evitar la configuracion de conexiones entre el entorno del dsic y SQL Server se ha hecho una exportacion manual de las tablas a ficheors JSON. Estos ficheros seran pues de donde se cargaran los dataframes para proceder a su procesado.
+
+     El codigo Python de que lee los datos de SQL y exporta el fichero de CSV que posteriormente se cargara es el siguiente:
+
+     ```python
+     import pandas as pd
+     
+     # Load basic CI relational data
+     ci_df = pd.read_json("../data/Configuration_Item.json")
+     attributes_df = pd.read_json("../data/Attribute.json")
+     
+     # Load performance relational data
+     rules_df = pd.read_json("../data/perfRules.json")
+     rule_instances_df = pd.read_json("../data/perfRuleInstances.json")
+     perf_data_df = pd.read_json("../data/perfRuleData.json")
+     
+     # Load monitors relational data
+     monitors_df = pd.read_json("../data/Monitors.json")
+     monitor_instances_df = pd.read_json("../data/MonitorInstances.json")
+     monitor_instance_states_df=pd.read_json("../data/MonitorInstanceStates.json")
+     health_states_df=pd.read_json("../data/HealthStates.json")
+     
+     #Pivot and convert CI Attributes in Map<Text,Text> for cassandra
+     att_pvt=attributes_df.pivot(index="ci_id", columns="att_name")
+     att_pvt.columns=['device_type','env','ip_address']
+     att_pvt=att_pvt.reset_index()
+                      
+     def convert_att_to_JSON(r):
+         return att_pvt[att_pvt.ci_id==r.ci_id][['device_type','env','ip_address']].to_dict('records')[0]
+     
+     att_pvt["attributes"]=att_pvt.apply(lambda r: convert_att_to_JSON(r),axis=1)
+     att_pvt.drop(['device_type','env','ip_address'],axis=1,inplace=True)
+     
+     #Merge CIs and CI Attributes
+     ci_df = pd.merge(ci_df,att_pvt,on="ci_id
+     
+     #calculate performance data per CI and include it in ci_df
+     
+     rule_instances_df.rename(columns={'per_ruleId':'ruleId'}, inplace=True)
+     perf_data_df.rename(columns={'perf_rule_instId':'instance_id'}, inplace=True)
+     
+     perf_data=pd.merge(perf_data_df,rule_instances_df)
+     perf_data=pd.merge(perf_data,rules_df)
+     
+     perf_data=perf_data[['ci_id','rule_name','rule_description','date','value']]\
+                 .rename(\
+                         columns={\
+                                  'date':'collected_date',\
+                                  'rule_name':'perf_rule_name',\
+                                  'rule_description':'perf_rule_desc'\
+                                 }\
+                        )
+     
+     #convert date to string for cassandra conversions
+     perf_data["collected_date"]=perf_data.collected_date.apply(lambda x: str(x))
+     
+     def get_perf_data_from_ci(r):
+         return perf_data[perf_data.ci_id==r.ci_id].drop(['ci_id'],axis=1).to_dict('record')
+     
+     
+     ci_df["performance_counters"]=ci_df.apply(lambda r: get_perf_data_from_ci(r),axis=1)
+     
+     #extract and model monitor information. Add it to the configuration item
+     
+     monitors=pd.merge(monitors_df,monitor_instances_df)
+     monitors=pd.merge(monitors,monitor_instance_states_df)
+     monitors.rename(columns={'health_State_id':'state_id'},inplace=True)
+     monitors=pd.merge(monitors,health_states_df)
+     
+     monitors.drop(['monitor_id','state_id',],axis=1,inplace=True)
+     monitors.rename(columns={'monitor_instance_state_id':'monitor_state_id'},inplace=True)
+     
+     #remove duplicates (except state values)
+     monitors_agg=monitors.drop(['state_change_date','state_name','monitor_state_id'],axis=1).drop_duplicates()
+     
+     monitors_agg.rename(columns={'mon_isntance_id':'monitor_instance_id'},inplace=True)
+     monitors.rename(columns={'state_name':'health_state'},inplace=True)
+     
+     
+     def get_mon_states_per_monIns(r):
+         r= monitors[monitors.mon_isntance_id==r.monitor_instance_id][['monitor_state_id','state_change_date','health_state']].to_dict('record')
+         return r
+         
+     monitors_agg["monitor_states"]=monitors_agg.apply(lambda r: get_mon_states_per_monIns(r),axis=1)
+     
+     
+     def get_monitors_from_ci(r):
+         return monitors_agg[monitors_agg.ci_id==r.ci_id].drop('ci_id',axis=1).to_dict('record')
+     
+     ci_df["monitors"]=ci_df.apply(lambda r: get_monitors_from_ci(r),axis=1)
+     
+     #export Configuration items data to CSV
+     ci_df.to_csv('ci_data.csv',sep='|',index=False)
+     ```
+
+     
+
+  2. Pandas dataframe to CSV
+
+     Una vez los dataframes estan listos, se hace una exportacion al CSV (siguiendo un formato especifico mediante notaciones JSON en columnas de tipos complejos para cassandra)
+
+  3. Carga de datos en cassandra con la tool dsbulk
+
+     Por ultimo, se realiza una carga de datos a cassandra directamente del CSV mediante le uso de dsbulk. Esta herramienta ha sido desarrollada por Datastax y permite cargar datos desde ficheros con formato CSV y JSON. 
+
+     A continuacion se muestra el comando utilizado para la carag de datos del CSV. En este caso en concreto se hace para la tabla Configuration Items.
+
+     1. Truncamos la tabla para vaciarla y comprobamos que no hay datos
+
+        ![truncate-select-cassandra](images/truncate-select-cassandra.png)
+
+     2. Cargamos datos desde Shell
+
+        ```bash
+        dsbulk load -url ci_data.csv -k sysmonitor -t configuration_item -h NOSQL-025-1 -delim '|' --connector.csv.maxCharsPerColumn -1 --schema.allowMissingFields true
+        ```
+
+        ![dsbulk-cassandra](images/dsbulk-cassandra.png)
+
+     ​	
+
+     3. hacemos una query sencilla para comprobar la carga de datos
+
+        ```cassandra
+        select ci_id,attributes,name from sysmonitor.configuration_item where ci_id =1;
+        ```
+
+        ![cassandra-query-1](images/cassandra-query-1.png)
+
+     ​		
+
+     **NOTA**: Para instalar dsbulk en el servidor de cassandra se ha seguido la guia oficial de datastax https://docs.datastax.com/en/dsbulk/doc/dsbulk/install/dsbulkInstall.html
 
 ### Consultas
 
