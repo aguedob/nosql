@@ -10,30 +10,37 @@ Máster en Big Data Analytics. Curso 2019/2020
 
 [TOC]
 
-Autores:
-
-- Enrique Puig Nouselles ()
-
-- José Ángel Soler Amo ()
-- Andrés Guerrero Doblado (andres@meigal.com)
-
-
-
-
-
 # Introducción
 
 ## Objetivos
 
 El objetivo de estre trabajo es ilustrar las ventajas e inconvenientes de los sistemas de bases de datos relacionales frente a sistemas NoSQL o libres de esquema.
 
+## Autoría del trabajo
 
+### Autores
 
-## El problema
+- Enrique Puig Nouselles ([e.puig@outlook.es](e.puig@outlook.es))
+
+- José Ángel Soler Amo ([joseangelsoleramo@hotmail.com](joseangelsoleramo@hotmail.com))
+
+- Andrés Guerrero Doblado (andres@meigal.com)
+
+  
+### Reparto de tareas
+
+- Fase de análisis del problema, implementación de la base de datos relacional, generación de datos y documentación:
+  - Todos
+- Implementación del sistema NoSQL con Cassandra:
+  - Enrique Puig
+- Implementación del sistema NoSQL con mongoDB:
+  - Andrés Guerrero
+- Implementación del sistema NoSQL con Neo4J:
+  - José Ángel Soler Amo
+
+## Caso de estudio
 
 La idea de la cual se parte es un problema real. Uno de los miembros del equipo se dedica a la monitorización de infraestructuras TI, y hace uso de una herramienta comercial que almacena información en una base de datos relacional. La aplicación sufre de un problema endémico conocido: hay una penalización bastante alta en el rendimiento de ciertas operaciones cuando el número de items monitorizados aumenta.
-
-
 
 A continuación se describen las entidades principales:
 
@@ -52,62 +59,33 @@ A continuación se describen las entidades principales:
 
 
 
-Esquema de relacional:
+Esquema relacional:
 
-![image-20200628080744698](/Users/guerrero/Library/Application Support/typora-user-images/image-20200628080744698.png)
+![esquema](./images/esquema.png)
 
-## Autoría del trabajo
+### Organización de la información
 
-### Autores
+A la hora de diseñar la estructura de los documentos donde almacenaremos la información, es imprescindible analizar cuáles serán las consultas que más se ejecutarán sobre los datos, con el fin de optimizarlas. El sistema de monitorización que se utiliza como ejemplo, existen dos roles principales de uso, que determinan claramente el diseño.
 
-- Enrique Puig Nouselles ([e.puig@outlook.es](e.puig@outlook.es))
+**Rol de operador**: El operador de la infraestructura de TI tiene como principal tarea comprobar de forma periódica la consola de monitorización, donde aparece en primera instancia una vista de las alertas que se encuentra en estado "New". 
 
-- José Ángel Soler Amo ()
-- Andrés Guerrero Doblado (andres@meigal.com)
+**Rol de técnicos de nivel 2 o nivel 3:** Los técnicos de nivel 2 y nivel 3 tan sólo intervendrán cuando el operador les avise que existe un incidente en un CI determinado que no han podido solventar. Dichos técnicos acudirán al sistema de monitorización para obtener más información sobre el estado de salud del CI afectado. Para ello, revisarán qué monitores se encuentran en un estado no saludable, desde cuándo así los últimos datos de rendimiento tomados por el sistema, como por ejemplo el consumo de CPU o memoria.
 
-#### Reparto de tareas
-
-- Fase de análisis del problema, implementación de la base de datos relacional, generación de datos y documentación:
-  - Todos
-- Implementación del sistema NoSQL con Cassandra:
-  - Enrique Puig
-- Implementación del sistema NoSQL con mongoDB:
-  - Andrés Guerrero
-- Implementación del sistema NoSQL con Neo4J:
-  - José Ángel Soler Amo
+Una vez identificados los casos de uno más comunes, identificamos claramente que las entidades Configuration_Item y Alert deben ser las que se utilicen para particionar la información.
 
 
 
 # Consultas
 
-A continuación se describen las consultas a realizar:
+Con el fin de comprobar la eficiencia del sistema una vez migrado a una arquitectura libre de esquema,  hemos planteado el diseño de la siguientes consultas:
 
-Listado de alertas con prioridad New:
+1. **Listado de alertas pendientes (prioridad == New)**: Tal y como mencionamos en el análisis previo, la consulta de alertas pendientes es uno de los principales casos de uso del sistema de monitorización. La vista de alertas pendientes se refrescará con una periodicidad alta en las consolas de los operadores. La información mínima a mostrar por alerta consistirá en el nombre de la alerta, la severidad, el item afectado y la fecha en la que se registra el incidente.
 
- - Nombre de alerta
- - Severidad
- - CI afectado
- - Fecha
-   
+2. **Cambios de estado de un monitor específico en un servidor**. Una vez se identifica el CI afectado, los técnicos estudiarán los posibles cambios de estado del monitor afectado, con el fin de detectar si es un problema de duración determinada puntual o si por el contrario es recurrente.
 
-Cambios de estado para un monitor en un servidor:
+   Necesitarán conocer: el nombre del monitor y el CI afectado, así como los cambios de estado registrados junto con la fecha.
 
-- CI
-- Nombre de monitor
-- Estado
-- Fecha
-  
-
-Obtener datos de regla de rendimiento para un servidor:
-
-- CI name
-- Regla
-- Fecha
-- Valor
-
-
-
-
+3. **Obtención de los datos de rendimiento recolectados para una regla de recolección específica en un servidor.** Además de los cambios de estado, la información de ciertos contadores de rendimiento, pueden proporcionar a los técnicos información muy relevante a la hora de identificar la raíz de un problema. Para cada contador, se necesitará devolver una lista con los valores y en la fecha que se registraron.
 
 # Implementaciones
 
@@ -1151,18 +1129,6 @@ Parada mongo cluster:
 
 
 
-### Organización de la información
-
-A la hora de diseñar la estructura de los documentos donde almacenaremos la información, es imprescindible analizar cuáles serán las consultas que más se ejecutarán sobre los datos, con el fin de optimizarlas. El sistema de monitorización que se utiliza como ejemplo, existen dos roles principales de uso, que determinan claramente el diseño.
-
-**Rol de operador**: El operador de la infraestructura de TI tiene como principal tarea comprobar de forma periódica la consola de monitorización, donde aparece en primera instancia una vista de las alertas que se encuentra en estado "New". 
-
-**Rol de técnicos de nivel 2 o nivel 3:** Los técnicos de nivel 2 y nivel 3 tan sólo intervendrán cuando el operador les avise que existe un incidente en un CI determinado que no han podido solventar. Dichos técnicos acudirán al sistema de monitorización para obtener más información sobre el estado de salud del CI afectado. Para ello, revisarán qué monitores se encuentran en un estado no saludable, desde cuándo así los últimos datos de rendimiento tomados por el sistema, como por ejemplo el consumo de CPU o memoria.
-
-Una vez identificados los casos de uno más comunes, identificamos claramente que las entidades Configuration_Item y Alert deben ser las que se utilicen para particionar la información.
-
-
-
 ### Agregación e importación de datos
 
 Con el fin de importar los datos en mongo, se comienza exportando cada una de las tablas de la base de datos relacional en formato json. Puesto que las relaciones definidas en la base de datos relacional son todas uno a muchos, existe una tabla por cada una de las entidades definidas en el esquema.
@@ -1628,19 +1594,19 @@ switched to db sysmonitor
 
 ## NEO4J
 
-En este apartado realiza la adaptación del esquema relacional a una base de datos de grafos. Para ello, se hace uso de la máquina NOSQL-029-1, donde se ha instalado NEO4J con la versión 3.3.0. Para realizar tal adaptación, primero se discute cómo adaptar la base de datos relacional a la base de datos de grafos, y más adelante realizar la implantación del modelo en NEO4J. Por último, se comprueba la correcta implementación a partir de las consultas citadas anteriormente.
+En este apartado realiza la adaptación del esquema relacional a una base de datos de grafos. Para ello, se hace uso de la máquina NOSQL-029-1, donde se ha instalado NEO4J con la versión 3.3.0. Siguiendo este objetivo, primero se discute cómo adaptar la base de datos relacional a la base de datos de grafos, y más adelante se realiza la implantación del modelo en NEO4J. Por último, se comprueba la correcta implementación a partir de las consultas citadas anteriormente.
 
 ### Aproximación de BDR a BDG
 
 En primer lugar, como la base de datos de grafos (BDG) es creada a partir de una base de datos relacional (BDR), se recuerda que la base de datos relacional es la siguiente:
 
-<!--IMAGEN-->
+![esquema](./images/esquema.png)
 
 Si se analiza con detenimiento el esquema relacional, se observa que no hay tablas de unión, por lo que cada tabla de la base de datos relacional puede corresponderse con una tabla en la base de datos de grafos.
 
-En la BDR, se observa que existen tablas que asocian un ID con una descripción, como por ejemplo Alert_State o Health_State. Por tanto, se plantea una reducción, de forma que en los nodos del grafo se informen directamente los nombres en vez de un ID asociado a otra tabla. En el caso de grafos, esta reducción es especialmente interesante ya que las consultas se realizan sobre caminos (paths), y lo más común es que mediante un único camino no se pueda obtener tal descripción, sobre todo en queries complejas. 
+Sin embargo, en la BDR se observa que existen tablas que asocian un ID con una descripción, como por ejemplo Alert_State o Health_State. Por tanto, se plantea una reducción, de forma que en los nodos del grafo se informen directamente los nombres en vez de un ID asociado a otra tabla. En el caso de grafos, esta reducción es especialmente interesante ya que las consultas se realizan sobre caminos (paths), y lo más común es que mediante un único camino no se pueda obtener tal descripción, sobre todo en consultas complejas. 
 
-Por tanto, una vez se comprende la BDR, se llega a la conclusión de eliminar las tablas Alert_State y Health_State, y en las tablas Alert_Instance y Monitor_Instance_State, uno de sus campos, en vez de ser un ID asociado a otra tabla, será directamente un nombre o descripción.  Para las demás tablas de la BDR, se observa que cada tabla se corresponde con un nodo del grafo, y que las relaciones entre tablas serán relaciones entre los nodos de la BDG.
+Por tanto, una vez se comprende la BDR, se llega a la conclusión de eliminar las tablas Alert_State y Health_State, y en las tablas Alert_Instance y Monitor_Instance_State, uno de sus campos, en vez de ser un ID asociado a otra tabla será directamente un nombre o descripción.  Para las demás tablas de la BDR, se observa que cada tabla se corresponde con un nodo del grafo, y que las relaciones entre tablas serán relaciones entre los nodos de la BDG.
 
 ### Creación de la base de datos de grafos
 
@@ -1660,7 +1626,9 @@ Una vez iniciado, se puede observar que la base de datos activa se corresponde c
 
 ![baseDeDatos](./images/neo4j/baseDeDatos.png)
 
-### Creación de los nodos de la BDG
+
+
+#### Creación de los nodos de la BDG
 
 Como el modelo se ha creado a partir de una BDR, se descargan los datos correspondientes a las tablas en formato CSV, de cara a importarlos a NEO4J. Tras esto, en la carpeta `./neo4j-community-3.3.0/import` se crea una carpeta llamada `datosSysmonitor`, donde se guardan todos los archivos CSV que contienen la información de tablas de la BDR.
 
@@ -1787,7 +1755,7 @@ Como la lectura de un archivo CSV en NEO4J considera todos los campos como carac
 
 Tras aplicar estos comandos, se han generado todos los nodos de la base de datos con sus respectivas propiedades.
 
-### Creación de relaciones entre nodos
+#### Creación de relaciones entre nodos
 
 De cara a crear las relaciones entre nodos, se utilizan los mismos campos del esquema relacional, de forma que si coinciden las claves principal y foránea, se crea una relación entre los dos nodos. Lo primero que se puede observar en el esquema relacional es que todas las relaciones son 1:n. De cara a crear las relaciones entre nodos, se toman los datos del nodo asociados al cardinal n, y en caso de coincidir las claves se genera la relación.
 
@@ -1862,7 +1830,7 @@ Tras generar todas las relaciones entre nodos, la base de datos se puede visuali
 
 ![esquemaBDG](./images/neo4j/esquemaBDG.png)
 
-### Creación de restricciones
+#### Creación de restricciones
 
 En caso de no añadir nada más al modelo, nada impide que existan dos nodos diferentes con exactamente las mismas propiedades. Para evitar duplicados cuando sea necesario, se han de añadir restricciones en la creación de nuevos nodos. Los nodos que han de tener la restricción de unicidad son:
 
