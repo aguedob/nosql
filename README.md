@@ -12,9 +12,9 @@ Máster en Big Data Analytics. Curso 2019/2020
 
 Autores:
 
-- Enrique Puig Nouselles ()
+- Enrique Puig Nouselles ([e.puig@outlook.es](e.puig@outlook.es))
 
-- José Ángel Soler Amo ()
+- José Ángel Soler Amo ([joseangelsoleramo@hotmail.com](joseangelsoleramo@hotmail.com))
 - Andrés Guerrero Doblado (andres@meigal.com)
 
 
@@ -52,9 +52,9 @@ A continuación se describen las entidades principales:
 
 
 
-Esquema de relacional:
+Esquema relacional:
 
-![image-20200628080744698](/Users/guerrero/Library/Application Support/typora-user-images/image-20200628080744698.png)
+![esquema](./images/esquema.png)
 
 ## Autoría del trabajo
 
@@ -62,7 +62,7 @@ Esquema de relacional:
 
 - Enrique Puig Nouselles ([e.puig@outlook.es](e.puig@outlook.es))
 
-- José Ángel Soler Amo ()
+- José Ángel Soler Amo ([joseangelsoleramo@hotmail.com](joseangelsoleramo@hotmail.com))
 - Andrés Guerrero Doblado (andres@meigal.com)
 
 #### Reparto de tareas
@@ -1559,19 +1559,19 @@ switched to db sysmonitor
 
 ## NEO4J
 
-En este apartado realiza la adaptación del esquema relacional a una base de datos de grafos. Para ello, se hace uso de la máquina NOSQL-029-1, donde se ha instalado NEO4J con la versión 3.3.0. Para realizar tal adaptación, primero se discute cómo adaptar la base de datos relacional a la base de datos de grafos, y más adelante realizar la implantación del modelo en NEO4J. Por último, se comprueba la correcta implementación a partir de las consultas citadas anteriormente.
+En este apartado realiza la adaptación del esquema relacional a una base de datos de grafos. Para ello, se hace uso de la máquina NOSQL-029-1, donde se ha instalado NEO4J con la versión 3.3.0. Siguiendo este objetivo, primero se discute cómo adaptar la base de datos relacional a la base de datos de grafos, y más adelante se realiza la implantación del modelo en NEO4J. Por último, se comprueba la correcta implementación a partir de las consultas citadas anteriormente.
 
 ### Aproximación de BDR a BDG
 
 En primer lugar, como la base de datos de grafos (BDG) es creada a partir de una base de datos relacional (BDR), se recuerda que la base de datos relacional es la siguiente:
 
-<!--IMAGEN-->
+![esquema](./images/esquema.png)
 
 Si se analiza con detenimiento el esquema relacional, se observa que no hay tablas de unión, por lo que cada tabla de la base de datos relacional puede corresponderse con una tabla en la base de datos de grafos.
 
-En la BDR, se observa que existen tablas que asocian un ID con una descripción, como por ejemplo Alert_State o Health_State. Por tanto, se plantea una reducción, de forma que en los nodos del grafo se informen directamente los nombres en vez de un ID asociado a otra tabla. En el caso de grafos, esta reducción es especialmente interesante ya que las consultas se realizan sobre caminos (paths), y lo más común es que mediante un único camino no se pueda obtener tal descripción, sobre todo en queries complejas. 
+Sin embargo, en la BDR se observa que existen tablas que asocian un ID con una descripción, como por ejemplo Alert_State o Health_State. Por tanto, se plantea una reducción, de forma que en los nodos del grafo se informen directamente los nombres en vez de un ID asociado a otra tabla. En el caso de grafos, esta reducción es especialmente interesante ya que las consultas se realizan sobre caminos (paths), y lo más común es que mediante un único camino no se pueda obtener tal descripción, sobre todo en consultas complejas. 
 
-Por tanto, una vez se comprende la BDR, se llega a la conclusión de eliminar las tablas Alert_State y Health_State, y en las tablas Alert_Instance y Monitor_Instance_State, uno de sus campos, en vez de ser un ID asociado a otra tabla, será directamente un nombre o descripción.  Para las demás tablas de la BDR, se observa que cada tabla se corresponde con un nodo del grafo, y que las relaciones entre tablas serán relaciones entre los nodos de la BDG.
+Por tanto, una vez se comprende la BDR, se llega a la conclusión de eliminar las tablas Alert_State y Health_State, y en las tablas Alert_Instance y Monitor_Instance_State, uno de sus campos, en vez de ser un ID asociado a otra tabla será directamente un nombre o descripción.  Para las demás tablas de la BDR, se observa que cada tabla se corresponde con un nodo del grafo, y que las relaciones entre tablas serán relaciones entre los nodos de la BDG.
 
 ### Creación de la base de datos de grafos
 
@@ -1591,7 +1591,9 @@ Una vez iniciado, se puede observar que la base de datos activa se corresponde c
 
 ![baseDeDatos](./images/neo4j/baseDeDatos.png)
 
-### Creación de los nodos de la BDG
+
+
+#### Creación de los nodos de la BDG
 
 Como el modelo se ha creado a partir de una BDR, se descargan los datos correspondientes a las tablas en formato CSV, de cara a importarlos a NEO4J. Tras esto, en la carpeta `./neo4j-community-3.3.0/import` se crea una carpeta llamada `datosSysmonitor`, donde se guardan todos los archivos CSV que contienen la información de tablas de la BDR.
 
@@ -1718,7 +1720,7 @@ Como la lectura de un archivo CSV en NEO4J considera todos los campos como carac
 
 Tras aplicar estos comandos, se han generado todos los nodos de la base de datos con sus respectivas propiedades.
 
-### Creación de relaciones entre nodos
+#### Creación de relaciones entre nodos
 
 De cara a crear las relaciones entre nodos, se utilizan los mismos campos del esquema relacional, de forma que si coinciden las claves principal y foránea, se crea una relación entre los dos nodos. Lo primero que se puede observar en el esquema relacional es que todas las relaciones son 1:n. De cara a crear las relaciones entre nodos, se toman los datos del nodo asociados al cardinal n, y en caso de coincidir las claves se genera la relación.
 
@@ -1793,7 +1795,7 @@ Tras generar todas las relaciones entre nodos, la base de datos se puede visuali
 
 ![esquemaBDG](./images/neo4j/esquemaBDG.png)
 
-### Creación de restricciones
+#### Creación de restricciones
 
 En caso de no añadir nada más al modelo, nada impide que existan dos nodos diferentes con exactamente las mismas propiedades. Para evitar duplicados cuando sea necesario, se han de añadir restricciones en la creación de nuevos nodos. Los nodos que han de tener la restricción de unicidad son:
 
