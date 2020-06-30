@@ -31,7 +31,7 @@ El objetivo de estre trabajo es ilustrar las ventajas e inconvenientes de los si
 
 ## El problema
 
-La idea de la cual se parte es un problema real. Uno de los miembros del equipo se dedica a la monitorización de infraestructuras TI, y hace uso de una herramienta comercial que almacena información en una base de datos relacional. La aplicación sufre de un problema endémico conocido: hay una penalización bastante alta en el rendimiento de ciertas operaciones cuando el número de items monitorizados aumenta.
+La idea de la cual se parte es un problema real. Uno de los miembros del equipo se dedica a la monitorización de infraestructuras TI y hace uso de una herramienta comercial que almacena información en una base de datos relacional. La aplicación sufre de un problema endémico conocido: hay una penalización bastante alta en el rendimiento de ciertas operaciones cuando el número de items monitorizados aumenta.
 
 
 
@@ -80,32 +80,15 @@ Esquema relacional:
 
 # Consultas
 
-A continuación se describen las consultas a realizar:
+Con el fin de comprobar la eficiencia del sistema una vez migrado a una arquitectura libre de esquema,  hemos planteado el diseño de la siguientes consultas:
 
-Listado de alertas con prioridad New:
+1. **Listado de alertas pendientes (prioridad == New)**: Tal y como mencionamos en el análisis previo, la consulta de alertas pendientes es uno de los principales casos de uso del sistema de monitorización. La vista de alertas pendientes se refrescará con una periodicidad alta en las consolas de los operadores. La información mínima a mostrar por alerta consistirá en el nombre de la alerta, la severidad, el item afectado y la fecha en la que se registra el incidente.
 
- - Nombre de alerta
- - Severidad
- - CI afectado
- - Fecha
-   
+2. **Cambios de estado de un monitor específico en un servidor**. Una vez se identifica el CI afectado, los técnicos estudiarán los posibles cambios de estado del monitor afectado, con el fin de detectar si es un problema de duración determinada puntual o si por el contrario es recurrente.
 
-Cambios de estado para un monitor en un servidor:
+   Necesitarán conocer: el nombre del monitor y el CI afectado, así como los cambios de estado registrados junto con la fecha.
 
-- CI
-- Nombre de monitor
-- Estado
-- Fecha
-  
-
-Obtener datos de regla de rendimiento para un servidor:
-
-- CI name
-- Regla
-- Fecha
-- Valor
-
-
+3. **Obtención de los datos de rendimiento recolectados para una regla de recolección específica en un servidor.** Además de los cambios de estado, la información de ciertos contadores de rendimiento, pueden proporcionar a los técnicos información muy relevante a la hora de identificar la raíz de un problema. Para cada contador, se necesitará devolver una lista con los valores y en la fecha que se registraron.
 
 
 
