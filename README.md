@@ -10,30 +10,37 @@ Máster en Big Data Analytics. Curso 2019/2020
 
 [TOC]
 
-Autores:
-
-- Enrique Puig Nouselles ([e.puig@outlook.es](e.puig@outlook.es))
-
-- José Ángel Soler Amo ([joseangelsoleramo@hotmail.com](joseangelsoleramo@hotmail.com))
-- Andrés Guerrero Doblado (andres@meigal.com)
-
-
-
-
-
 # Introducción
 
 ## Objetivos
 
 El objetivo de estre trabajo es ilustrar las ventajas e inconvenientes de los sistemas de bases de datos relacionales frente a sistemas NoSQL o libres de esquema.
 
+## Autoría del trabajo
 
+### Autores
 
-## El problema
+- Enrique Puig Nouselles ([e.puig@outlook.es](e.puig@outlook.es))
 
-La idea de la cual se parte es un problema real. Uno de los miembros del equipo se dedica a la monitorización de infraestructuras TI y hace uso de una herramienta comercial que almacena información en una base de datos relacional. La aplicación sufre de un problema endémico conocido: hay una penalización bastante alta en el rendimiento de ciertas operaciones cuando el número de items monitorizados aumenta.
+- José Ángel Soler Amo ([joseangelsoleramo@hotmail.com](joseangelsoleramo@hotmail.com))
 
+- Andrés Guerrero Doblado (andres@meigal.com)
 
+  
+### Reparto de tareas
+
+- Fase de análisis del problema, implementación de la base de datos relacional, generación de datos y documentación:
+  - Todos
+- Implementación del sistema NoSQL con Cassandra:
+  - Enrique Puig
+- Implementación del sistema NoSQL con mongoDB:
+  - Andrés Guerrero
+- Implementación del sistema NoSQL con Neo4J:
+  - José Ángel Soler Amo
+
+## Caso de estudio
+
+La idea de la cual se parte es un problema real. Uno de los miembros del equipo se dedica a la monitorización de infraestructuras TI, y hace uso de una herramienta comercial que almacena información en una base de datos relacional. La aplicación sufre de un problema endémico conocido: hay una penalización bastante alta en el rendimiento de ciertas operaciones cuando el número de items monitorizados aumenta.
 
 A continuación se describen las entidades principales:
 
@@ -56,25 +63,15 @@ Esquema relacional:
 
 ![esquema](./images/esquema.png)
 
-## Autoría del trabajo
+### Organización de la información
 
-### Autores
+A la hora de diseñar la estructura de los documentos donde almacenaremos la información, es imprescindible analizar cuáles serán las consultas que más se ejecutarán sobre los datos, con el fin de optimizarlas. El sistema de monitorización que se utiliza como ejemplo, existen dos roles principales de uso, que determinan claramente el diseño.
 
-- Enrique Puig Nouselles ([e.puig@outlook.es](e.puig@outlook.es))
+**Rol de operador**: El operador de la infraestructura de TI tiene como principal tarea comprobar de forma periódica la consola de monitorización, donde aparece en primera instancia una vista de las alertas que se encuentra en estado "New". 
 
-- José Ángel Soler Amo ([joseangelsoleramo@hotmail.com](joseangelsoleramo@hotmail.com))
-- Andrés Guerrero Doblado (andres@meigal.com)
+**Rol de técnicos de nivel 2 o nivel 3:** Los técnicos de nivel 2 y nivel 3 tan sólo intervendrán cuando el operador les avise que existe un incidente en un CI determinado que no han podido solventar. Dichos técnicos acudirán al sistema de monitorización para obtener más información sobre el estado de salud del CI afectado. Para ello, revisarán qué monitores se encuentran en un estado no saludable, desde cuándo así los últimos datos de rendimiento tomados por el sistema, como por ejemplo el consumo de CPU o memoria.
 
-#### Reparto de tareas
-
-- Fase de análisis del problema, implementación de la base de datos relacional, generación de datos y documentación:
-  - Todos
-- Implementación del sistema NoSQL con Cassandra:
-  - Enrique Puig
-- Implementación del sistema NoSQL con mongoDB:
-  - Andrés Guerrero
-- Implementación del sistema NoSQL con Neo4J:
-  - José Ángel Soler Amo
+Una vez identificados los casos de uno más comunes, identificamos claramente que las entidades Configuration_Item y Alert deben ser las que se utilicen para particionar la información.
 
 
 
@@ -89,8 +86,6 @@ Con el fin de comprobar la eficiencia del sistema una vez migrado a una arquitec
    Necesitarán conocer: el nombre del monitor y el CI afectado, así como los cambios de estado registrados junto con la fecha.
 
 3. **Obtención de los datos de rendimiento recolectados para una regla de recolección específica en un servidor.** Además de los cambios de estado, la información de ciertos contadores de rendimiento, pueden proporcionar a los técnicos información muy relevante a la hora de identificar la raíz de un problema. Para cada contador, se necesitará devolver una lista con los valores y en la fecha que se registraron.
-
-
 
 # Implementaciones
 
@@ -1062,18 +1057,6 @@ Parada mongo cluster:
 ```bash
 ❯ docker rm mongos2 mongos1 mongors1n1 mongocfg2 mongors1n3 mongocfg1 mongocfg3 mongors1n2
 ```
-
-
-
-### Organización de la información
-
-A la hora de diseñar la estructura de los documentos donde almacenaremos la información, es imprescindible analizar cuáles serán las consultas que más se ejecutarán sobre los datos, con el fin de optimizarlas. El sistema de monitorización que se utiliza como ejemplo, existen dos roles principales de uso, que determinan claramente el diseño.
-
-**Rol de operador**: El operador de la infraestructura de TI tiene como principal tarea comprobar de forma periódica la consola de monitorización, donde aparece en primera instancia una vista de las alertas que se encuentra en estado "New". 
-
-**Rol de técnicos de nivel 2 o nivel 3:** Los técnicos de nivel 2 y nivel 3 tan sólo intervendrán cuando el operador les avise que existe un incidente en un CI determinado que no han podido solventar. Dichos técnicos acudirán al sistema de monitorización para obtener más información sobre el estado de salud del CI afectado. Para ello, revisarán qué monitores se encuentran en un estado no saludable, desde cuándo así los últimos datos de rendimiento tomados por el sistema, como por ejemplo el consumo de CPU o memoria.
-
-Una vez identificados los casos de uno más comunes, identificamos claramente que las entidades Configuration_Item y Alert deben ser las que se utilicen para particionar la información.
 
 
 
