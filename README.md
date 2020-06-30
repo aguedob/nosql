@@ -60,7 +60,7 @@ Esquema de relacional:
 
 ### Autores
 
-- Enrique Puig Nouselles ()
+- Enrique Puig Nouselles ([e.puig@outlook.es](e.puig@outlook.es))
 
 - José Ángel Soler Amo ()
 - Andrés Guerrero Doblado (andres@meigal.com)
@@ -150,13 +150,89 @@ A partir del modelo entidad-relacion del sistema elegido, se ha credo un keyspac
 
 #### Keyspace
 
-sjslkss
+PAra esta practica y puesto que solamente estamos usando un único data center se ha creado el keyspace **sysmonitor** con SimpleStrategy y un factor de replicacion de 3 nodos que supone el 50% de los nodos del cluster.
+
+```cassandra
+CREATE KEYSPACE sysmonitor 
+WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '3'}
+```
+
+
 
 #### Modelo
 
-ss
+Una se ha creado el keyspace se ha pasado a la fase de modelado. En este caso en particular y en base a las consultas que se quieren poder resolver en este caso de uso en concreto hemos definido varios tipos de datos personalizados, Mapas de clave valor y unicamente dos tablas, una de alertas y otra de configuration items.
 
+El principal motivo de esta decision es debido al uso y a las consultas que necesita el sistema. Este tipo de soluciones de monitorizacion suelen ser utilziadas por 2 roles:
 
+- **Operador**: Se encarga de ver las alertas abiertas y asignarlas a los tecnicos a traves de incidencias.
+- **Tecnico**: Se encarga de revisar las incidencias y revisar los configuration items relacionados.
+
+En base a estos requisitos, pese a que las alertas estan relacionadas con monitores que estasn asociados a configuration items, hemos preferido crear dos tablas y redundar ciertos datos para satisfacer las consultas clave del sistema de monitorizacion.
+
+Se han definido los siguientes tipos de datos propios:
+
+```cassandra
+CREATE TYPE sysmonitor.alert (
+    alert_instance_id int,
+    severity text,
+    priority text,
+    state_change_date timestamp,
+    alert_state_name text
+);
+
+CREATE TYPE sysmonitor.monitor_state (
+    monitor_state_id int,
+    state_change_date timestamp,
+    health_state text
+);
+
+CREATE TYPE sysmonitor.monitor (
+    monitor_instance_id int,
+    name text,
+    description text,
+    alert_name text,
+    alert_description text,
+    monitor_parameters frozen<map<text, int>>,
+    monitor_states frozen<list<frozen<monitor_state>>>
+);
+
+CREATE TYPE sysmonitor.performance_data (
+    perf_rule_name text,
+    perf_rule_desc text,
+    collected_date timestamp,
+    value int
+);
+```
+
+Una vez creados los tipos, se crean las dos tablas principales del sistema:
+
+```cassandra
+CREATE TABLE sysmonitor.configuration_item (
+    ci_id int,
+    attributes map<text, text>,
+    monitors list<frozen<monitor>>,
+    name text,
+    performance_counters list<frozen<performance_data>>,
+  	primary key (name,ci_id)
+);
+
+CREATE TABLE sysmonitor.alert (
+    alert_state_name text,
+    monitor_instance_id int,
+    ci_id int,
+    alert_instance_id int,
+    alert_name text,
+    ci_name text,
+    monitor_id int,
+    priority text,
+    severity text,
+    state_change_date timestamp,
+    PRIMARY KEY (alert_state_name, monitor_instance_id, ci_id,state_change_date);
+```
+
+- Las tablas estan formadas por tipos base y tambien por colecciones de tipos complejos.
+- Las claves de partición se han elegido para la correcta distribucion de datos en el cluster y tambien para poder filtrar queries en base a los campos mas criticos.
 
 ### Carga de datos
 
@@ -442,11 +518,144 @@ Una vez se han cargado los datos en el modelo de casandra, pasamos a ver como re
 
 **NOTA**: En el caso de cassandra, el lenguaje de consultas CQL es limitado y solo permite realizar consultas basicas con filtros sencillos. Cualquier tipo de agregacion o acceso a tipos de datos complejos o custom, debe ser realizado a nivel de aplicativo.
 
-- Consulta 1
+A continuación mostramos las consultas planteadas:
 
-- Consulta 2
 
-- Consulta 3
+
+  
+
+- Consulta 1 - **Listado de alertas con prioridad New:**
+
+  Esta consulta se puede efectuar desde CQL ya que la clave de particion de las alertas es el estado de la alerta y por eso es que se puede realizar el filtro en la consulta.
+
+  ```cassandra
+  select 
+  	ci_name, 
+  	alert_name, 
+  	alert_state_name,
+  	state_change_date 
+  from sysmonitor.alert 
+  	where alert_state_name = 'New' 
+  limit 15;
+  ```
+
+  ![cassandra-consulta-1](images/cassandra-consulta-1.png)
+
+  
+
+- Consulta 2 - **Obtener los cambios de estado para el monitor ``Heartbeat Monitor`` para el servidor ``productivetrue.local``**
+
+  Esta consulta no se puede realizar 100% con CQL. El motivo es que el monitor hertbeat esta contenido en la lista de monitores de cada CI. Por lo que desde CQL podremos entraer todos los datos del CI en concreto pero no podremos hacer nada mas. Los otros filtrados deberan hacerse a nivel de aplicación. Para ello se ha desarrollado un codigo python que cumple con el cometido.
+
+  ```cassandra
+  select * from sysmonitor.configuration_item WHERE name = 'productivetrue.local';
+  ```
+
+  ![cassandra-consulta-2-cql](images/cassandra-consulta-2-cql.png)
+
+
+
+​		Se observa como la cantidad de informacion es tran grande que en la consola no se puede ver bien. Adicionalmente, tal y como se ha comentado anteriormente, no se puede hacer mas filtro que por el nombre del CI. El resto debe hacerse desde el aplicativo. Para ello se ha desarrollado el siguiente codigo Python:
+
+```python
+from cassandra.cluster import Cluster
+import json
+
+#Connec to cassandra cluster
+cluster = Cluster(['nosql-025-1'],port=9042)
+session = cluster.connect('sysmonitor',wait_for_all_pools=True)
+session.execute('USE sysmonitor')
+#rows = session.execute('SELECT * FROM alert')
+
+#retrieve data from cassandra
+rows = session.execute("select * from sysmonitor.configuration_item WHERE name = 'productivetrue.local';")
+
+#define result as json
+res={}
+
+#work with cassandra resultset
+for r in rows:
+        res["ci_id"]=r.ci_id
+        res["ci_name"]=r.name
+        #print(r.monitors)
+        for m in r.monitors:
+                if m.name=="Heartbeat Monitor":
+                        res["monitor.name"]=m.name
+
+                        states=[]
+                        for m_state in m.monitor_states:
+                                st={}
+                                st["monitor_state_id"]=m_state.monitor_state_id
+                                st["state_change_date"]=str(m_state.state_change_date)
+                                st["health_state"]=m_state.health_state
+                                states.append(st)
+
+                        res['states']=states
+
+
+print(json.dumps(res))
+```
+
+![cassandra-query-2-python](images/cassandra-query-2-python.png)
+
+
+
+- Consulta 3 - **Obtener datos recolectados por la regla de rendimiento `% Processor Usage` para el CI `productivetrue.local`:**
+
+  
+
+  En este caso, al igual que en la consulta 2, se debe hacer la consulta a traves del aplicativo. En cassandra extraeremos todos los datos del CI `productivetrue.local` y en la aplicacion realizamos el resto de operaciones.
+
+  La consulta CQL es:
+
+  ```cassandra
+  select * from sysmonitor.configuration_item WHERE name = 'productivetrue.local';
+  ```
+
+  El codigo python de la aplicacion es el siguiente:
+
+  ```python
+  from cassandra.cluster import Cluster
+  import json
+  
+  #Connec to cassandra cluster
+  cluster = Cluster(['nosql-025-1'],port=9042)
+  session = cluster.connect('sysmonitor',wait_for_all_pools=True)
+  session.execute('USE sysmonitor')
+  #rows = session.execute('SELECT * FROM alert')
+  
+  #retrieve data from cassandra
+  rows = session.execute("select * from sysmonitor.configuration_item WHERE name = 'productivetrue.local';")
+  
+  #define result as json
+  res={}
+  
+  #work with cassandra resultset
+  for r in rows:
+          res["ci_id"]=r.ci_id
+          res["ci_name"]=r.name
+  
+          performance_data=[]
+          #print(r.monitors)
+          for pc in r.performance_counters:
+                  if pc.perf_rule_name=="% Processor usage":
+                          perf_data={}
+                          perf_data["performance Rule"]=pc.perf_rule_name
+                          perf_data["collected_date"]=str(pc.collected_date)
+                          perf_data["value"]=pc.value
+                          performance_data.append(perf_data)
+  
+          res['performance_data']=performance_data
+  
+  
+  print(json.dumps(res))
+  ```
+
+  ![cassandra-query-3](images/cassandra-query-3.png)
+
+  
+
+  
 
   
 
